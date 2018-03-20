@@ -13,7 +13,7 @@ const plugins = [
 
 module.exports = {
 	entry: ['babel-polyfill', './src/main.js'],
-	mode: 'development',
+	// mode: 'development',
 	module: {
 		rules: [
 			// js
@@ -25,6 +25,17 @@ module.exports = {
 			// 3D models
 			{ test: /\.(obj|mtl)$/, use: ['file-loader'] },
 		],
+	},
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				commons: {
+					test: /[\\/]node_modules[\\/]/,
+					name: 'vendors',
+					chunks: 'all',
+				},
+			},
+		},
 	},
 	plugins,
 	devServer: {

@@ -4,7 +4,7 @@
 	"description": "",
 	"scripts": {
 		"start": "webpack-dev-server --progress --colors",
-		"build": "NODEV_ENV=production webpack --progress --colors --mode='production'",
+		"build": "webpack --progress --colors --mode=production --devtool=source-map",
 		"deploy": "node misc/deploy"
 	},
 	"repository": {
