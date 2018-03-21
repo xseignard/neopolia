@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import 'three/examples/js/loaders/MTLLoader';
 import 'three/examples/js/loaders/OBJLoader';
+import 'three/examples/js/loaders/ColladaLoader';
 import { Link } from 'react-router-dom';
 
 import initThree from '../../utils/initThree';
 
-import geo from './models/Building_Distribution_Networks.obj';
-import mtl from './models/Building_Distribution_Networks.mtl';
+import dae from './models/Building_Distribution_NetworksModel.dae';
 
 import './style.scss';
 
@@ -23,14 +23,16 @@ class Home extends Component {
 		// init three
 		const { stats, renderer, scene, camera, controls } = initThree(this.canvas, {
 			camera: {
-				z: 5,
+				x: 0,
+				y: 3,
+				z: -6,
 			},
 			axisHelper: false,
 		});
 		this.renderer = renderer;
 		this.stats = stats;
 
-		const spotLight = new THREE.SpotLight(0xff0000);
+		const spotLight = new THREE.SpotLight(0x000000);
 		spotLight.angle = 25 * (Math.PI / 180);
 		spotLight.position.set(40, 40, 0);
 		spotLight.castShadow = true;
@@ -39,27 +41,15 @@ class Home extends Component {
 		spotLight.penumbra = 0.9;
 		scene.add(spotLight);
 
-		const mtlLoader = new THREE.MTLLoader();
-		mtlLoader.load(mtl, materials => {
-			materials.preload();
-			const objLoader = new THREE.OBJLoader();
-			objLoader.setMaterials(materials);
-			objLoader.load(geo, object => {
-				object.traverse(node => {
-					if (node.material) node.material.side = THREE.DoubleSide;
-				});
-				object.rotation.set(0, -Math.PI, 0);
-				object.position.set(0, 0, 30);
-				scene.add(object);
-				this.setState({ loaded: true });
-			});
+		const daeLoader = new THREE.ColladaLoader();
+		daeLoader.load(dae, object => {
+			object.scene.position.set(0, 0, -30);
+			scene.add(object.scene);
 		});
 
 		const animate = timestamp => {
 			this.rafID = requestAnimationFrame(animate);
 			stats.begin();
-			// update the time uniform
-			// uniforms.time.value = timestamp;
 			renderer.render(scene, camera);
 			stats.end();
 		};
