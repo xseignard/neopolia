@@ -43,6 +43,8 @@ module.exports = {
 			{ test: /\.svg$/, use: ['svg-react-loader'] },
 			// 3D models
 			{ test: /\.(obj|mtl|dae)$/, use: ['file-loader'] },
+			// images
+			{ test: /\.(jpg|jpeg|png)$/, use: ['file-loader'] },
 		],
 	},
 	optimization,
