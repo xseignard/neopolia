@@ -27,26 +27,43 @@ class Home extends Component {
 			camera: {
 				x: 0,
 				y: 3,
-				z: -6,
+				z: -15,
 			},
 			axesHelper: false,
 		});
 		this.renderer = renderer;
 		this.stats = stats;
 
+		// constants
+		const size = 1000;
+
 		// lights
 		const light = new THREE.DirectionalLight(0xffffff, 0.2);
 		scene.add(light);
 
 		// model
+		let model;
 		const daeLoader = new THREE.ColladaLoader();
 		daeLoader.load(dae, object => {
-			object.scene.position.set(0, 0, -30);
-			scene.add(object.scene);
+			model = object.scene;
+			model.traverse(node => {
+				if (node instanceof THREE.Mesh) {
+					node.castShadow = true;
+					node.receiveShadow = true;
+					console.log(node.material);
+					if (Array.isArray(node.material)) {
+						node.material.forEach(m => (m.side = THREE.DoubleSide));
+					} else {
+						node.material.side = THREE.DoubleSide;
+					}
+				}
+			});
+			model.scale.set(0.1, 0.1, 0.1);
+			scene.add(model);
 		});
 
 		// water
-		const waterGeometry = new THREE.PlaneBufferGeometry(10000, 10000);
+		const waterGeometry = new THREE.PlaneBufferGeometry(size, size);
 		const water = new THREE.Water(waterGeometry, {
 			textureWidth: 512,
 			textureHeight: 512,
@@ -54,20 +71,19 @@ class Home extends Component {
 				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 			}),
 			sunDirection: light.position.clone().normalize(),
-			sunColor: 0xffffff,
-			waterColor: 0x001e0f,
+			sunColor: 0x000000,
+			waterColor: 0x001e3f,
 			fog: scene.fog !== undefined,
 		});
 		water.rotation.x = -Math.PI / 2;
-		water.material.uniforms.distortionScale.value = 2;
-		water.material.uniforms.size.value = 6;
+		water.material.uniforms.distortionScale.value = 1;
+		water.material.uniforms.size.value = 10;
 		water.material.uniforms.alpha.value = 0.95;
-		console.log(water.material.uniforms);
 		scene.add(water);
 
 		// sky
 		const sky = new THREE.Sky();
-		sky.scale.setScalar(10000);
+		sky.scale.setScalar(size);
 		sky.material.uniforms.turbidity.value = 10;
 		sky.material.uniforms.rayleigh.value = 2;
 		sky.material.uniforms.luminance.value = 1;
@@ -94,10 +110,40 @@ class Home extends Component {
 		};
 		updateSun();
 
+		// raycasting
+		const raycaster = new THREE.Raycaster();
+		const mouse = new THREE.Vector2();
+		const handleClick = e => {
+			e.preventDefault();
+			mouse.x = e.clientX / window.innerWidth * 2 - 1;
+			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+			model.traverse(node => {
+				if (node instanceof THREE.Mesh) {
+					if (Array.isArray(node.material)) {
+						node.material.forEach(m => (m.color = new THREE.Color(0xffffff)));
+					} else {
+						node.material.color = new THREE.Color(0xffffff);
+					}
+				}
+			});
+			raycaster.setFromCamera(mouse, camera);
+			const intersects = raycaster.intersectObjects(model.children, true);
+			if (intersects.length > 0) {
+				if (Array.isArray(intersects[0].object.material)) {
+					intersects[0].object.material.forEach(
+						m => (m.color = new THREE.Color(0xe58c19))
+					);
+				} else {
+					intersects[0].object.material.color = new THREE.Color(0xe58c19);
+				}
+			}
+		};
+		addEventListener('click', handleClick);
+
 		const animate = timestamp => {
 			this.rafID = requestAnimationFrame(animate);
 			stats.begin();
-			water.material.uniforms.time.value += 0.002;
+			water.material.uniforms.time.value += 0.004;
 			renderer.render(scene, camera);
 			stats.end();
 		};
