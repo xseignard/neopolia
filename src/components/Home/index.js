@@ -9,7 +9,14 @@ import { Link } from 'react-router-dom';
 import initThree from '../../utils/initThree';
 
 import dae from './models/Building_Distribution_NetworksModel.dae';
+
 import waternormals from './assets/waternormals.jpg';
+import back from './assets/back.png';
+import bottom from './assets/bottom.png';
+import front from './assets/front.png';
+import left from './assets/left.png';
+import right from './assets/right.png';
+import top from './assets/top.png';
 
 import './style.scss';
 
@@ -42,7 +49,7 @@ class Home extends Component {
 		scene.add(light);
 
 		// fog
-		scene.fog = new THREE.FogExp2(0xaaaaaa, 0.02);
+		scene.fog = new THREE.FogExp2(0xaaaaaa, 0.01);
 
 		// model
 		let model;
@@ -84,34 +91,22 @@ class Home extends Component {
 		water.material.uniforms.alpha.value = 0.95;
 		scene.add(water);
 
-		// sky
-		const sky = new THREE.Sky();
-		sky.scale.setScalar(size);
-		sky.material.uniforms.turbidity.value = 10;
-		sky.material.uniforms.rayleigh.value = 2;
-		sky.material.uniforms.luminance.value = 1;
-		sky.material.uniforms.mieCoefficient.value = 0.005;
-		sky.material.uniforms.mieDirectionalG.value = 0.8;
+		// skybox
+		const images = [right, left, top, bottom, back, front];
+		const cube = new THREE.CubeTextureLoader().load(images);
+		cube.format = THREE.RGBFormat;
+		const shader = THREE.ShaderLib['cube'];
+		shader.uniforms['tCube'].value = cube;
+		const material = new THREE.ShaderMaterial({
+			fragmentShader: shader.fragmentShader,
+			vertexShader: shader.vertexShader,
+			uniforms: shader.uniforms,
+			depthWrite: false,
+			side: THREE.BackSide,
+		});
+		const sky = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), material);
+		sky.position.set(0, -15, 0);
 		scene.add(sky);
-
-		const parameters = {
-			distance: 400,
-			inclination: 0,
-			azimuth: 0.25,
-		};
-		const cubeCamera = new THREE.CubeCamera(1, 20000, 256);
-		cubeCamera.renderTarget.texture.minFilter = THREE.LinearMipMapLinearFilter;
-		const updateSun = () => {
-			const theta = Math.PI * (parameters.inclination - 0.5);
-			const phi = 2 * Math.PI * (parameters.azimuth - 0.5);
-			light.position.x = parameters.distance * Math.cos(phi);
-			light.position.y = parameters.distance * Math.sin(phi) * Math.sin(theta);
-			light.position.z = parameters.distance * Math.sin(phi) * Math.cos(theta);
-			sky.material.uniforms.sunPosition.value = light.position.copy(light.position);
-			water.material.uniforms.sunDirection.value.copy(light.position).normalize();
-			cubeCamera.update(renderer, scene);
-		};
-		updateSun();
 
 		// raycasting
 		const raycaster = new THREE.Raycaster();
@@ -142,6 +137,10 @@ class Home extends Component {
 			}
 		};
 		addEventListener('click', handleClick);
+
+		camera.addEventListener('change', e => {
+			console.log(e);
+		});
 
 		const animate = timestamp => {
 			this.rafID = requestAnimationFrame(animate);
