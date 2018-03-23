@@ -26,8 +26,8 @@ class Home extends Component {
 		const { stats, renderer, scene, camera, controls } = initThree(this.canvas, {
 			camera: {
 				x: 0,
-				y: 3,
-				z: -15,
+				y: 2,
+				z: -6,
 			},
 			axesHelper: false,
 		});
@@ -35,11 +35,14 @@ class Home extends Component {
 		this.stats = stats;
 
 		// constants
-		const size = 1000;
+		const size = 194;
 
 		// lights
 		const light = new THREE.DirectionalLight(0xffffff, 0.2);
 		scene.add(light);
+
+		// fog
+		scene.fog = new THREE.FogExp2(0xaaaaaa, 0.02);
 
 		// model
 		let model;
@@ -50,7 +53,6 @@ class Home extends Component {
 				if (node instanceof THREE.Mesh) {
 					node.castShadow = true;
 					node.receiveShadow = true;
-					console.log(node.material);
 					if (Array.isArray(node.material)) {
 						node.material.forEach(m => (m.side = THREE.DoubleSide));
 					} else {
@@ -59,6 +61,7 @@ class Home extends Component {
 				}
 			});
 			model.scale.set(0.1, 0.1, 0.1);
+			model.position.set(0.5, 0, 6);
 			scene.add(model);
 		});
 
@@ -93,8 +96,8 @@ class Home extends Component {
 
 		const parameters = {
 			distance: 400,
-			inclination: 0.55, //0.1,
-			azimuth: 0.75, //0.015,
+			inclination: 0,
+			azimuth: 0.25,
 		};
 		const cubeCamera = new THREE.CubeCamera(1, 20000, 256);
 		cubeCamera.renderTarget.texture.minFilter = THREE.LinearMipMapLinearFilter;

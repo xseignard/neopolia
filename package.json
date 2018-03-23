@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "webpack-dev-server --progress --colors --mode=development",
+		"start":
+			"webpack-dev-server --progress --colors --mode=development --devtool=cheap-module-source-map",
 		"build":
 			"NODE_ENV=production webpack --progress --colors --mode=production --devtool=source-map",
 		"deploy": "node misc/deploy"
