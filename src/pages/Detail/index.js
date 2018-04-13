@@ -9,7 +9,7 @@ class Detail extends Component {
 	}
 	render() {
 		return (
-			<div>
+			<div className="page detail">
 				<h1>Detail</h1>
 			</div>
 		);

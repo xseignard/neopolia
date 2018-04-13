@@ -29,9 +29,11 @@ const initThree = (canvas, opts) => {
 	const root = document.querySelector('#root');
 	// stats
 	const stats = new Stats();
-	stats.domElement.style.bottom = '0px';
-	stats.domElement.style.top = '';
-	root.appendChild(stats.domElement);
+	if (mergedOpts.debug) {
+		stats.domElement.style.bottom = '0px';
+		stats.domElement.style.top = '';
+		root.appendChild(stats.domElement);
+	}
 
 	// renderer
 	const renderer = new THREE.WebGLRenderer({

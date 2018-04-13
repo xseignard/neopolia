@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Company = () => (
-	<div>
+	<div className="page company">
 		<h1>Company</h1>
 	</div>
 );

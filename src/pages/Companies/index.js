@@ -9,7 +9,7 @@ class Companies extends Component {
 	}
 	render() {
 		return (
-			<div>
+			<div className="page companies">
 				<h1>Companies</h1>
 			</div>
 		);

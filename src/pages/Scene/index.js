@@ -20,7 +20,7 @@ import top from './assets/top.png';
 
 import './style.scss';
 
-class Home extends Component {
+class Scene extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -155,9 +155,9 @@ class Home extends Component {
 	componentWillUnmount() {
 		this.renderer.dispose();
 		this.canvas.outerHTML = '';
-		this.stats.domElement.outerHTML = '';
+		// this.stats.domElement.outerHTML = '';
 		delete this.canvas;
-		delete this.stats.domElement;
+		// delete this.stats.domElement;
 		window.cancelAnimationFrame(this.rafID);
 	}
 
@@ -175,4 +175,4 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+export default Scene;
