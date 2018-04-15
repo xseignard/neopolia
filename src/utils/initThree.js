@@ -25,14 +25,13 @@ const initThree = (canvas, opts) => {
 	};
 	// merged opts
 	const mergedOpts = merge(defaults, opts);
-	// root element
-	const root = document.querySelector('#root');
+
 	// stats
 	const stats = new Stats();
 	if (mergedOpts.debug) {
-		stats.domElement.style.bottom = '0px';
 		stats.domElement.style.top = '';
-		root.appendChild(stats.domElement);
+		stats.domElement.style.bottom = '7vh';
+		document.body.appendChild(stats.domElement);
 	}
 
 	// renderer
@@ -49,7 +48,6 @@ const initThree = (canvas, opts) => {
 		renderer.shadowMap.enabled = true;
 		renderer.shadowMap.type = THREE.PCFShadowMap;
 	}
-	root.appendChild(renderer.domElement);
 
 	// scene
 	const scene = new THREE.Scene();
