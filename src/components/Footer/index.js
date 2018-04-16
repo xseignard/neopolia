@@ -5,15 +5,16 @@ import AppContext from '../App/AppContext';
 import './style.scss';
 import logo from './assets/LogoNeopoliaAtomOuest.png';
 
-const FooterItem = withRouter(({ content, route, updateNav, history }) => {
+const FooterItem = withRouter(props => {
 	const handleClick = () => {
-		updateNav(content);
-		history.push(route);
+		props.updateNav(props.content);
+		props.resetRaycast([{}]);
+		props.history.push(props.route);
 	};
 	return (
 		<div className="footer__item" onClick={handleClick}>
 			<div>
-				{content}
+				{props.content}
 				<svg height="100%" width="100%">
 					<line x1="0" y1="100%" x2="100%" y2="100%" />
 				</svg>
@@ -35,12 +36,32 @@ const Footer = () => {
 		<footer className="footer">
 			<Logo />
 			<AppContext.Consumer>
-				{({ nav, changeNav }) => (
+				{context => (
 					<Fragment>
-						<FooterItem content="Products" route="/" updateNav={changeNav} />
-						<FooterItem content="About us" route="/about" updateNav={changeNav} />
-						<FooterItem content="Offer" route="/contact" updateNav={changeNav} />
-						<FooterItem content="Members" route="/companies" updateNav={changeNav} />
+						<FooterItem
+							content="Products"
+							route="/"
+							updateNav={context.changeNav}
+							resetRaycast={context.raycastHandler}
+						/>
+						<FooterItem
+							content="About us"
+							route="/about"
+							updateNav={context.changeNav}
+							resetRaycast={context.raycastHandler}
+						/>
+						<FooterItem
+							content="Offer"
+							route="/contact"
+							updateNav={context.changeNav}
+							resetRaycast={context.raycastHandler}
+						/>
+						<FooterItem
+							content="Members"
+							route="/companies"
+							updateNav={context.changeNav}
+							resetRaycast={context.raycastHandler}
+						/>
 					</Fragment>
 				)}
 			</AppContext.Consumer>

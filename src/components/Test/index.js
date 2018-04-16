@@ -6,11 +6,13 @@ import './style.scss';
 const Test = () => {
 	return (
 		<AppContext.Consumer>
-			{context => (
-				<h1 className="test">
-					{context.raycast.object ? context.raycast.object.name : 'Nope'}
-				</h1>
-			)}
+			{context =>
+				context.nav === 'Products' &&
+				context.raycast.object &&
+				context.raycast.object.name ? (
+					<h1 className="test">{context.raycast.object.name}</h1>
+				) : null
+			}
 		</AppContext.Consumer>
 	);
 };

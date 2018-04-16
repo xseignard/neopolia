@@ -4,7 +4,9 @@ const AppContext = React.createContext({
 	nav: 'Products',
 	changeNav: () => {},
 	raycast: '',
-	raycaster: () => {},
+	raycastHandler: () => {},
+	loaded: false,
+	loadingHandler: () => {},
 });
 
 export default AppContext;

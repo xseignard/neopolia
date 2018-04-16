@@ -37,66 +37,81 @@ const size = 194;
 // lights
 const light = new THREE.DirectionalLight(0xffffff, 0.2);
 scene.add(light);
-
 // fog
 scene.fog = new THREE.FogExp2(0xaaaaaa, 0.01);
 
 // model
 let model;
-const daeLoader = new THREE.ColladaLoader();
-daeLoader.load(dae, object => {
-	model = object.scene;
-	model.traverse(node => {
-		if (node instanceof THREE.Mesh) {
-			node.castShadow = true;
-			node.receiveShadow = true;
-			if (Array.isArray(node.material)) {
-				node.material.forEach(m => (m.side = THREE.DoubleSide));
-			} else {
-				node.material.side = THREE.DoubleSide;
+const addModel = cb => {
+	const daeLoader = new THREE.ColladaLoader();
+	daeLoader.load(dae, object => {
+		model = object.scene;
+		model.traverse(node => {
+			if (node instanceof THREE.Mesh) {
+				node.castShadow = true;
+				node.receiveShadow = true;
+				if (Array.isArray(node.material)) {
+					node.material.forEach(m => (m.side = THREE.DoubleSide));
+				} else {
+					node.material.side = THREE.DoubleSide;
+				}
 			}
-		}
+		});
+		model.scale.set(0.1, 0.1, 0.1);
+		model.position.set(0.5, 0, 6);
+		setTimeout(() => cb(true), 3000);
+		scene.add(model);
 	});
-	model.scale.set(0.1, 0.1, 0.1);
-	model.position.set(0.5, 0, 6);
-	scene.add(model);
-});
+};
 
 // water
-const waterGeometry = new THREE.PlaneBufferGeometry(size, size);
-const water = new THREE.Water(waterGeometry, {
-	textureWidth: 512,
-	textureHeight: 512,
-	waterNormals: new THREE.TextureLoader().load(waternormals, texture => {
-		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-	}),
-	sunDirection: light.position.clone().normalize(),
-	sunColor: 0x000000,
-	waterColor: 0x001e3f,
-	fog: scene.fog !== undefined,
-});
-water.rotation.x = -Math.PI / 2;
-water.material.uniforms.distortionScale.value = 1;
-water.material.uniforms.size.value = 10;
-water.material.uniforms.alpha.value = 0.95;
-scene.add(water);
+let water;
+const addWater = () => {
+	const waterGeometry = new THREE.PlaneBufferGeometry(size, size);
+	water = new THREE.Water(waterGeometry, {
+		textureWidth: 512,
+		textureHeight: 512,
+		waterNormals: new THREE.TextureLoader().load(waternormals, texture => {
+			texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+		}),
+		sunDirection: light.position.clone().normalize(),
+		sunColor: 0x000000,
+		waterColor: 0x001e3f,
+		fog: scene.fog !== undefined,
+	});
+	water.rotation.x = -Math.PI / 2;
+	water.material.uniforms.distortionScale.value = 1;
+	water.material.uniforms.size.value = 10;
+	water.material.uniforms.alpha.value = 0.95;
+	scene.add(water);
+};
 
 // skybox
-const images = [right, left, top, bottom, back, front];
-const cube = new THREE.CubeTextureLoader().load(images);
-cube.format = THREE.RGBFormat;
-const shader = THREE.ShaderLib['cube'];
-shader.uniforms['tCube'].value = cube;
-const material = new THREE.ShaderMaterial({
-	fragmentShader: shader.fragmentShader,
-	vertexShader: shader.vertexShader,
-	uniforms: shader.uniforms,
-	depthWrite: false,
-	side: THREE.BackSide,
-});
-const sky = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), material);
-sky.position.set(0, -15, 0);
-scene.add(sky);
+let sky;
+const addSky = () => {
+	const images = [right, left, top, bottom, back, front];
+	const cube = new THREE.CubeTextureLoader().load(images);
+	cube.format = THREE.RGBFormat;
+	const shader = THREE.ShaderLib['cube'];
+	shader.uniforms['tCube'].value = cube;
+	const material = new THREE.ShaderMaterial({
+		fragmentShader: shader.fragmentShader,
+		vertexShader: shader.vertexShader,
+		uniforms: shader.uniforms,
+		depthWrite: false,
+		side: THREE.BackSide,
+	});
+	sky = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), material);
+	sky.position.set(0, -15, 0);
+	scene.add(sky);
+};
+
+// loading handler
+const attachLoadingHandler = cb => {
+	addWater();
+	addSky();
+	addModel(cb);
+};
 
 // raycasting
 const attachRaycastHandler = cb => {
@@ -139,11 +154,11 @@ let rafID;
 const animate = timestamp => {
 	rafID = requestAnimationFrame(animate);
 	stats.begin();
-	water.material.uniforms.time.value += 0.004;
+	if (water) water.material.uniforms.time.value += 0.004;
 	renderer.render(scene, camera);
 	stats.end();
 };
 requestAnimationFrame(animate);
 
 export default canvas;
-export { attachRaycastHandler };
+export { attachLoadingHandler, attachRaycastHandler };

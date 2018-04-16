@@ -1,10 +1,10 @@
-# POW Website
+# Neopolia app
 
 ## Dev setup
 
 ```
-git clone https://github.com/collectif-pow/pow-website
-cd pow-website
+git clone https://github.com/xseignard/neopolia
+cd neopolia
 npm i
 npm start
 ```

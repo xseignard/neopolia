@@ -15,8 +15,7 @@ class App extends Component {
 			this.setState({ nav: newNav });
 		};
 
-		this.raycaster = target => {
-			console.log(target);
+		this.raycastHandler = target => {
 			const filtered = target.reduce((x, y) => {
 				const index = x.findIndex(e => e.object.uuid === y.object.uuid);
 				return index < 0 ? [...x, y] : x;
@@ -25,11 +24,17 @@ class App extends Component {
 			this.setState({ raycast: filtered });
 		};
 
+		this.loadingHandler = loaded => {
+			this.setState({ loaded });
+		};
+
 		this.state = {
 			nav: 'Products',
 			changeNav: this.changeNav,
 			raycast: '',
-			raycaster: this.raycaster,
+			raycastHandler: this.raycastHandler,
+			loaded: false,
+			loadingHandler: this.loadingHandler,
 		};
 	}
 	render() {

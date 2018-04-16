@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import ElementContainer from '../../components/ElementContainer';
 import AppContext from '../../components/App/AppContext';
+import Loader from 'react-loaders';
 
-import canvas, { attachRaycastHandler } from './canvas';
+import canvas, { attachLoadingHandler, attachRaycastHandler } from './canvas';
 
-let raycasterAttached = false;
+let handlersAttached = false;
 class WebGL extends Component {
 	componentDidMount() {
-		if (!raycasterAttached) {
-			attachRaycastHandler(this.props.raycastHanler);
-			raycasterAttached = true;
+		if (!handlersAttached) {
+			attachLoadingHandler(this.props.loadingHandler);
+			attachRaycastHandler(this.props.raycastHandler);
+			handlersAttached = true;
 		}
 	}
 
@@ -44,7 +46,24 @@ class Scene extends Component {
 		hasRendered = true;
 		return (
 			<AppContext.Consumer>
-				{context => <WebGL raycastHanler={context.raycaster} />}
+				{context => {
+					let loader = <Loader type="square-spin" innerClassName="loader__custom" />;
+					let styleName = 'canvas-hidden';
+					if (context.loaded) {
+						loader = null;
+						styleName = 'canvas-active';
+					}
+					return (
+						<Fragment>
+							<WebGL
+								raycastHandler={context.raycastHandler}
+								loadingHandler={context.loadingHandler}
+								className={styleName}
+							/>
+							{loader}
+						</Fragment>
+					);
+				}}
 			</AppContext.Consumer>
 		);
 	}

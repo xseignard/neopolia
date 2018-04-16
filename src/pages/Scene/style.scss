@@ -1,0 +1,26 @@
+@import '../../../node_modules/loaders.css/src/animations/square-spin.scss';
+@import '../../styles/variables';
+
+.loader {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1;
+	background-color: white;
+}
+
+.loader__custom {
+	position: absolute;
+	top: calc(50vh - 50px);
+	left: calc(50vw - 50px);
+	div {
+		background-color: $blue;
+	}
+}
+
+.loader-hidden {
+	display: none;
+}
+.loader-active {
+	display: block;
+}
