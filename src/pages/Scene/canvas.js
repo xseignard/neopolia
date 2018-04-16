@@ -99,36 +99,35 @@ sky.position.set(0, -15, 0);
 scene.add(sky);
 
 // raycasting
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-const handleClick = e => {
-	e.preventDefault();
-	mouse.x = e.clientX / window.innerWidth * 2 - 1;
-	mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-	model.traverse(node => {
-		if (node instanceof THREE.Mesh) {
-			if (Array.isArray(node.material)) {
-				node.material.forEach(m => (m.color = new THREE.Color(0xffffff)));
+const attachRaycastHandler = cb => {
+	const raycaster = new THREE.Raycaster();
+	const mouse = new THREE.Vector2();
+	const handleClick = e => {
+		e.preventDefault();
+		mouse.x = e.clientX / window.innerWidth * 2 - 1;
+		mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+		model.traverse(node => {
+			if (node instanceof THREE.Mesh) {
+				if (Array.isArray(node.material)) {
+					node.material.forEach(m => (m.color = new THREE.Color(0xffffff)));
+				} else {
+					node.material.color = new THREE.Color(0xffffff);
+				}
+			}
+		});
+		raycaster.setFromCamera(mouse, camera);
+		const intersects = raycaster.intersectObjects(model.children, true);
+		if (intersects.length > 0) {
+			cb(intersects);
+			if (Array.isArray(intersects[0].object.material)) {
+				intersects[0].object.material.forEach(m => (m.color = new THREE.Color(0xe58c19)));
 			} else {
-				node.material.color = new THREE.Color(0xffffff);
+				intersects[0].object.material.color = new THREE.Color(0xe58c19);
 			}
 		}
-	});
-	raycaster.setFromCamera(mouse, camera);
-	const intersects = raycaster.intersectObjects(model.children, true);
-	if (intersects.length > 0) {
-		if (Array.isArray(intersects[0].object.material)) {
-			intersects[0].object.material.forEach(m => (m.color = new THREE.Color(0xe58c19)));
-		} else {
-			intersects[0].object.material.color = new THREE.Color(0xe58c19);
-		}
-	}
+	};
+	addEventListener('click', handleClick);
 };
-addEventListener('click', handleClick);
-
-camera.addEventListener('change', e => {
-	console.log(e);
-});
 
 let rafID;
 const animate = timestamp => {
@@ -141,3 +140,4 @@ const animate = timestamp => {
 requestAnimationFrame(animate);
 
 export default canvas;
+export { attachRaycastHandler };

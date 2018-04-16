@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
 import ElementContainer from '../../components/ElementContainer';
+import AppContext from '../../components/App/AppContext';
 
-import canvas from './canvas';
+import canvas, { attachRaycastHandler } from './canvas';
+
+class WebGL extends Component {
+	componentDidMount() {
+		attachRaycastHandler(this.props.raycastHanler);
+	}
+
+	shouldComponentUpdate() {
+		return false;
+	}
+
+	render() {
+		return <ElementContainer id="canvas" child={canvas} />;
+	}
+}
 
 // We warn the developer when the canvas renders & re-mounts/re-renders
 // as it may have performance implications.
@@ -15,7 +30,7 @@ class Scene extends Component {
 		else console.warn('Re-mounting WebGLCanvas.');
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
+	shouldComponentUpdate() {
 		return false;
 	}
 
@@ -23,7 +38,11 @@ class Scene extends Component {
 		if (hasRendered) console.warn('Re-rendering WebGLCanvas component.');
 		else if (process.env.NODE_ENV === 'development') console.log('[WebGL] Rendering canvas');
 		hasRendered = true;
-		return <ElementContainer id="canvas" child={canvas} />;
+		return (
+			<AppContext.Consumer>
+				{context => <WebGL raycastHanler={context.raycaster} />}
+			</AppContext.Consumer>
+		);
 	}
 }
 

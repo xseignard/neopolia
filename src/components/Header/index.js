@@ -1,4 +1,6 @@
 import React from 'react';
+import AppContext from '../App/AppContext';
+
 import './style.scss';
 
 const HeaderItem = ({ content }) => {
@@ -7,11 +9,15 @@ const HeaderItem = ({ content }) => {
 
 const Header = () => {
 	return (
-		<header className="header">
-			<HeaderItem content="Products" />
-			<HeaderItem content="Products" />
-			<HeaderItem content="Harbour works" />
-		</header>
+		<AppContext.Consumer>
+			{({ nav }) => (
+				<header className="header">
+					<HeaderItem content={nav} />
+					<HeaderItem content="Products" />
+					<HeaderItem content="Harbour works" />
+				</header>
+			)}
+		</AppContext.Consumer>
 	);
 };
 
