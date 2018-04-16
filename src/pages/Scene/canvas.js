@@ -104,8 +104,7 @@ const attachRaycastHandler = cb => {
 	const mouse = new THREE.Vector2();
 	const handleClick = e => {
 		e.preventDefault();
-		mouse.x = e.clientX / window.innerWidth * 2 - 1;
-		mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+		// clear all coloring
 		model.traverse(node => {
 			if (node instanceof THREE.Mesh) {
 				if (Array.isArray(node.material)) {
@@ -115,14 +114,21 @@ const attachRaycastHandler = cb => {
 				}
 			}
 		});
-		raycaster.setFromCamera(mouse, camera);
-		const intersects = raycaster.intersectObjects(model.children, true);
-		if (intersects.length > 0) {
-			cb(intersects);
-			if (Array.isArray(intersects[0].object.material)) {
-				intersects[0].object.material.forEach(m => (m.color = new THREE.Color(0xe58c19)));
-			} else {
-				intersects[0].object.material.color = new THREE.Color(0xe58c19);
+		if (e.clientY > 0.06 * window.innerHeight && e.clientY < 0.88 * window.innerHeight) {
+			// if within the displayed part of the canvas, try the raycast
+			mouse.x = e.clientX / window.innerWidth * 2 - 1;
+			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+			raycaster.setFromCamera(mouse, camera);
+			const intersects = raycaster.intersectObjects(model.children, true);
+			if (intersects.length > 0) {
+				cb(intersects);
+				if (Array.isArray(intersects[0].object.material)) {
+					intersects[0].object.material.forEach(
+						m => (m.color = new THREE.Color(0xe58c19))
+					);
+				} else {
+					intersects[0].object.material.color = new THREE.Color(0xe58c19);
+				}
 			}
 		}
 	};

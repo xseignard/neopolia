@@ -4,9 +4,13 @@ import AppContext from '../../components/App/AppContext';
 
 import canvas, { attachRaycastHandler } from './canvas';
 
+let raycasterAttached = false;
 class WebGL extends Component {
 	componentDidMount() {
-		attachRaycastHandler(this.props.raycastHanler);
+		if (!raycasterAttached) {
+			attachRaycastHandler(this.props.raycastHanler);
+			raycasterAttached = true;
+		}
 	}
 
 	shouldComponentUpdate() {
