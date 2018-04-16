@@ -18,6 +18,7 @@ import top from './assets/top.png';
 import './style.scss';
 
 const canvas = document.createElement('canvas');
+canvas.id = 'canvas';
 const { stats, renderer, scene, camera, controls } = initThree(canvas, {
 	camera: {
 		x: 0,
@@ -42,7 +43,8 @@ scene.fog = new THREE.FogExp2(0xaaaaaa, 0.01);
 
 // model
 let model;
-const addModel = cb => {
+const mat = new THREE.MeshPhongMaterial({ color: 0x7777ff, side: THREE.DoubleSide });
+const addModel = () => {
 	const daeLoader = new THREE.ColladaLoader();
 	daeLoader.load(dae, object => {
 		model = object.scene;
@@ -52,14 +54,15 @@ const addModel = cb => {
 				node.receiveShadow = true;
 				if (Array.isArray(node.material)) {
 					node.material.forEach(m => (m.side = THREE.DoubleSide));
+					// node.material.forEach(m => (m = mat));
 				} else {
 					node.material.side = THREE.DoubleSide;
+					// node.material = mat;
 				}
 			}
 		});
 		model.scale.set(0.1, 0.1, 0.1);
 		model.position.set(0.5, 0, 6);
-		setTimeout(() => cb(true), 3000);
 		scene.add(model);
 	});
 };
@@ -108,9 +111,12 @@ const addSky = () => {
 
 // loading handler
 const attachLoadingHandler = cb => {
+	THREE.DefaultLoadingManager.onLoad = () => {
+		cb(true);
+	};
 	addWater();
 	addSky();
-	addModel(cb);
+	addModel();
 };
 
 // raycasting
@@ -129,8 +135,10 @@ const attachRaycastHandler = cb => {
 				}
 			}
 		});
-		if (e.clientY > 0.06 * window.innerHeight && e.clientY < 0.88 * window.innerHeight) {
-			// if within the displayed part of the canvas, try the raycast
+		// if within the displayed part of the canvas, try the raycast
+		// only handle click when the foremost dom element clicked is the canvas
+		const element = document.elementFromPoint(e.clientX, e.clientY);
+		if (element.id === 'canvas') {
 			mouse.x = e.clientX / window.innerWidth * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 			raycaster.setFromCamera(mouse, camera);
@@ -144,7 +152,7 @@ const attachRaycastHandler = cb => {
 				} else {
 					intersects[0].object.material.color = new THREE.Color(0xe58c19);
 				}
-			}
+			} else cb([{}]);
 		}
 	};
 	addEventListener('click', handleClick);

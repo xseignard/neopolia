@@ -20,7 +20,7 @@ class WebGL extends Component {
 	}
 
 	render() {
-		return <ElementContainer id="canvas" child={canvas} />;
+		return <ElementContainer id="canvas__container" child={canvas} />;
 	}
 }
 

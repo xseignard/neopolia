@@ -1,6 +1,36 @@
+@import '../../styles/variables';
+
 .test {
 	position: absolute;
-	bottom: 7vh;
+	top: 10vh;
+	left: 0;
+	width: 30vw;
+	height: 80vh;
 	z-index: 1;
-	right: 0;
+	padding: 1vw;
+	box-sizing: border-box;
+	background-color: rgba($white, 0.9);
+	transform: translateX(-30vw);
+	transition: all 0.4s;
+	user-select: none;
+	&-visible {
+		transform: translateX(0);
+	}
+	h1 {
+		font-weight: normal;
+		text-transform: uppercase;
+		color: $blue;
+		margin-bottom: 30px;
+		margin-top: calc(40px + 1vw);
+	}
+	svg {
+		position: absolute;
+		top: 1vw;
+		right: 1vw;
+		width: 40px;
+		height: 40px;
+		stroke: $blue;
+		stroke-width: 3px;
+		cursor: pointer;
+	}
 }
