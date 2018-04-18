@@ -15,8 +15,6 @@ import left from './assets/left.png';
 import right from './assets/right.png';
 import top from './assets/top.png';
 
-import './style.scss';
-
 const canvas = document.createElement('canvas');
 canvas.id = 'canvas';
 const { stats, renderer, scene, camera, controls } = initThree(canvas, {

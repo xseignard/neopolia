@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import ElementContainer from '../../components/ElementContainer';
 import AppContext from '../../components/App/AppContext';
-import Loader from 'react-loaders';
+import Loader from '../../components/Loader';
 
 import canvas, { attachLoadingHandler, attachRaycastHandler } from './canvas';
 
@@ -47,18 +47,13 @@ class Scene extends Component {
 		return (
 			<AppContext.Consumer>
 				{context => {
-					let loader = <Loader type="square-spin" innerClassName="loader__custom" />;
-					let styleName = 'canvas-hidden';
-					if (context.loaded) {
-						loader = null;
-						styleName = 'canvas-active';
-					}
+					let loader = <Loader />;
+					if (context.loaded) loader = null;
 					return (
 						<Fragment>
 							<WebGL
 								raycastHandler={context.raycastHandler}
 								loadingHandler={context.loadingHandler}
-								className={styleName}
 							/>
 							{loader}
 						</Fragment>

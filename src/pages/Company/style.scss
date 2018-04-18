@@ -1,0 +1,47 @@
+@import '../../styles/variables';
+
+.company {
+	display: flex;
+	&__data {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		margin-right: 50px;
+	}
+	&__name {
+		font-size: 72px;
+		text-transform: uppercase;
+		margin-bottom: 24px;
+	}
+	&__presentation {
+		font-size: 32px;
+		font-weight: lighter;
+		color: $grey;
+		max-width: 650px;
+	}
+	&__numbers {
+		display: flex;
+		margin-top: 50px;
+		max-width: 650px;
+	}
+	&__turnover,
+	&__workforce {
+		flex: 1;
+		color: $grey;
+		text-align: right;
+		span {
+			color: $blue;
+		}
+	}
+	&__turnover {
+		text-align: left;
+	}
+	&__logo {
+		display: flex;
+		justify-content: flex-end;
+		img {
+			width: 512px;
+			height: 512px;
+		}
+	}
+}

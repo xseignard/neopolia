@@ -20,7 +20,6 @@ class App extends Component {
 				const index = x.findIndex(e => e.object.uuid === y.object.uuid);
 				return index < 0 ? [...x, y] : x;
 			}, [])[0];
-			console.log(filtered);
 			this.setState({ raycast: filtered });
 		};
 
@@ -39,16 +38,16 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<Router>
-				<AppContext.Provider value={this.state}>
+			<AppContext.Provider value={this.state}>
+				<Router>
 					<Fragment>
 						<Header />
 						<Footer />
 						<Test />
-						<Routes location={location} />
+						<Routes />
 					</Fragment>
-				</AppContext.Provider>
-			</Router>
+				</Router>
+			</AppContext.Provider>
 		);
 	}
 }

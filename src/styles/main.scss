@@ -14,9 +14,10 @@ body {
 }
 
 .page {
-	min-height: 86vh;
+	box-sizing: border-box;
+	height: 88vh;
 	margin-top: 6vh;
-	padding: 1vh;
+	padding: 8vh;
 	background-color: $white;
 	color: $blue;
 }

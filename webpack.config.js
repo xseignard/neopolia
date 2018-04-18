@@ -33,6 +33,9 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
 	entry: ['babel-polyfill', './src/main.js', './src/styles/main.scss'],
 	// mode: 'development',
+	output: {
+		publicPath: '/',
+	},
 	module: {
 		rules: [
 			// js

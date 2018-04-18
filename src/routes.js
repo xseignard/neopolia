@@ -4,7 +4,6 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import Scene from './pages/Scene';
-import Detail from './pages/Detail';
 import Companies from './pages/Companies';
 import Company from './pages/Company';
 import Contact from './pages/Contact';
@@ -17,11 +16,10 @@ const Routes = withRouter(({ location }) => (
 		<CSSTransition key={location.key} classNames="fade" timeout={300}>
 			<Switch location={location}>
 				<Route exact path="/" component={Scene} />
-				<Route exact path="/detail/:id" component={Detail} />
 				<Route exact path="/companies" component={Companies} />
-				<Route exact path="/companies/:id" component={Company} />
-				<Route exact path="/contact" component={Contact} />
-				<Route exact path="/about" component={About} />
+				<Route path="/companies/:companyId" component={Company} />
+				<Route path="/contact" component={Contact} />
+				<Route path="/about" component={About} />
 			</Switch>
 		</CSSTransition>
 	</TransitionGroup>

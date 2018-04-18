@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import { getAllWorks } from '../../services/work';
+import { getAllRealisations } from '../../services/realisation';
 
 class Detail extends Component {
 	async componentDidMount() {
-		const works = await getAllWorks();
+		const works = await getAllRealisations();
 		console.log(works);
 	}
 	render() {
