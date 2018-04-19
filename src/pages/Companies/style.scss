@@ -20,8 +20,14 @@
 		cursor: pointer;
 		text-decoration: none;
 		color: $blue;
+		background-color: $blue;
+		&:hover .companies__name {
+			background-color: rgba($white, 0.9);
+		}
 	}
 	&__name {
-		margin: 10px;
+		background-color: $white;
+		transition: background-color 0.4s;
+		padding: 10px;
 	}
 }

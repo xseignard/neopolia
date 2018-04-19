@@ -136,7 +136,7 @@ const attachRaycastHandler = cb => {
 		// if within the displayed part of the canvas, try the raycast
 		// only handle click when the foremost dom element clicked is the canvas
 		const element = document.elementFromPoint(e.clientX, e.clientY);
-		if (element.id === 'canvas') {
+		if (element && element.id === 'canvas') {
 			mouse.x = e.clientX / window.innerWidth * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 			raycaster.setFromCamera(mouse, camera);

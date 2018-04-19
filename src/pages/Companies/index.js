@@ -9,7 +9,9 @@ const CompanyCard = ({ name, logo, id }) => {
 	return (
 		<Link className="companies__card" to={`/companies/${id}`}>
 			<img src={logo} className="companies__logo" alt={`${name}'s logo`} />
-			<h3 className="companies__name">{name}</h3>
+			<div className="companies__name">
+				<h3>{name}</h3>
+			</div>
 		</Link>
 	);
 };

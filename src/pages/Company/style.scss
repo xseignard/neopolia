@@ -21,20 +21,19 @@
 	}
 	&__numbers {
 		display: flex;
-		margin-top: 50px;
+		flex-direction: column;
 		max-width: 650px;
+		font-size: 16px;
 	}
 	&__turnover,
-	&__workforce {
-		flex: 1;
+	&__workforce,
+	&__certifications {
+		margin-top: 24px;
 		color: $grey;
-		text-align: right;
+		text-align: left;
 		span {
 			color: $blue;
 		}
-	}
-	&__turnover {
-		text-align: left;
 	}
 	&__logo {
 		display: flex;
@@ -42,6 +41,7 @@
 		img {
 			width: 512px;
 			height: 512px;
+			box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.3);
 		}
 	}
 }

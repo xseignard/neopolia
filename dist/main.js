@@ -676,7 +676,6 @@ var Company = function (_Component) {
 			var companyComponent = null;
 			if (this.state.loaded) {
 				loader = null;
-				console.log(this.state.company);
 				var c = this.state.company;
 				companyComponent = _react2.default.createElement(
 					_react.Fragment,
@@ -716,6 +715,16 @@ var Company = function (_Component) {
 									'Workforce: '
 								),
 								c.workforce
+							),
+							_react2.default.createElement(
+								'p',
+								{ className: 'company__certifications' },
+								_react2.default.createElement(
+									'span',
+									null,
+									'Certifications: '
+								),
+								c.certifications && c.certifications.join(', ') || 'None'
 							)
 						)
 					),
@@ -795,9 +804,13 @@ var CompanyCard = function CompanyCard(_ref) {
 		{ className: 'companies__card', to: '/companies/' + id },
 		_react2.default.createElement('img', { src: logo, className: 'companies__logo', alt: name + '\'s logo' }),
 		_react2.default.createElement(
-			'h3',
+			'div',
 			{ className: 'companies__name' },
-			name
+			_react2.default.createElement(
+				'h3',
+				null,
+				name
+			)
 		)
 	);
 };
@@ -1240,7 +1253,7 @@ var attachRaycastHandler = function attachRaycastHandler(cb) {
 		// if within the displayed part of the canvas, try the raycast
 		// only handle click when the foremost dom element clicked is the canvas
 		var element = document.elementFromPoint(e.clientX, e.clientY);
-		if (element.id === 'canvas') {
+		if (element && element.id === 'canvas') {
 			mouse.x = e.clientX / window.innerWidth * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 			raycaster.setFromCamera(mouse, camera);

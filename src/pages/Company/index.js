@@ -22,7 +22,6 @@ class Company extends Component {
 		let companyComponent = null;
 		if (this.state.loaded) {
 			loader = null;
-			console.log(this.state.company);
 			const c = this.state.company;
 			companyComponent = (
 				<Fragment>
@@ -37,6 +36,10 @@ class Company extends Component {
 							<p className="company__workforce">
 								<span>Workforce: </span>
 								{c.workforce}
+							</p>
+							<p className="company__certifications">
+								<span>Certifications: </span>
+								{(c.certifications && c.certifications.join(', ')) || 'None'}
 							</p>
 						</div>
 					</div>
