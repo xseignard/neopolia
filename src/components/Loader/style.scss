@@ -2,20 +2,26 @@
 @import '../../styles/variables';
 
 .loader {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
 	z-index: 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: white;
-}
-
-.loader__custom {
-	div {
-		background-color: $blue;
+	&-big {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: white;
+	}
+	&-relative {
+		position: relative;
+		height: calc(100% - (70px + 2vh));
+		margin-top: -30px;
+	}
+	.loader__custom {
+		div {
+			background-color: $blue;
+		}
 	}
 }

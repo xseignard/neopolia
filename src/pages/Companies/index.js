@@ -10,7 +10,7 @@ const CompanyCard = ({ name, logo, id }) => {
 		<Link className="companies__card" to={`/companies/${id}`}>
 			<img src={logo} className="companies__logo" alt={`${name}'s logo`} />
 			<div className="companies__name">
-				<h3>{name}</h3>
+				<div>{name}</div>
 			</div>
 		</Link>
 	);
@@ -28,7 +28,7 @@ class Companies extends Component {
 		this.setState({ companies, loaded: true });
 	}
 	render() {
-		let loader = <Loader />;
+		let loader = <Loader variant="big" />;
 		let companiesCards = null;
 		if (this.state.loaded) {
 			loader = null;

@@ -5,7 +5,7 @@ import 'three/examples/js/objects/Sky';
 
 import initThree from '../../utils/initThree';
 
-import dae from './models/Building_Distribution_NetworksModel.dae';
+import dae from './models/test.dae';
 
 import waternormals from './assets/waternormals.jpg';
 import back from './assets/back.png';
@@ -27,11 +27,11 @@ const { stats, renderer, scene, camera, controls } = initThree(canvas, {
 		shadowMap: true,
 	},
 	debug: true,
-	axesHelper: false,
+	axesHelper: true,
 });
 
 // constants
-const size = 194;
+const size = 69.1;
 
 // lights
 const light = new THREE.DirectionalLight(0xffffff, 0.2);
@@ -50,17 +50,13 @@ const addModel = () => {
 			if (node instanceof THREE.Mesh) {
 				node.castShadow = true;
 				node.receiveShadow = true;
-				if (Array.isArray(node.material)) {
+				if (Array.isArray(node.material))
 					node.material.forEach(m => (m.side = THREE.DoubleSide));
-					// node.material.forEach(m => (m = mat));
-				} else {
-					node.material.side = THREE.DoubleSide;
-					// node.material = mat;
-				}
+				else node.material.side = THREE.DoubleSide;
 			}
 		});
-		model.scale.set(0.1, 0.1, 0.1);
-		model.position.set(0.5, 0, 6);
+		model.scale.set(0.01, 0.01, 0.01);
+		model.rotation.z = Math.PI;
 		scene.add(model);
 	});
 };
@@ -81,9 +77,10 @@ const addWater = () => {
 		fog: scene.fog !== undefined,
 	});
 	water.rotation.x = -Math.PI / 2;
-	water.material.uniforms.distortionScale.value = 1;
-	water.material.uniforms.size.value = 10;
+	water.material.uniforms.distortionScale.value = 0.1;
+	water.material.uniforms.size.value = 0.8;
 	water.material.uniforms.alpha.value = 0.95;
+	water.position.set(10.5, 0, -15);
 	scene.add(water);
 };
 
@@ -103,21 +100,21 @@ const addSky = () => {
 		side: THREE.BackSide,
 	});
 	sky = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), material);
-	sky.position.set(0, -15, 0);
+	sky.position.set(10.5, -15, -15);
 	scene.add(sky);
 };
 
 // loading handler
 const attachLoadingHandler = cb => {
-	THREE.DefaultLoadingManager.onLoad = () => {
-		cb(true);
-	};
+	THREE.DefaultLoadingManager.onLoad = () => cb(true);
 	addWater();
 	addSky();
 	addModel();
 };
 
 // raycasting
+const selectionColor = new THREE.Color(0xff0000);
+let prevColor;
 const attachRaycastHandler = cb => {
 	const raycaster = new THREE.Raycaster();
 	const mouse = new THREE.Vector2();
@@ -126,10 +123,9 @@ const attachRaycastHandler = cb => {
 		// clear all coloring
 		model.traverse(node => {
 			if (node instanceof THREE.Mesh) {
-				if (Array.isArray(node.material)) {
-					node.material.forEach(m => (m.color = new THREE.Color(0xffffff)));
-				} else {
-					node.material.color = new THREE.Color(0xffffff);
+				const { r, g, b } = node.material.color;
+				if (r === selectionColor.r && g === selectionColor.g && b === selectionColor.b) {
+					node.material.color = prevColor;
 				}
 			}
 		});
@@ -143,13 +139,8 @@ const attachRaycastHandler = cb => {
 			const intersects = raycaster.intersectObjects(model.children, true);
 			if (intersects.length > 0) {
 				cb(intersects);
-				if (Array.isArray(intersects[0].object.material)) {
-					intersects[0].object.material.forEach(
-						m => (m.color = new THREE.Color(0xe58c19))
-					);
-				} else {
-					intersects[0].object.material.color = new THREE.Color(0xe58c19);
-				}
+				prevColor = intersects[0].object.material.color;
+				intersects[0].object.material.color = selectionColor;
 			} else cb([{}]);
 		}
 	};
@@ -160,7 +151,7 @@ let rafID;
 const animate = timestamp => {
 	rafID = requestAnimationFrame(animate);
 	stats.begin();
-	if (water) water.material.uniforms.time.value += 0.004;
+	if (water) water.material.uniforms.time.value += 0.0005;
 	renderer.render(scene, camera);
 	stats.end();
 };

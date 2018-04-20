@@ -4,7 +4,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
-	overflow-y: scroll;
+	overflow-y: auto;
 	&__container {
 		display: flex;
 		flex-wrap: wrap;
@@ -19,15 +19,19 @@
 		margin: 10px;
 		cursor: pointer;
 		text-decoration: none;
-		color: $blue;
-		background-color: $blue;
+		color: $white;
+		background-color: $white;
 		&:hover .companies__name {
-			background-color: rgba($white, 0.9);
+			background-color: rgba($blue, 0.9);
 		}
 	}
 	&__name {
-		background-color: $white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 28px;
+		text-transform: uppercase;
+		background-color: $blue;
 		transition: background-color 0.4s;
-		padding: 10px;
 	}
 }

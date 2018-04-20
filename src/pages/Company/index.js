@@ -18,7 +18,7 @@ class Company extends Component {
 	}
 
 	render() {
-		let loader = <Loader />;
+		let loader = <Loader variant="big" />;
 		let companyComponent = null;
 		if (this.state.loaded) {
 			loader = null;

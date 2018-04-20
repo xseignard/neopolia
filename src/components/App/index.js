@@ -5,7 +5,6 @@ import AppContext from './AppContext';
 import Routes from '../../routes';
 import Header from '../Header';
 import Footer from '../Footer';
-import Test from '../Test';
 
 class App extends Component {
 	constructor(props) {
@@ -17,10 +16,10 @@ class App extends Component {
 
 		this.raycastHandler = target => {
 			const filtered = target.reduce((x, y) => {
-				const index = x.findIndex(e => e.object.uuid === y.object.uuid);
+				const index = x.findIndex(e => e.object.parent.name === y.object.parent.name);
 				return index < 0 ? [...x, y] : x;
 			}, [])[0];
-			this.setState({ raycast: filtered });
+			this.setState({ raycast: filtered.object ? filtered.object.parent : {} });
 		};
 
 		this.loadingHandler = loaded => {
@@ -43,7 +42,6 @@ class App extends Component {
 					<Fragment>
 						<Header />
 						<Footer />
-						<Test />
 						<Routes />
 					</Fragment>
 				</Router>

@@ -67,8 +67,8 @@ const initThree = (canvas, opts) => {
 	const controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.maxPolarAngle = Math.PI * 0.44;
 	controls.panningMode = THREE.HorizontalPanning;
-	controls.minDistance = 2;
-	controls.maxDistance = 50;
+	controls.minDistance = 4;
+	controls.maxDistance = 8;
 
 	// axis helper
 	const axesHelper = new THREE.AxesHelper(50);

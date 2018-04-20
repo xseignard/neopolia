@@ -2,6 +2,7 @@ import React, { Fragment, Component } from 'react';
 import ElementContainer from '../../components/ElementContainer';
 import AppContext from '../../components/App/AppContext';
 import Loader from '../../components/Loader';
+import Vignette from '../../components/Vignette';
 
 import canvas, { attachLoadingHandler, attachRaycastHandler } from './canvas';
 
@@ -47,10 +48,11 @@ class Scene extends Component {
 		return (
 			<AppContext.Consumer>
 				{context => {
-					let loader = <Loader />;
+					let loader = <Loader variant="big" />;
 					if (context.loaded) loader = null;
 					return (
 						<Fragment>
+							<Vignette />
 							<WebGL
 								raycastHandler={context.raycastHandler}
 								loadingHandler={context.loadingHandler}
