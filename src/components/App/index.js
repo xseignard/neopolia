@@ -15,11 +15,7 @@ class App extends Component {
 		};
 
 		this.raycastHandler = target => {
-			const filtered = target.reduce((x, y) => {
-				const index = x.findIndex(e => e.object.parent.name === y.object.parent.name);
-				return index < 0 ? [...x, y] : x;
-			}, [])[0];
-			this.setState({ raycast: filtered.object ? filtered.object.parent : {} });
+			this.setState({ raycast: target.object ? target.object.parent : {} });
 		};
 
 		this.loadingHandler = loaded => {

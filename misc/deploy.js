@@ -10,7 +10,7 @@ var config = {
 	host: process.env.FTP_HOST,
 	port: process.env.FTP_PORT,
 	localRoot: __dirname + '/../dist',
-	remoteRoot: '/www',
+	remoteRoot: '/atomouest',
 	include: ['*.*'],
 };
 

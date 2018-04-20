@@ -5,7 +5,7 @@ import 'three/examples/js/objects/Sky';
 
 import initThree from '../../utils/initThree';
 
-import dae from './models/test.dae';
+import dae from './models/AtomOuest_Modele3D-V3.dae';
 
 import waternormals from './assets/waternormals.jpg';
 import back from './assets/back.png';
@@ -20,8 +20,8 @@ canvas.id = 'canvas';
 const { stats, renderer, scene, camera, controls } = initThree(canvas, {
 	camera: {
 		x: 0,
-		y: 2,
-		z: -6,
+		y: 8,
+		z: -28,
 	},
 	renderer: {
 		shadowMap: true,
@@ -31,7 +31,7 @@ const { stats, renderer, scene, camera, controls } = initThree(canvas, {
 });
 
 // constants
-const size = 69.1;
+const size = 390;
 
 // lights
 const light = new THREE.DirectionalLight(0xffffff, 0.2);
@@ -56,7 +56,7 @@ const addModel = () => {
 			}
 		});
 		model.scale.set(0.01, 0.01, 0.01);
-		model.rotation.z = Math.PI;
+		model.rotation.z = Math.PI / 2;
 		scene.add(model);
 	});
 };
@@ -80,7 +80,7 @@ const addWater = () => {
 	water.material.uniforms.distortionScale.value = 0.1;
 	water.material.uniforms.size.value = 0.8;
 	water.material.uniforms.alpha.value = 0.95;
-	water.position.set(10.5, 0, -15);
+	water.position.set(18, 0, -38);
 	scene.add(water);
 };
 
@@ -100,7 +100,7 @@ const addSky = () => {
 		side: THREE.BackSide,
 	});
 	sky = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), material);
-	sky.position.set(10.5, -15, -15);
+	sky.position.set(18, -15, -38);
 	scene.add(sky);
 };
 
@@ -123,9 +123,26 @@ const attachRaycastHandler = cb => {
 		// clear all coloring
 		model.traverse(node => {
 			if (node instanceof THREE.Mesh) {
-				const { r, g, b } = node.material.color;
-				if (r === selectionColor.r && g === selectionColor.g && b === selectionColor.b) {
-					node.material.color = prevColor;
+				if (Array.isArray(node.material)) {
+					node.material.forEach(m => {
+						const { r, g, b } = m.color;
+						if (
+							r === selectionColor.r &&
+							g === selectionColor.g &&
+							b === selectionColor.b
+						) {
+							m.color = prevColor;
+						}
+					});
+				} else {
+					const { r, g, b } = node.material.color;
+					if (
+						r === selectionColor.r &&
+						g === selectionColor.g &&
+						b === selectionColor.b
+					) {
+						node.material.color = prevColor;
+					}
 				}
 			}
 		});
@@ -138,9 +155,15 @@ const attachRaycastHandler = cb => {
 			raycaster.setFromCamera(mouse, camera);
 			const intersects = raycaster.intersectObjects(model.children, true);
 			if (intersects.length > 0) {
-				cb(intersects);
-				prevColor = intersects[0].object.material.color;
-				intersects[0].object.material.color = selectionColor;
+				const filtered = intersects.reduce((x, y) => {
+					const index = x.findIndex(e => e.object.parent.name === y.object.parent.name);
+					return index < 0 ? [...x, y] : x;
+				}, [])[0];
+				if (filtered.object.parent.name !== 'NonCliquable') {
+					cb(filtered);
+					prevColor = filtered.object.material.color;
+					filtered.object.material.color = selectionColor;
+				} else cb([{}]);
 			} else cb([{}]);
 		}
 	};

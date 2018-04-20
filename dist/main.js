@@ -840,7 +840,7 @@ module.exports = __webpack_require__.p + "4418dde3f6abc21dc32506acf5f5b093.jpg";
 /***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "b5eb8ea587bca0f0245b65eeed021fa0.dae";
+module.exports = __webpack_require__.p + "3518aabfdfe63f1fc82abf6c524837ff.dae";
 
 /***/ }),
 
@@ -931,8 +931,8 @@ var initThree = function initThree(canvas, opts) {
 	var controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.maxPolarAngle = Math.PI * 0.44;
 	controls.panningMode = THREE.HorizontalPanning;
-	controls.minDistance = 4;
-	controls.maxDistance = 8;
+	controls.minDistance = 10;
+	controls.maxDistance = 35;
 
 	// axis helper
 	var axesHelper = new THREE.AxesHelper(50);
@@ -981,9 +981,9 @@ var _initThree2 = __webpack_require__(278);
 
 var _initThree3 = _interopRequireDefault(_initThree2);
 
-var _test = __webpack_require__(208);
+var _AtomOuest_Modele3DV = __webpack_require__(208);
 
-var _test2 = _interopRequireDefault(_test);
+var _AtomOuest_Modele3DV2 = _interopRequireDefault(_AtomOuest_Modele3DV);
 
 var _waternormals = __webpack_require__(207);
 
@@ -1017,14 +1017,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var canvas = document.createElement('canvas');
 canvas.id = 'canvas';
 
 var _initThree = (0, _initThree3.default)(canvas, {
 	camera: {
 		x: 0,
-		y: 2,
-		z: -6
+		y: 8,
+		z: -28
 	},
 	renderer: {
 		shadowMap: true
@@ -1041,7 +1043,7 @@ var _initThree = (0, _initThree3.default)(canvas, {
 // constants
 
 
-var size = 69.1;
+var size = 390;
 
 // lights
 var light = new THREE.DirectionalLight(0xffffff, 0.2);
@@ -1054,7 +1056,7 @@ var model = void 0;
 var mat = new THREE.MeshPhongMaterial({ color: 0x7777ff, side: THREE.DoubleSide });
 var addModel = function addModel() {
 	var daeLoader = new THREE.ColladaLoader();
-	daeLoader.load(_test2.default, function (object) {
+	daeLoader.load(_AtomOuest_Modele3DV2.default, function (object) {
 		model = object.scene;
 		model.traverse(function (node) {
 			if (node instanceof THREE.Mesh) {
@@ -1066,7 +1068,7 @@ var addModel = function addModel() {
 			}
 		});
 		model.scale.set(0.01, 0.01, 0.01);
-		model.rotation.z = Math.PI;
+		model.rotation.z = Math.PI / 2;
 		scene.add(model);
 	});
 };
@@ -1090,7 +1092,7 @@ var addWater = function addWater() {
 	water.material.uniforms.distortionScale.value = 0.1;
 	water.material.uniforms.size.value = 0.8;
 	water.material.uniforms.alpha.value = 0.95;
-	water.position.set(10.5, 0, -15);
+	water.position.set(18, 0, -38);
 	scene.add(water);
 };
 
@@ -1110,7 +1112,7 @@ var addSky = function addSky() {
 		side: THREE.BackSide
 	});
 	sky = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), material);
-	sky.position.set(10.5, -15, -15);
+	sky.position.set(18, -15, -38);
 	scene.add(sky);
 };
 
@@ -1135,13 +1137,26 @@ var attachRaycastHandler = function attachRaycastHandler(cb) {
 		// clear all coloring
 		model.traverse(function (node) {
 			if (node instanceof THREE.Mesh) {
-				var _node$material$color = node.material.color,
-				    r = _node$material$color.r,
-				    g = _node$material$color.g,
-				    b = _node$material$color.b;
+				if (Array.isArray(node.material)) {
+					node.material.forEach(function (m) {
+						var _m$color = m.color,
+						    r = _m$color.r,
+						    g = _m$color.g,
+						    b = _m$color.b;
 
-				if (r === selectionColor.r && g === selectionColor.g && b === selectionColor.b) {
-					node.material.color = prevColor;
+						if (r === selectionColor.r && g === selectionColor.g && b === selectionColor.b) {
+							m.color = prevColor;
+						}
+					});
+				} else {
+					var _node$material$color = node.material.color,
+					    r = _node$material$color.r,
+					    g = _node$material$color.g,
+					    b = _node$material$color.b;
+
+					if (r === selectionColor.r && g === selectionColor.g && b === selectionColor.b) {
+						node.material.color = prevColor;
+					}
 				}
 			}
 		});
@@ -1154,9 +1169,17 @@ var attachRaycastHandler = function attachRaycastHandler(cb) {
 			raycaster.setFromCamera(mouse, camera);
 			var intersects = raycaster.intersectObjects(model.children, true);
 			if (intersects.length > 0) {
-				cb(intersects);
-				prevColor = intersects[0].object.material.color;
-				intersects[0].object.material.color = selectionColor;
+				var filtered = intersects.reduce(function (x, y) {
+					var index = x.findIndex(function (e) {
+						return e.object.parent.name === y.object.parent.name;
+					});
+					return index < 0 ? [].concat(_toConsumableArray(x), [y]) : x;
+				}, [])[0];
+				if (filtered.object.parent.name !== 'NonCliquable') {
+					cb(filtered);
+					prevColor = filtered.object.material.color;
+					filtered.object.material.color = selectionColor;
+				} else cb([{}]);
 			} else cb([{}]);
 		}
 	};
@@ -2022,8 +2045,6 @@ var _Footer2 = _interopRequireDefault(_Footer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -2043,13 +2064,7 @@ var App = function (_Component) {
 		};
 
 		_this.raycastHandler = function (target) {
-			var filtered = target.reduce(function (x, y) {
-				var index = x.findIndex(function (e) {
-					return e.object.parent.name === y.object.parent.name;
-				});
-				return index < 0 ? [].concat(_toConsumableArray(x), [y]) : x;
-			}, [])[0];
-			_this.setState({ raycast: filtered.object ? filtered.object.parent : {} });
+			_this.setState({ raycast: target.object ? target.object.parent : {} });
 		};
 
 		_this.loadingHandler = function (loaded) {
