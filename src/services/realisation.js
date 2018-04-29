@@ -6,6 +6,7 @@ export const getAllRealisations = async () => {
 	return realisations.map(realisation => {
 		return {
 			id: realisation.id,
+			name: realisation.title.rendered,
 			...realisation.acf,
 		};
 	});
@@ -19,4 +20,11 @@ export const getRealisationById = async id => {
 		name: realisation.title.rendered,
 		...realisation.acf,
 	};
+};
+
+export const getAllRealisationsOffline = () => JSON.parse(sessionStorage.getItem('realisations'));
+
+export const getRealisationByIdOffline = id => {
+	const realisations = getAllRealisationsOffline();
+	return realisations.find(realisation => realisation.id === parseInt(id, 10));
 };

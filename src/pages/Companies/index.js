@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../components/Loader';
 
-import { getAllCompanies } from '../../services/company';
+import { getAllCompaniesOffline } from '../../services/company';
 import './style.scss';
 
 const CompanyCard = ({ name, logo, id }) => {
@@ -23,8 +23,8 @@ class Companies extends Component {
 			loaded: false,
 		};
 	}
-	async componentDidMount() {
-		const companies = await getAllCompanies();
+	componentDidMount() {
+		const companies = getAllCompaniesOffline();
 		this.setState({ companies, loaded: true });
 	}
 	render() {

@@ -52,7 +52,7 @@ const Footer = () => {
 						/>
 						<FooterItem
 							content="Offer"
-							route="/contact"
+							route="/offer"
 							updateNav={context.changeNav}
 							resetRaycast={context.raycastHandler}
 						/>

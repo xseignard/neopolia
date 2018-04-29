@@ -13,7 +13,10 @@ const plugins = [
 		THREE: 'three',
 	}),
 	new Dotenv(),
-	new CopyWebpackPlugin([{ from: '**/models/*.jpg', to: '.', flatten: true }]),
+	new CopyWebpackPlugin([
+		{ from: '**/models/*.jpg', to: '.', flatten: true },
+		{ from: './misc/.htaccess', to: '.', flatten: true },
+	]),
 	new CleanWebpackPlugin(['dist']),
 	new MiniCssExtractPlugin(),
 ];

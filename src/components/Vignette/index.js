@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../App/AppContext';
-import { getVignetteByName } from '../../services/vignette';
-import { getRealisationById } from '../../services/realisation';
+import { getVignetteByNameOffline } from '../../services/vignette';
+import { getRealisationByIdOffline } from '../../services/realisation';
 
 import Loader from '../Loader';
 import Close from './assets/close.svg';
@@ -15,29 +15,28 @@ class VignetteContent extends Component {
 		this.state = {
 			loaded: false,
 		};
-		this.loadData = async vignetteName => {
+		this.loadData = vignetteName => {
 			if (vignetteName) {
-				const vignette = await getVignetteByName(vignetteName);
+				const vignette = getVignetteByNameOffline(vignetteName);
 				if (vignette) {
 					const realisations = [];
 					for (let realisation of vignette.realisations) {
-						const currentRealisation = await getRealisationById(realisation.ID);
+						const currentRealisation = getRealisationByIdOffline(realisation.ID);
 						realisations.push(currentRealisation);
 					}
 					console.log(vignette);
-					console.log(realisations);
 					this.setState({ vignette, realisations, loaded: true });
 				} else return null;
 			} else return null;
 		};
 	}
-	async componentDidMount() {
-		await this.loadData(this.props.vignetteName);
+	componentDidMount() {
+		this.loadData(this.props.vignetteName);
 	}
-	async componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		if (nextProps.vignetteName !== this.props.vignetteName) {
 			this.setState({ vignette: {}, realisations: [], loaded: false });
-			await this.loadData(nextProps.vignetteName);
+			this.loadData(nextProps.vignetteName);
 		}
 	}
 	render() {
@@ -48,13 +47,13 @@ class VignetteContent extends Component {
 			content = this.state.realisations.map(r => (
 				<Link to={`/realisation/${r.id}`} className="vignette__realisation" key={r.id}>
 					<img src={r.pictures[0].sizes.thumbnail} alt={r.piece_name} />
-					<div className="vignette__name">{r.name}</div>
+					<div className="vignette__name" dangerouslySetInnerHTML={{ __html: r.name }} />
 				</Link>
 			));
 		}
 		return (
 			<Fragment>
-				<h1>{this.props.vignetteName}</h1>
+				<h1>{this.state.vignette ? this.state.vignette.title : this.vignetteName}</h1>
 				<Close onClick={() => this.props.closeHandler([{}])} />
 				<div className="vignette__realisations">{content}</div>
 				{loader}

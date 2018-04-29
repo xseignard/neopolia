@@ -5,6 +5,9 @@ import AppContext from './AppContext';
 import Routes from '../../routes';
 import Header from '../Header';
 import Footer from '../Footer';
+import Loader from '../Loader';
+
+import { loadData } from '../../services/loader';
 
 class App extends Component {
 	constructor(props) {
@@ -29,16 +32,29 @@ class App extends Component {
 			raycastHandler: this.raycastHandler,
 			loaded: false,
 			loadingHandler: this.loadingHandler,
+			dataLoaded: false,
 		};
 	}
+	async componentDidMount() {
+		await loadData();
+		this.setState({ dataLoaded: true });
+	}
+
 	render() {
+		let loader = <Loader variant="big" />;
+		let routes = null;
+		if (this.state.dataLoaded) {
+			loader = null;
+			routes = <Routes />;
+		}
 		return (
 			<AppContext.Provider value={this.state}>
 				<Router>
 					<Fragment>
 						<Header />
 						<Footer />
-						<Routes />
+						{routes}
+						{loader}
 					</Fragment>
 				</Router>
 			</AppContext.Provider>

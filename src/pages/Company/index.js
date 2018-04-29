@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import Loader from '../../components/Loader';
 
-import { getCompanyById } from '../../services/company';
+import { getCompanyByIdOffline } from '../../services/company';
 import './style.scss';
 
 class Company extends Component {
@@ -12,8 +12,8 @@ class Company extends Component {
 		};
 	}
 
-	async componentDidMount() {
-		const company = await getCompanyById(this.props.match.params.companyId);
+	componentDidMount() {
+		const company = getCompanyByIdOffline(this.props.match.params.companyId);
 		this.setState({ company, loaded: true });
 	}
 

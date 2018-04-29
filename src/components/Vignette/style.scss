@@ -4,14 +4,14 @@
 	position: absolute;
 	top: 10vh;
 	left: 0;
-	width: 30vw;
+	width: 450px;
 	height: 80vh;
 	z-index: 1;
-	padding: 1vw;
+	padding: 15px;
 	box-sizing: border-box;
 	background-color: rgba($white, 0.9);
 	box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.3);
-	transform: translateX(-30vw);
+	transform: translateX(-450px);
 	transition: all 0.4s;
 	user-select: none;
 	&-visible {
@@ -21,26 +21,25 @@
 		font-weight: normal;
 		text-transform: uppercase;
 		color: $blue;
-		margin-bottom: 30px;
-		margin-top: calc(40px + 1vw);
 		margin: 10px;
 	}
 	svg {
 		position: absolute;
-		top: 1vw;
-		right: 1vw;
+		top: 10px;
+		right: 10px;
 		width: 40px;
 		height: 40px;
 		stroke: $blue;
 		stroke-width: 3px;
 		cursor: pointer;
+		z-index: 2;
 	}
 	&__realisations {
 		display: flex;
 		flex-wrap: wrap;
 		overflow-y: auto;
 		position: relative;
-		max-height: calc(100% - (107px + 2vh));
+		max-height: calc(100% - (37px + 35px));
 	}
 	&__realisation {
 		position: relative;
@@ -61,8 +60,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 28px;
+		min-height: 28px;
 		text-transform: uppercase;
+		padding: 3px;
 		background-color: $blue;
 		transition: background-color 0.4s;
 	}

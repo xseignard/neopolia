@@ -16,3 +16,10 @@ export const getVignetteByName = async name => {
 	const vignettes = await getAllVignettes();
 	return vignettes.find(vignette => vignette.model_id === name);
 };
+
+export const getAllVignettesOffline = () => JSON.parse(sessionStorage.getItem('vignettes'));
+
+export const getVignetteByNameOffline = name => {
+	const vignettes = getAllVignettesOffline();
+	return vignettes.find(vignette => vignette.model_id === name);
+};

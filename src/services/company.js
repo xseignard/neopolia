@@ -17,3 +17,10 @@ export const getCompanyById = async id => {
 	const company = await res.json();
 	return { id: company.id, name: company.title.rendered, ...company.acf };
 };
+
+export const getAllCompaniesOffline = () => JSON.parse(sessionStorage.getItem('companies'));
+
+export const getCompanyByIdOffline = id => {
+	const companies = getAllCompaniesOffline();
+	return companies.find(company => company.id === parseInt(id, 10));
+};
