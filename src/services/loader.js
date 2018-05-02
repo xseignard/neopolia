@@ -1,6 +1,9 @@
 import { getAllCompanies, getCompanyById } from './company';
 import { getAllRealisations, getRealisationById } from './realisation';
 import { getAllVignettes, getVignetteByName } from './vignette';
+import { getAllSlides, getSlideById } from './slide';
+import { getAboutUs } from './about';
+import { getOffer } from './offer';
 
 const loadImage = src =>
 	new Promise((resolve, reject) => {
@@ -16,10 +19,13 @@ const loadImages = async imgs => {
 };
 
 export const loadData = async () => {
-	const [companies, realisations, vignettes] = await Promise.all([
+	const [companies, realisations, vignettes, slides, about, offer] = await Promise.all([
 		getAllCompanies(),
 		getAllRealisations(),
 		getAllVignettes(),
+		getAllSlides(),
+		getAboutUs(),
+		getOffer(),
 	]);
 
 	const companiesImages = [].concat(
@@ -34,7 +40,13 @@ export const loadData = async () => {
 	);
 	await loadImages(realisationsImages);
 
+	const slidesImages = [].concat(...slides.map(s => [s.picto.sizes.large, s.image.url]));
+	await loadImages(slidesImages);
+
 	sessionStorage.setItem('companies', JSON.stringify(companies));
 	sessionStorage.setItem('realisations', JSON.stringify(realisations));
 	sessionStorage.setItem('vignettes', JSON.stringify(vignettes));
+	sessionStorage.setItem('slides', JSON.stringify(slides));
+	sessionStorage.setItem('about', JSON.stringify(about));
+	sessionStorage.setItem('offer', JSON.stringify(offer));
 };

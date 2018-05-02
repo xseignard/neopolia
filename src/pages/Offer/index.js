@@ -1,28 +1,29 @@
 import React from 'react';
+import SVG from 'react-inlinesvg';
 import Slideshow from '../../components/Slideshow';
 
+import { getOfferOffline } from '../../services/offer';
+import { getSlideByIdOffline } from '../../services/slide';
+
 import './style.scss';
-import menu from './assets/menu.jpg';
 
 const Offer = () => {
-	const conf = [
-		{
-			menu: { img: menu, name: 'Fields of expertise' },
-			slide: { className: 'expetise', content: 'Fields of expertise' },
-		},
-		{
-			menu: { img: menu, name: 'Levels of positioning' },
-			slide: { className: 'positioning', content: 'Levels of positioning' },
-		},
-		{
-			menu: { img: menu, name: 'Neopolia AtomOuest offer' },
-			slide: { className: 'offer', content: 'Neopolia AtomOuest offer' },
-		},
-		{
-			menu: { img: menu, name: 'Qualifications' },
-			slide: { className: 'qualifications', content: 'Qualifications' },
-		},
-	];
+	const offer = getOfferOffline();
+
+	const conf = offer.slides.map(s => {
+		const currentSlide = getSlideByIdOffline(s);
+		const imageUrl = currentSlide.image.url;
+		let content;
+		if (imageUrl.endsWith('.svg')) {
+			content = <SVG src={imageUrl} />;
+		} else {
+			content = <img src={imageUrl} />;
+		}
+		return {
+			menu: { img: currentSlide.picto.sizes.large, name: currentSlide.name },
+			slide: { content },
+		};
+	});
 
 	return <Slideshow slidesConf={conf} pageName="offer" />;
 };

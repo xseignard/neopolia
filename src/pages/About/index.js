@@ -1,24 +1,29 @@
 import React from 'react';
+import SVG from 'react-inlinesvg';
 import Slideshow from '../../components/Slideshow';
 
+import { getAboutUsOffline } from '../../services/about';
+import { getSlideByIdOffline } from '../../services/slide';
+
 import './style.scss';
-import menu from './assets/menu.jpg';
 
 const About = () => {
-	const conf = [
-		{
-			menu: { img: menu, name: 'In a nutshell' },
-			slide: { className: 'nutshell', content: 'In a nutshell' },
-		},
-		{
-			menu: { img: menu, name: 'Strengths' },
-			slide: { className: 'strengths', content: 'Strengths' },
-		},
-		{
-			menu: { img: menu, name: 'Working with us' },
-			slide: { className: 'working', content: 'Working with us' },
-		},
-	];
+	const about = getAboutUsOffline();
+
+	const conf = about.slides.map(s => {
+		const currentSlide = getSlideByIdOffline(s);
+		const imageUrl = currentSlide.image.url;
+		let content;
+		if (imageUrl.endsWith('.svg')) {
+			content = <SVG src={imageUrl} />;
+		} else {
+			content = <img src={imageUrl} />;
+		}
+		return {
+			menu: { img: currentSlide.picto.sizes.large, name: currentSlide.name },
+			slide: { content },
+		};
+	});
 
 	return <Slideshow slidesConf={conf} pageName="about" />;
 };

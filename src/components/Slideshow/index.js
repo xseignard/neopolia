@@ -21,7 +21,7 @@ const Slideshow = ({ slidesConf, pageName }) => {
 
 	const slidesItems = slidesConf.map((s, i) => {
 		return (
-			<div className={`slideshow__slide ${s.slide.className}`} key={`slide_${i}`}>
+			<div className={`slideshow__slide`} key={`slide_${i}`}>
 				{s.slide.content}
 			</div>
 		);
