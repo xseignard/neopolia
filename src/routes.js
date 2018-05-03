@@ -16,8 +16,8 @@ const Routes = withRouter(({ location }) => (
 		<CSSTransition key={location.key} classNames="fade" timeout={300}>
 			<Switch location={location}>
 				<Route exact path="/" component={Scene} />
-				<Route exact path="/companies" component={Companies} />
-				<Route path="/companies/:companyId" component={Company} />
+				<Route exact path="/companies/:filter?" component={Companies} />
+				<Route path="/company/:companyId" component={Company} />
 				<Route path="/offer" component={Offer} />
 				<Route path="/about" component={About} />
 			</Switch>

@@ -7,7 +7,7 @@ import './style.scss';
 
 const CompanyCard = ({ name, logo, id }) => {
 	return (
-		<Link className="companies__card" to={`/companies/${id}`}>
+		<Link className="companies__card" to={`/company/${id}`}>
 			<img src={logo} className="companies__logo" alt={`${name}'s logo`} />
 			<div className="companies__name">
 				<div>{name}</div>
@@ -22,9 +22,15 @@ class Companies extends Component {
 		this.state = {
 			loaded: false,
 		};
+		console.log(this.props.match.params.filter);
 	}
 	componentDidMount() {
-		const companies = getAllCompaniesOffline();
+		let companies = getAllCompaniesOffline();
+		if (this.props.match.params.filter) {
+			const filter = this.props.match.params.filter.replace(/_/gi, ' ');
+			companies = companies.filter(c => c.fields_of_expertise.includes(filter));
+			this.setState({ companies, loaded: true });
+		}
 		this.setState({ companies, loaded: true });
 	}
 	render() {
