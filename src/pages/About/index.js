@@ -17,7 +17,11 @@ const About = () => {
 		if (imageUrl.endsWith('.svg')) {
 			content = <SVG src={imageUrl} />;
 		} else {
-			content = <img src={imageUrl} />;
+			content = (
+				<span>
+					<img src={imageUrl} />
+				</span>
+			);
 		}
 		return {
 			menu: { img: currentSlide.picto.sizes.large, name: currentSlide.name },

@@ -886,7 +886,11 @@ var About = function About() {
 		if (imageUrl.endsWith('.svg')) {
 			content = _react2.default.createElement(_reactInlinesvg2.default, { src: imageUrl });
 		} else {
-			content = _react2.default.createElement('img', { src: imageUrl });
+			content = _react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement('img', { src: imageUrl })
+			);
 		}
 		return {
 			menu: { img: currentSlide.picto.sizes.large, name: currentSlide.name },
@@ -955,7 +959,11 @@ var Offer = function Offer() {
 		if (imageUrl.endsWith('.svg')) {
 			content = _react2.default.createElement(_reactInlinesvg2.default, { src: imageUrl });
 		} else {
-			content = _react2.default.createElement('img', { src: imageUrl });
+			content = _react2.default.createElement(
+				'span',
+				null,
+				_react2.default.createElement('img', { src: imageUrl })
+			);
 		}
 		return {
 			menu: { img: currentSlide.picto.sizes.large, name: currentSlide.name },
