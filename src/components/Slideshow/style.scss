@@ -19,8 +19,11 @@
 		text-decoration: none;
 		color: $white;
 		background-color: $white;
-		&:hover .slideshow__name {
-			background-color: rgba($blue, 0.9);
+		&-active,
+		&:hover {
+			.slideshow__name {
+				background-color: rgba($blue, 0.7);
+			}
 		}
 	}
 	&__name {

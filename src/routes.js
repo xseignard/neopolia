@@ -18,8 +18,8 @@ const Routes = withRouter(({ location }) => (
 				<Route exact path="/" component={Scene} />
 				<Route exact path="/companies/:filter?" component={Companies} />
 				<Route path="/company/:companyId" component={Company} />
-				<Route path="/offer" component={Offer} />
-				<Route path="/about" component={About} />
+				<Route path="/offer/:menu?" component={Offer} />
+				<Route path="/about/:menu?" component={About} />
 			</Switch>
 		</CSSTransition>
 	</TransitionGroup>

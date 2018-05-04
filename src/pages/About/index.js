@@ -1,5 +1,6 @@
 import React from 'react';
 import SVG from 'react-inlinesvg';
+import { withRouter } from 'react-router-dom';
 import Slideshow from '../../components/Slideshow';
 
 import { getAboutUsOffline } from '../../services/about';
@@ -7,7 +8,7 @@ import { getSlideByIdOffline } from '../../services/slide';
 
 import './style.scss';
 
-const About = () => {
+const About = props => {
 	const about = getAboutUsOffline();
 
 	const conf = about.slides.map(s => {
@@ -29,7 +30,7 @@ const About = () => {
 		};
 	});
 
-	return <Slideshow slidesConf={conf} pageName="about" />;
+	return <Slideshow slidesConf={conf} menu={props.match.params.menu} pageName="about" />;
 };
 
-export default About;
+export default withRouter(About);

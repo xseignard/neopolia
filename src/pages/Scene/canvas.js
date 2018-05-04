@@ -159,6 +159,7 @@ const attachRaycastHandler = cb => {
 					const index = x.findIndex(e => e.object.parent.name === y.object.parent.name);
 					return index < 0 ? [...x, y] : x;
 				}, [])[0];
+				console.log(filtered);
 				if (filtered.object.parent.name !== 'NonCliquable') {
 					cb(filtered);
 					prevColor = filtered.object.material.color;

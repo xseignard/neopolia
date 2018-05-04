@@ -11,8 +11,14 @@ const FooterItem = withRouter(props => {
 		props.resetRaycast([{}]);
 		props.history.push(props.route);
 	};
+	let active;
+	if ((props.route === props.location.pathname) === '/') {
+		active = 'footer__item-active';
+	} else {
+		active = props.location.pathname === props.route ? 'footer__item-active' : '';
+	}
 	return (
-		<div className="footer__item" onClick={handleClick}>
+		<div className={`footer__item ${active}`} onClick={handleClick}>
 			<div>
 				{props.content}
 				<svg height="100%" width="100%">

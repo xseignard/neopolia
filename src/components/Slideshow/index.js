@@ -8,7 +8,9 @@ class Slideshow extends Component {
 	constructor(props) {
 		super(props);
 		this.slides = React.createRef();
-		console.log(history);
+		this.state = {
+			offset: 0,
+		};
 	}
 
 	componentDidMount() {
@@ -25,17 +27,20 @@ class Slideshow extends Component {
 				});
 			}, 1000);
 		}
+		if (this.props.menu) this.handleClick(this.props.menu);
 	}
 
 	handleClick = offset => {
+		this.setState({ offset });
 		this.slides.current.style.transform = `translateX(-${offset * 100}%)`;
 	};
 
 	render() {
 		const menuItems = this.props.slidesConf.map((s, i) => {
+			const active = i === parseInt(this.state.offset, 10) ? 'slideshow__item-active' : '';
 			return (
 				<div
-					className="slideshow__item"
+					className={`slideshow__item ${active}`}
 					onClick={() => this.handleClick(i)}
 					key={`menu_${i}`}
 				>

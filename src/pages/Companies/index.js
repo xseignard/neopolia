@@ -22,7 +22,6 @@ class Companies extends Component {
 		this.state = {
 			loaded: false,
 		};
-		console.log(this.props.match.params.filter);
 	}
 	componentDidMount() {
 		let companies = getAllCompaniesOffline();

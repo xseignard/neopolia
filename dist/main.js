@@ -270,9 +270,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(34);
 
-var _AppContext = __webpack_require__(38);
+var _AppContext = __webpack_require__(39);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -295,11 +295,14 @@ var Slideshow = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Slideshow.__proto__ || Object.getPrototypeOf(Slideshow)).call(this, props));
 
 		_this.handleClick = function (offset) {
+			_this.setState({ offset: offset });
 			_this.slides.current.style.transform = 'translateX(-' + offset * 100 + '%)';
 		};
 
 		_this.slides = _react2.default.createRef();
-		console.log(history);
+		_this.state = {
+			offset: 0
+		};
 		return _this;
 	}
 
@@ -321,6 +324,7 @@ var Slideshow = function (_Component) {
 					});
 				}, 1000);
 			}
+			if (this.props.menu) this.handleClick(this.props.menu);
 		}
 	}, {
 		key: 'render',
@@ -328,10 +332,11 @@ var Slideshow = function (_Component) {
 			var _this3 = this;
 
 			var menuItems = this.props.slidesConf.map(function (s, i) {
+				var active = i === parseInt(_this3.state.offset, 10) ? 'slideshow__item-active' : '';
 				return _react2.default.createElement(
 					'div',
 					{
-						className: 'slideshow__item',
+						className: 'slideshow__item ' + active,
 						onClick: function onClick() {
 							return _this3.handleClick(i);
 						},
@@ -743,9 +748,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(34);
 
-var _AppContext = __webpack_require__(38);
+var _AppContext = __webpack_require__(39);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -763,9 +768,15 @@ var FooterItem = (0, _reactRouterDom.withRouter)(function (props) {
 		props.resetRaycast([{}]);
 		props.history.push(props.route);
 	};
+	var active = void 0;
+	if (props.route === props.location.pathname === '/') {
+		active = 'footer__item-active';
+	} else {
+		active = props.location.pathname === props.route ? 'footer__item-active' : '';
+	}
 	return _react2.default.createElement(
 		'div',
-		{ className: 'footer__item', onClick: handleClick },
+		{ className: 'footer__item ' + active, onClick: handleClick },
 		_react2.default.createElement(
 			'div',
 			null,
@@ -854,7 +865,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AppContext = __webpack_require__(38);
+var _AppContext = __webpack_require__(39);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -918,6 +929,8 @@ var _reactInlinesvg = __webpack_require__(125);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
+var _reactRouterDom = __webpack_require__(34);
+
 var _Slideshow = __webpack_require__(129);
 
 var _Slideshow2 = _interopRequireDefault(_Slideshow);
@@ -930,7 +943,7 @@ __webpack_require__(208);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var About = function About() {
+var About = function About(props) {
 	var about = (0, _about.getAboutUsOffline)();
 
 	var conf = about.slides.map(function (s) {
@@ -952,10 +965,10 @@ var About = function About() {
 		};
 	});
 
-	return _react2.default.createElement(_Slideshow2.default, { slidesConf: conf, pageName: 'about' });
+	return _react2.default.createElement(_Slideshow2.default, { slidesConf: conf, menu: props.match.params.menu, pageName: 'about' });
 };
 
-exports.default = About;
+exports.default = (0, _reactRouterDom.withRouter)(About);
 
 /***/ }),
 
@@ -991,11 +1004,13 @@ var _reactInlinesvg = __webpack_require__(125);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
+var _reactRouterDom = __webpack_require__(34);
+
 var _Slideshow = __webpack_require__(129);
 
 var _Slideshow2 = _interopRequireDefault(_Slideshow);
 
-var _AppContext = __webpack_require__(38);
+var _AppContext = __webpack_require__(39);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -1007,7 +1022,7 @@ __webpack_require__(211);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Offer = function Offer() {
+var Offer = function Offer(props) {
 	var offer = (0, _offer.getOfferOffline)();
 
 	var conf = offer.slides.map(function (s) {
@@ -1050,6 +1065,7 @@ var Offer = function Offer() {
 			return _react2.default.createElement(_Slideshow2.default, {
 				slidesConf: conf,
 				clicks: clicks,
+				menu: props.match.params.menu,
 				updateNav: context.changeNav,
 				pageName: 'offer'
 			});
@@ -1057,7 +1073,7 @@ var Offer = function Offer() {
 	);
 };
 
-exports.default = Offer;
+exports.default = (0, _reactRouterDom.withRouter)(Offer);
 
 /***/ }),
 
@@ -1225,7 +1241,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(34);
 
 var _Loader = __webpack_require__(57);
 
@@ -1275,7 +1291,6 @@ var Companies = function (_Component) {
 		_this.state = {
 			loaded: false
 		};
-		console.log(_this.props.match.params.filter);
 		return _this;
 	}
 
@@ -1389,7 +1404,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _three = __webpack_require__(37);
+var _three = __webpack_require__(38);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -1502,7 +1517,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.attachRaycastHandler = exports.attachLoadingHandler = undefined;
 
-var _three = __webpack_require__(37);
+var _three = __webpack_require__(38);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -1710,6 +1725,7 @@ var attachRaycastHandler = function attachRaycastHandler(cb) {
 					});
 					return index < 0 ? [].concat(_toConsumableArray(x), [y]) : x;
 				}, [])[0];
+				console.log(filtered);
 				if (filtered.object.parent.name !== 'NonCliquable') {
 					cb(filtered);
 					prevColor = filtered.object.material.color;
@@ -1780,9 +1796,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(34);
 
-var _AppContext = __webpack_require__(38);
+var _AppContext = __webpack_require__(39);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -2051,7 +2067,7 @@ var _ElementContainer = __webpack_require__(317);
 
 var _ElementContainer2 = _interopRequireDefault(_ElementContainer);
 
-var _AppContext = __webpack_require__(38);
+var _AppContext = __webpack_require__(39);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -2185,7 +2201,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(34);
 
 var _reactTransitionGroup = __webpack_require__(325);
 
@@ -2231,8 +2247,8 @@ var Routes = (0, _reactRouterDom.withRouter)(function (_ref) {
 				_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Scene2.default }),
 				_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/companies/:filter?', component: _Companies2.default }),
 				_react2.default.createElement(_reactRouterDom.Route, { path: '/company/:companyId', component: _Company2.default }),
-				_react2.default.createElement(_reactRouterDom.Route, { path: '/offer', component: _Offer2.default }),
-				_react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default })
+				_react2.default.createElement(_reactRouterDom.Route, { path: '/offer/:menu?', component: _Offer2.default }),
+				_react2.default.createElement(_reactRouterDom.Route, { path: '/about/:menu?', component: _About2.default })
 			)
 		)
 	);
@@ -2258,9 +2274,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(34);
 
-var _AppContext = __webpack_require__(38);
+var _AppContext = __webpack_require__(39);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -2411,7 +2427,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 38:
+/***/ 39:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

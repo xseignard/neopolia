@@ -1,5 +1,6 @@
 import React from 'react';
 import SVG from 'react-inlinesvg';
+import { withRouter } from 'react-router-dom';
 import Slideshow from '../../components/Slideshow';
 import AppContext from '../../components/App/AppContext';
 
@@ -8,7 +9,7 @@ import { getSlideByIdOffline } from '../../services/slide';
 
 import './style.scss';
 
-const Offer = () => {
+const Offer = props => {
 	const offer = getOfferOffline();
 
 	const conf = offer.slides.map(s => {
@@ -57,6 +58,7 @@ const Offer = () => {
 				<Slideshow
 					slidesConf={conf}
 					clicks={clicks}
+					menu={props.match.params.menu}
 					updateNav={context.changeNav}
 					pageName="offer"
 				/>
@@ -65,4 +67,4 @@ const Offer = () => {
 	);
 };
 
-export default Offer;
+export default withRouter(Offer);

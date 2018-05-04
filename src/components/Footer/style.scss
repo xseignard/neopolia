@@ -42,8 +42,9 @@
 				transition: all 0.4s;
 			}
 		}
+		&-active,
 		&:hover {
-			background-color: rgba($blue, 0.9);
+			background-color: rgba($blue, 0.7);
 			line {
 				stroke-dasharray: 100;
 			}
