@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import 'three/examples/js/loaders/ColladaLoader';
+import 'three/examples/js/loaders/GLTFLoader';
 import 'three/examples/js/objects/Water';
 import 'three/examples/js/objects/Sky';
 
 import initThree from '../../utils/initThree';
 
-import dae from './models/AtomOuest_Modele3D-V3.dae';
+import gltf from './models/scene/scene.gltf';
 
 import waternormals from './assets/waternormals.jpg';
 import back from './assets/back.png';
@@ -43,8 +43,8 @@ scene.fog = new THREE.FogExp2(0xaaaaaa, 0.01);
 let model;
 const mat = new THREE.MeshPhongMaterial({ color: 0x7777ff, side: THREE.DoubleSide });
 const addModel = () => {
-	const daeLoader = new THREE.ColladaLoader();
-	daeLoader.load(dae, object => {
+	const gltfLoader = new THREE.GLTFLoader();
+	gltfLoader.load(gltf, object => {
 		model = object.scene;
 		model.traverse(node => {
 			if (node instanceof THREE.Mesh) {
@@ -55,8 +55,8 @@ const addModel = () => {
 				else node.material.side = THREE.DoubleSide;
 			}
 		});
-		model.scale.set(0.01, 0.01, 0.01);
-		model.rotation.z = Math.PI / 2;
+		model.scale.set(0.3933, 0.3933, 0.3933);
+		model.rotation.y = Math.PI / 2;
 		scene.add(model);
 	});
 };

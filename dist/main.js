@@ -1375,7 +1375,7 @@ module.exports = __webpack_require__.p + "4418dde3f6abc21dc32506acf5f5b093.jpg";
 /***/ 234:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "3518aabfdfe63f1fc82abf6c524837ff.dae";
+module.exports = __webpack_require__.p + "0cd42a896394fc09a0008e4e84c58e54.gltf";
 
 /***/ }),
 
@@ -1516,9 +1516,9 @@ var _initThree2 = __webpack_require__(304);
 
 var _initThree3 = _interopRequireDefault(_initThree2);
 
-var _AtomOuest_Modele3DV = __webpack_require__(234);
+var _scene = __webpack_require__(234);
 
-var _AtomOuest_Modele3DV2 = _interopRequireDefault(_AtomOuest_Modele3DV);
+var _scene2 = _interopRequireDefault(_scene);
 
 var _waternormals = __webpack_require__(233);
 
@@ -1590,8 +1590,8 @@ scene.fog = new THREE.FogExp2(0xaaaaaa, 0.01);
 var model = void 0;
 var mat = new THREE.MeshPhongMaterial({ color: 0x7777ff, side: THREE.DoubleSide });
 var addModel = function addModel() {
-	var daeLoader = new THREE.ColladaLoader();
-	daeLoader.load(_AtomOuest_Modele3DV2.default, function (object) {
+	var gltfLoader = new THREE.GLTFLoader();
+	gltfLoader.load(_scene2.default, function (object) {
 		model = object.scene;
 		model.traverse(function (node) {
 			if (node instanceof THREE.Mesh) {
@@ -1602,8 +1602,8 @@ var addModel = function addModel() {
 				});else node.material.side = THREE.DoubleSide;
 			}
 		});
-		model.scale.set(0.01, 0.01, 0.01);
-		model.rotation.z = Math.PI / 2;
+		model.scale.set(0.3933, 0.3933, 0.3933);
+		model.rotation.y = Math.PI / 2;
 		scene.add(model);
 	});
 };

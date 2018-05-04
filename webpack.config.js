@@ -14,7 +14,8 @@ const plugins = [
 	}),
 	new Dotenv(),
 	new CopyWebpackPlugin([
-		{ from: '**/models/*.jpg', to: '.', flatten: true },
+		{ from: '**/models/scene/textures/*.jpeg', to: './textures', flatten: true },
+		{ from: '**/models/scene/scene.bin', to: '.', flatten: true },
 		{ from: './misc/.htaccess', to: '.', flatten: true },
 	]),
 	new CleanWebpackPlugin(['dist']),
@@ -48,7 +49,7 @@ module.exports = {
 			// svg
 			{ test: /\.svg$/, use: ['svg-react-loader'] },
 			// 3D models
-			{ test: /\.(obj|mtl|dae)$/, use: ['file-loader'] },
+			{ test: /\.(obj|mtl|dae|fbx|gltf)$/, use: ['file-loader'] },
 			// images
 			{ test: /\.(jpg|jpeg|png)$/, use: ['file-loader'] },
 		],
