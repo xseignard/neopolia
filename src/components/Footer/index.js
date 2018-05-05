@@ -8,6 +8,7 @@ import logo from './assets/LogoNeopoliaAtomOuest.png';
 const FooterItem = withRouter(props => {
 	const handleClick = () => {
 		props.updateNav(props.content);
+		props.updateTitle(props.content);
 		props.resetRaycast([{}]);
 		props.history.push(props.route);
 	};
@@ -48,24 +49,28 @@ const Footer = () => {
 							content="Products"
 							route="/"
 							updateNav={context.changeNav}
+							updateTitle={context.changeTitle}
 							resetRaycast={context.raycastHandler}
 						/>
 						<FooterItem
 							content="About us"
 							route="/about"
 							updateNav={context.changeNav}
+							updateTitle={context.changeTitle}
 							resetRaycast={context.raycastHandler}
 						/>
 						<FooterItem
 							content="Offer"
 							route="/offer"
 							updateNav={context.changeNav}
+							updateTitle={context.changeTitle}
 							resetRaycast={context.raycastHandler}
 						/>
 						<FooterItem
 							content="Members"
 							route="/companies"
 							updateNav={context.changeNav}
+							updateTitle={context.changeTitle}
 							resetRaycast={context.raycastHandler}
 						/>
 					</Fragment>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Loader from '../../components/Loader';
-
+import { Link, withRouter } from 'react-router-dom';
 import { getAllCompaniesOffline } from '../../services/company';
+import Loader from '../../components/Loader';
+import Close from './assets/close.svg';
+
 import './style.scss';
 
 const CompanyCard = ({ name, logo, id }) => {
@@ -25,8 +26,10 @@ class Companies extends Component {
 	}
 	componentDidMount() {
 		let companies = getAllCompaniesOffline();
-		if (this.props.match.params.filter) {
-			const filter = this.props.match.params.filter.replace(/_/gi, ' ');
+		const param = this.props.match.params.filter;
+		console.log(param);
+		if (param && param !== 'close') {
+			const filter = param.replace(/_/gi, ' ');
 			companies = companies.filter(c => c.fields_of_expertise.includes(filter));
 			this.setState({ companies, loaded: true });
 		}
@@ -43,13 +46,17 @@ class Companies extends Component {
 				);
 			});
 		}
+		let close = null;
+		if (this.props.match.params.filter)
+			close = <Close onClick={() => this.props.history.goBack()} />;
 		return (
 			<div className="page companies">
 				{loader}
+				{close}
 				<div className="companies__container">{companiesCards}</div>
 			</div>
 		);
 	}
 }
 
-export default Companies;
+export default withRouter(Companies);

@@ -25,6 +25,18 @@ class App extends Component {
 			this.setState({ loaded });
 		};
 
+		this.changeTitle = newTitle => {
+			this.setState({ title: newTitle });
+		};
+
+		this.changeAboutIndex = newIndex => {
+			this.setState({ aboutIndex: newIndex });
+		};
+
+		this.changeOfferIndex = newIndex => {
+			this.setState({ offerIndex: newIndex });
+		};
+
 		this.state = {
 			nav: 'Products',
 			changeNav: this.changeNav,
@@ -32,6 +44,12 @@ class App extends Component {
 			raycastHandler: this.raycastHandler,
 			loaded: false,
 			loadingHandler: this.loadingHandler,
+			title: 'Products',
+			changeTitle: this.changeTitle,
+			aboutIndex: 0,
+			changeAboutIndex: this.changeAboutIndex,
+			offerIndex: 0,
+			changeOfferIndex: this.changeOfferIndex,
 			dataLoaded: false,
 		};
 	}

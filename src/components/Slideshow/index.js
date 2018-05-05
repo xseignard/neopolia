@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import AppContext from '../App/AppContext';
 
 import './style.scss';
 
@@ -19,19 +18,32 @@ class Slideshow extends Component {
 				this.props.clicks.forEach(c => {
 					const element = document.querySelector(`[id^='${c.id}']`);
 					element.style.cursor = 'pointer';
+					element.style.transition = 'transform 0.4s';
+					element.style.transformOrigin = 'center';
 					element.addEventListener('click', e => {
 						e.preventDefault();
 						this.props.updateNav(c.nav);
+						this.props.updateTitle(c.title);
 						this.props.history.push(c.target);
+					});
+					element.addEventListener('mouseenter', e => {
+						e.preventDefault();
+						element.style.transform = 'scale(1.05)';
+					});
+					element.addEventListener('mouseleave', e => {
+						e.preventDefault();
+						element.style.transform = 'scale(1)';
 					});
 				});
 			}, 1000);
 		}
 		if (this.props.menu) this.handleClick(this.props.menu);
+		else this.handleClick(this.props.index);
 	}
 
 	handleClick = offset => {
 		this.setState({ offset });
+		this.props.updateIndex(offset);
 		this.slides.current.style.transform = `translateX(-${offset * 100}%)`;
 	};
 

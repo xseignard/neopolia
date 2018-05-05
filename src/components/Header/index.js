@@ -10,11 +10,10 @@ const HeaderItem = ({ content }) => {
 const Header = () => {
 	return (
 		<AppContext.Consumer>
-			{({ nav }) => (
+			{({ nav, title }) => (
 				<header className="header">
 					<HeaderItem content={nav} />
-					<HeaderItem content="Products" />
-					<HeaderItem content="Harbour works" />
+					<HeaderItem content={title} />
 				</header>
 			)}
 		</AppContext.Consumer>

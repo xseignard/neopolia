@@ -33,23 +33,32 @@ const Offer = props => {
 
 	const clicks = [
 		{ id: 'teamNeopolia', target: '/about', nav: 'About us' },
-		{ id: 'Leaders', target: '/companies', nav: 'Members' },
+		{ id: 'Members', target: '/companies/close', nav: 'Members' },
+		{ id: 'Leader', target: '/about/3', nav: 'About us' },
 		{
 			id: 'Conception__x26__Manufacturing_of_sub-assemblies',
 			target: '/companies/Conception_and_manufacturing_of_sub-assemblies',
 			nav: 'Members',
+			title: 'Conception and manufacturing of sub-assemblies',
 		},
 		{
 			id: 'On-site_interventions_for_new_works_and_maintenance',
 			target: '/companies/On-site_interventions_for_new_works_and_maintenance',
 			nav: 'Members',
+			title: 'On-site interventions for new works and maintenance',
 		},
 		{
 			id: 'Special_equipment__x26__toolings',
 			target: '/companies/Special_equipment_and_toolings',
 			nav: 'Members',
+			title: 'Special equipment and toolings',
 		},
-		{ id: 'Dismantlement', target: '/companies/Dismantlement', nav: 'Members' },
+		{
+			id: 'Dismantlement',
+			target: '/companies/Dismantlement',
+			nav: 'Members',
+			title: 'Dismantlement',
+		},
 	];
 
 	return (
@@ -59,6 +68,9 @@ const Offer = props => {
 					slidesConf={conf}
 					clicks={clicks}
 					menu={props.match.params.menu}
+					index={context.offerIndex}
+					updateIndex={context.changeOfferIndex}
+					updateTitle={context.changeTitle}
 					updateNav={context.changeNav}
 					pageName="offer"
 				/>
