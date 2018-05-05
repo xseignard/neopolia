@@ -24,7 +24,6 @@ class VignetteContent extends Component {
 						const currentRealisation = getRealisationByIdOffline(realisation.ID);
 						realisations.push(currentRealisation);
 					}
-					console.log(vignette);
 					this.setState({ vignette, realisations, loaded: true });
 				} else return null;
 			} else return null;

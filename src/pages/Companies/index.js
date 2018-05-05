@@ -27,7 +27,6 @@ class Companies extends Component {
 	componentDidMount() {
 		let companies = getAllCompaniesOffline();
 		const param = this.props.match.params.filter;
-		console.log(param);
 		if (param && param !== 'close') {
 			const filter = param.replace(/_/gi, ' ');
 			companies = companies.filter(c => c.fields_of_expertise.includes(filter));

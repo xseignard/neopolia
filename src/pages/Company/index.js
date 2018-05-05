@@ -41,6 +41,15 @@ class Company extends Component {
 								<span>Certifications: </span>
 								{(c.certifications && c.certifications.join(', ')) || 'None'}
 							</p>
+							<p className="company__expertises">
+								<span>Expertises: </span>
+								{(c.fields_of_expertise && c.fields_of_expertise.join(', ')) ||
+									'None'}
+							</p>
+							<p className="company__knowledges">
+								<span>Knowledges: </span>
+								{(c.knowledge && c.knowledge.join(', ')) || 'None'}
+							</p>
 						</div>
 					</div>
 					<div className="company__logo">

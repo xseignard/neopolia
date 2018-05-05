@@ -1232,6 +1232,26 @@ var Company = function (_Component) {
 									'Certifications: '
 								),
 								c.certifications && c.certifications.join(', ') || 'None'
+							),
+							_react2.default.createElement(
+								'p',
+								{ className: 'company__expertises' },
+								_react2.default.createElement(
+									'span',
+									null,
+									'Expertises: '
+								),
+								c.fields_of_expertise && c.fields_of_expertise.join(', ') || 'None'
+							),
+							_react2.default.createElement(
+								'p',
+								{ className: 'company__knowledges' },
+								_react2.default.createElement(
+									'span',
+									null,
+									'Knowledges: '
+								),
+								c.knowledge && c.knowledge.join(', ') || 'None'
 							)
 						)
 					),
@@ -1363,7 +1383,6 @@ var Companies = function (_Component) {
 		value: function componentDidMount() {
 			var companies = (0, _company.getAllCompaniesOffline)();
 			var param = this.props.match.params.filter;
-			console.log(param);
 			if (param && param !== 'close') {
 				var filter = param.replace(/_/gi, ' ');
 				companies = companies.filter(function (c) {
@@ -1798,7 +1817,6 @@ var attachRaycastHandler = function attachRaycastHandler(cb) {
 					});
 					return index < 0 ? [].concat(_toConsumableArray(x), [y]) : x;
 				}, [])[0];
-				console.log(filtered);
 				if (filtered.object.parent.name !== 'NonCliquable') {
 					cb(filtered);
 					prevColor = filtered.object.material.color;
@@ -1939,7 +1957,6 @@ var VignetteContent = function (_Component) {
 						}
 					}
 
-					console.log(vignette);
 					_this.setState({ vignette: vignette, realisations: realisations, loaded: true });
 				} else return null;
 			} else return null;
