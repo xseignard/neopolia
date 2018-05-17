@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+.realisation {
+	display: flex;
+	padding: 8vh 12.5% !important;
+	&__name {
+		font-size: 42px;
+		text-transform: uppercase;
+		margin-bottom: 24px;
+	}
+	&__amount,
+	&__application,
+	&__client,
+	&__geographic,
+	&__market,
+	&__program,
+	&__zone,
+	&__certifications {
+		margin-top: 24px;
+		color: $grey;
+		text-align: left;
+		span {
+			color: $blue;
+		}
+	}
+}

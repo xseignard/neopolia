@@ -26,14 +26,7 @@ class Slideshow extends Component {
 						this.props.updateTitle(c.title);
 						this.props.history.push(c.target);
 					});
-					element.addEventListener('mouseenter', e => {
-						e.preventDefault();
-						element.style.transform = 'scale(1.05)';
-					});
-					element.addEventListener('mouseleave', e => {
-						e.preventDefault();
-						element.style.transform = 'scale(1)';
-					});
+					element.classList.add('animated');
 				});
 			}, 1000);
 		}

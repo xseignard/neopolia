@@ -1,5 +1,7 @@
 @import 'variables';
 @import 'typography';
+@import 'slick.css';
+@import 'slick-theme.css';
 
 body {
 	margin: 0;
@@ -11,6 +13,7 @@ body {
 
 * {
 	margin: 0;
+	user-select: none;
 }
 
 .page {

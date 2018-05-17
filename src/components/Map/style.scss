@@ -1,0 +1,24 @@
+@import '../../styles/variables';
+
+.map {
+	padding: 50px;
+	&__container {
+		position: relative;
+		#france {
+			min-width: 200px;
+			stroke: $grey;
+			stroke-width: 0.4px;
+			fill: none;
+		}
+		#marker {
+			position: absolute;
+			width: 35px;
+			&.headquarter {
+				fill: $blue;
+			}
+			&.subsidiary {
+				fill: $grey;
+			}
+		}
+	}
+}

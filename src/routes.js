@@ -6,6 +6,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import Scene from './pages/Scene';
 import Companies from './pages/Companies';
 import Company from './pages/Company';
+import Realisation from './pages/Realisation';
 import Offer from './pages/Offer';
 import About from './pages/About';
 
@@ -18,6 +19,7 @@ const Routes = withRouter(({ location }) => (
 				<Route exact path="/" component={Scene} />
 				<Route exact path="/companies/:filter?" component={Companies} />
 				<Route path="/company/:companyId" component={Company} />
+				<Route path="/realisation/:realisationId" component={Realisation} />
 				<Route path="/offer/:menu?" component={Offer} />
 				<Route path="/about/:menu?" component={About} />
 			</Switch>

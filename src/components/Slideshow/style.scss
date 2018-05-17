@@ -71,5 +71,17 @@
 			justify-content: flex-end;
 			align-items: center;
 		}
+		.animated {
+			animation-duration: 4s;
+			animation-iteration-count: infinite;
+			animation-direction: alternate;
+			animation-name: grow;
+		}
+
+		@keyframes grow {
+			to {
+				transform: scale(1.02);
+			}
+		}
 	}
 }

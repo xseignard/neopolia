@@ -18,7 +18,7 @@ class App extends Component {
 		};
 
 		this.raycastHandler = target => {
-			this.setState({ raycast: target.object ? target.object.parent : {} });
+			this.setState({ raycast: target || {} });
 		};
 
 		this.loadingHandler = loaded => {
