@@ -2,11 +2,15 @@
 
 .realisation {
 	display: flex;
-	padding: 8vh 12.5% !important;
-	&__name {
-		font-size: 42px;
-		text-transform: uppercase;
-		margin-bottom: 24px;
+	flex-direction: column;
+	padding: 8vh 0 0 !important;
+	justify-content: space-between;
+	&__details {
+		display: flex;
+		justify-content: space-around;
+	}
+	&__numbers {
+		font-size: 24px;
 	}
 	&__amount,
 	&__application,
@@ -21,6 +25,14 @@
 		text-align: left;
 		span {
 			color: $blue;
+		}
+	}
+	&__slider {
+		width: 500px;
+		height: 500px;
+		top: -30px;
+		.slick-list {
+			height: 500px;
 		}
 	}
 }

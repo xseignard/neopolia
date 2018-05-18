@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+.close {
+	position: absolute;
+	top: 12vh;
+	right: 30px;
+	width: 40px;
+	height: 40px;
+	stroke: $blue;
+	stroke-width: 3px;
+	cursor: pointer;
+	z-index: 2;
+}

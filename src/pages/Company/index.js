@@ -1,14 +1,16 @@
 import React, { Fragment, Component } from 'react';
+
 import Loader from '../../components/Loader';
 import Map from '../../components/Map';
 import Slider from '../../components/Slider';
+import Close from '../../components/Close';
+import Title from '../../components/Title';
+import Description from '../../components/Description';
 
 import { getCompanyByIdOffline } from '../../services/company';
 import { getRealisationByCompanyIdOffline } from '../../services/realisation';
 
 import Desc from './assets/desc.svg';
-import Title from './assets/title.svg';
-import Top from './assets/top.svg';
 
 import './style.scss';
 
@@ -31,25 +33,18 @@ class Company extends Component {
 		let companyComponent = null;
 		let map = null;
 		if (this.state.loaded) {
-			console.log(this.state.company);
 			loader = null;
-			const images = this.state.realisations.map(r => r.pictures[0].url);
-			let realisationsFragment = <Slider images={images} />;
+			const content = this.state.realisations.map(r => {
+				return { image: r.pictures[0].url, title: r.name, id: r.id };
+			});
 			const c = this.state.company;
 			let subsidiaries = null;
 			if (c.subsidiaries) subsidiaries = c.subsidiaries.map(s => s.subsidiary);
 			companyComponent = (
 				<Fragment>
 					<div className="company__data">
-						<div className="company__name">
-							<Top className="company__svg top" />
-							<Title className="company__svg title" />
-							<h1>{c.name}</h1>
-						</div>
-						<div className="company__presentation">
-							<Desc className="company__svg desc" />
-							<p>{c.presentation}</p>
-						</div>
+						<Title content={c.name} />
+						<Description content={c.presentation} />
 						<div className="company__logo">
 							<img src={c.logo.sizes.large} alt={`${c.name}'s logo`} />
 						</div>
@@ -79,7 +74,7 @@ class Company extends Component {
 								{(c.knowledge && c.knowledge.join(', ')) || 'None'}
 							</p>
 						</div>
-						{realisationsFragment}
+						<Slider content={content} />
 					</div>
 				</Fragment>
 			);
@@ -89,6 +84,7 @@ class Company extends Component {
 				{loader}
 				{companyComponent}
 				{map}
+				<Close />
 			</div>
 		);
 	}

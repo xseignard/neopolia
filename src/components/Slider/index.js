@@ -1,14 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import './style.scss';
 
-const CustomSlider = ({ images }) => {
+const CustomSlider = ({ className, content, size }) => {
 	let slider = null;
-	const slides = images.map((image, i) => {
+	const slides = content.map((c, i) => {
+		let title = null;
+		if (c.title && c.id) {
+			title = (
+				<Link to={`/realisation/${c.id}`}>
+					<div className="slider__title" dangerouslySetInnerHTML={{ __html: c.title }} />
+				</Link>
+			);
+		}
 		return (
 			<div key={i} className="slider__slide">
-				<img width="300px" height="300px" src={image} />
+				{title}
+				<img width={`${size || 300}px`} height={`${size || 300}px`} src={c.image} />
 			</div>
 		);
 	});
@@ -19,9 +29,10 @@ const CustomSlider = ({ images }) => {
 			speed: 500,
 			slidesToShow: 1,
 			slidesToScroll: 1,
+			dots: false,
 		};
 		slider = (
-			<Slider {...settings} className="slider">
+			<Slider {...settings} className={`slider ${className}`}>
 				{slides}
 			</Slider>
 		);

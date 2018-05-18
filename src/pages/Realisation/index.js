@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
+
 import Loader from '../../components/Loader';
 import Slider from '../../components/Slider';
+import Close from '../../components/Close';
+import Title from '../../components/Title';
 
 import { getRealisationByIdOffline } from '../../services/realisation';
 
@@ -23,14 +26,13 @@ class Realisation extends Component {
 		if (this.state.loaded) {
 			loader = null;
 			const r = this.state.realisation;
-			const pictures = r.pictures.map(p => p.url);
+			const pictures = r.pictures.map(p => {
+				return { image: p.url };
+			});
 			realisationFragment = (
 				<Fragment>
-					<div className="realisation__data">
-						<h1
-							className="realisation__name"
-							dangerouslySetInnerHTML={{ __html: r.name }}
-						/>
+					<Title content={r.name} size={42} />
+					<div className="realisation__details">
 						<div className="realisation__numbers">
 							<p className="realisation__amount">
 								<span>Amount: </span>
@@ -64,8 +66,8 @@ class Realisation extends Component {
 								<span>Certifications: </span>
 								{(r.certifications && r.certifications.join(', ')) || 'None'}
 							</p>
-							<Slider images={pictures} />
 						</div>
+						<Slider className="realisation__slider" content={pictures} size={500} />
 					</div>
 				</Fragment>
 			);
@@ -74,6 +76,7 @@ class Realisation extends Component {
 			<div className="page realisation">
 				{loader}
 				{realisationFragment}
+				<Close />
 			</div>
 		);
 	}

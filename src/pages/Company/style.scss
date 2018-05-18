@@ -2,54 +2,14 @@
 
 .company {
 	display: flex;
-	padding: 8vh 0 !important;
+	padding: 8vh 0 0 0 !important;
 	flex-direction: column;
 	&__data {
 		flex: 1;
-		position: relative;
-	}
-	&__svg {
-		position: absolute;
-		&.desc {
-			fill: $grey;
-			height: 200px;
-		}
-		&.top {
-			fill: $grey;
-			left: 12.5%;
-			top: -30px;
-		}
-		&.title {
-			fill: $blue;
-			height: 187px;
-		}
-	}
-	&__name h1 {
-		font-size: 72px;
-		text-transform: uppercase;
-		color: #fff;
-		z-index: 1;
-		position: relative;
-		padding: 52px 0 52px 12.5%;
-	}
-	&__presentation {
-		max-width: 790px;
-		position: relative;
-		height: 200px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		p {
-			font-size: 28px;
-			font-weight: lighter;
-			color: #fff;
-			z-index: 1;
-			width: 70%;
-		}
 	}
 	&__logo {
 		position: absolute;
-		top: 0;
+		top: 14vh;
 		right: 150px;
 		box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.3);
 		img {
@@ -60,21 +20,23 @@
 	&__details {
 		display: flex;
 		justify-content: space-between;
-		margin: 0 150px;
+		margin: 0 150px 30px;
 	}
 	&__numbers {
 		display: flex;
 		flex-direction: column;
 		max-width: 650px;
-		font-size: 24px;
+		font-size: 20px;
 		font-weight: lighter;
+		margin-top: 30px;
+		padding: 0 30px;
 	}
 	&__turnover,
 	&__workforce,
 	&__certifications,
 	&__expertises,
 	&__knowledges {
-		margin-top: 24px;
+		margin-top: 18px;
 		color: $grey;
 		text-align: left;
 		span {

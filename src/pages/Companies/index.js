@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { getAllCompaniesOffline } from '../../services/company';
 import Loader from '../../components/Loader';
-import Close from './assets/close.svg';
+import Close from '../../components/Close';
 
 import './style.scss';
 
@@ -46,8 +46,7 @@ class Companies extends Component {
 			});
 		}
 		let close = null;
-		if (this.props.match.params.filter)
-			close = <Close onClick={() => this.props.history.goBack()} />;
+		if (this.props.match.params.filter) close = <Close />;
 		return (
 			<div className="page companies">
 				{loader}

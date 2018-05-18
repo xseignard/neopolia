@@ -1,7 +1,6 @@
 @import '../../styles/variables';
 
 .companies {
-	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
@@ -34,16 +33,5 @@
 		text-transform: uppercase;
 		background-color: $blue;
 		transition: background-color 0.4s;
-	}
-	svg {
-		position: absolute;
-		top: 30px;
-		right: 30px;
-		width: 40px;
-		height: 40px;
-		stroke: $blue;
-		stroke-width: 3px;
-		cursor: pointer;
-		z-index: 2;
 	}
 }
