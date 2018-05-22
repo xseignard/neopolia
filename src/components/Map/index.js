@@ -25,15 +25,23 @@ const Map = ({ hq, subs }) => {
 	let subsidiaries = null;
 	if (subs && subs.length) {
 		subsidiaries = subs.map((s, i) => {
-			return <Company key={i} className="subsidiary" style={computePosition(s)} />;
+			console.log(s);
+			const style = s.type[0] === 'Commercial Office' ? 'commercial' : 'subsidiary';
+			return <Company key={i} className={style} style={computePosition(s.subsidiary)} />;
 		});
 	}
+	console.log(subsidiaries);
 	return (
 		<div className="map">
 			<div className="map__container">
 				<France />
 				{subsidiaries}
 				{headquarter}
+			</div>
+			<div className="map__legend">
+				<p className="headquarter">Head Office</p>
+				<p className="subsidiary">Commercial Office</p>
+				<p className="commercial">Subsidiary Company</p>
 			</div>
 		</div>
 	);

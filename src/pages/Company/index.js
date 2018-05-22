@@ -39,7 +39,7 @@ class Company extends Component {
 			});
 			const c = this.state.company;
 			let subsidiaries = null;
-			if (c.subsidiaries) subsidiaries = c.subsidiaries.map(s => s.subsidiary);
+			if (c.subsidiaries) subsidiaries = c.subsidiaries;
 			companyComponent = (
 				<Fragment>
 					<div className="company__data">

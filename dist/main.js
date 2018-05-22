@@ -1564,9 +1564,12 @@ var Map = function Map(_ref) {
 	var subsidiaries = null;
 	if (subs && subs.length) {
 		subsidiaries = subs.map(function (s, i) {
-			return _react2.default.createElement(_company2.default, { key: i, className: 'subsidiary', style: computePosition(s) });
+			console.log(s);
+			var style = s.type[0] === 'Commercial Office' ? 'commercial' : 'subsidiary';
+			return _react2.default.createElement(_company2.default, { key: i, className: style, style: computePosition(s.subsidiary) });
 		});
 	}
+	console.log(subsidiaries);
 	return _react2.default.createElement(
 		'div',
 		{ className: 'map' },
@@ -1576,6 +1579,25 @@ var Map = function Map(_ref) {
 			_react2.default.createElement(_france2.default, null),
 			subsidiaries,
 			headquarter
+		),
+		_react2.default.createElement(
+			'div',
+			{ className: 'map__legend' },
+			_react2.default.createElement(
+				'p',
+				{ className: 'headquarter' },
+				'Head Office'
+			),
+			_react2.default.createElement(
+				'p',
+				{ className: 'subsidiary' },
+				'Commercial Office'
+			),
+			_react2.default.createElement(
+				'p',
+				{ className: 'commercial' },
+				'Subsidiary Company'
+			)
 		)
 	);
 };
@@ -1676,9 +1698,7 @@ var Company = function (_Component) {
 				});
 				var c = this.state.company;
 				var subsidiaries = null;
-				if (c.subsidiaries) subsidiaries = c.subsidiaries.map(function (s) {
-					return s.subsidiary;
-				});
+				if (c.subsidiaries) subsidiaries = c.subsidiaries;
 				companyComponent = _react2.default.createElement(
 					_react.Fragment,
 					null,
