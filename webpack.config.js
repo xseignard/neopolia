@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 
 const plugins = [
 	new HtmlWebpackPlugin({ template: 'src/index.html' }),
@@ -13,13 +14,10 @@ const plugins = [
 		THREE: 'three',
 	}),
 	new Dotenv(),
-	new CopyWebpackPlugin([
-		{ from: '**/models/scene/textures/*.jpeg', to: './textures', flatten: true },
-		{ from: '**/models/scene/scene.bin', to: '.', flatten: true },
-		{ from: './misc/.htaccess', to: '.', flatten: true },
-	]),
+	new CopyWebpackPlugin([{ from: './misc/.htaccess', to: '.', flatten: true }]),
 	new CleanWebpackPlugin(['dist']),
 	new MiniCssExtractPlugin(),
+	new OfflinePlugin(),
 ];
 
 let optimization = {};
@@ -38,7 +36,7 @@ module.exports = {
 	entry: ['babel-polyfill', './src/main.js', './src/styles/main.scss'],
 	// mode: 'development',
 	output: {
-		publicPath: '/',
+		publicPath: './',
 	},
 	module: {
 		rules: [

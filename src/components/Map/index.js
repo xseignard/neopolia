@@ -25,12 +25,10 @@ const Map = ({ hq, subs }) => {
 	let subsidiaries = null;
 	if (subs && subs.length) {
 		subsidiaries = subs.map((s, i) => {
-			console.log(s);
 			const style = s.type[0] === 'Commercial Office' ? 'commercial' : 'subsidiary';
 			return <Company key={i} className={style} style={computePosition(s.subsidiary)} />;
 		});
 	}
-	console.log(subsidiaries);
 	return (
 		<div className="map">
 			<div className="map__container">

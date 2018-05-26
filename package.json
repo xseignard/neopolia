@@ -21,6 +21,7 @@
 		"babel-polyfill": "^6.26.0",
 		"loaders.css": "^0.1.2",
 		"lodash": "^4.17.5",
+		"offline-plugin": "^5.0.3",
 		"react": "^16.3.1",
 		"react-dom": "^16.3.1",
 		"react-loaders": "^3.0.1",

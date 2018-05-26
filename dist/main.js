@@ -117,7 +117,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
 /******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
@@ -128,7 +128,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([588,0]);
+/******/ 	deferredModules.push([589,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -1564,12 +1564,10 @@ var Map = function Map(_ref) {
 	var subsidiaries = null;
 	if (subs && subs.length) {
 		subsidiaries = subs.map(function (s, i) {
-			console.log(s);
 			var style = s.type[0] === 'Commercial Office' ? 'commercial' : 'subsidiary';
 			return _react2.default.createElement(_company2.default, { key: i, className: style, style: computePosition(s.subsidiary) });
 		});
 	}
-	console.log(subsidiaries);
 	return _react2.default.createElement(
 		'div',
 		{ className: 'map' },
@@ -3041,7 +3039,7 @@ exports.default = App;
 
 /***/ }),
 
-/***/ 385:
+/***/ 386:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3053,14 +3051,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(59);
 
+var _runtime = __webpack_require__(377);
+
+var OfflinePluginRuntime = _interopRequireWildcard(_runtime);
+
 var _App = __webpack_require__(376);
 
 var _App2 = _interopRequireDefault(_App);
 
 __webpack_require__(130);
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+OfflinePluginRuntime.install();
 (0, _reactDom.render)(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
@@ -3151,11 +3156,11 @@ exports.default = Loader;
 
 /***/ }),
 
-/***/ 588:
+/***/ 589:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(587);
-__webpack_require__(385);
+__webpack_require__(588);
+__webpack_require__(386);
 module.exports = __webpack_require__(130);
 
 
