@@ -1,7 +1,7 @@
 const realisationUrl = `${process.env.WP_JSON_URL}realisation/`;
 
 export const getAllRealisations = async () => {
-	const res = await fetch(realisationUrl);
+	const res = await fetch(realisationUrl + '?per_page=100');
 	const realisations = await res.json();
 	return realisations.map(realisation => {
 		return {

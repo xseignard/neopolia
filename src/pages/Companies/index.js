@@ -30,8 +30,8 @@ class Companies extends Component {
 		if (param && param !== 'close') {
 			const filter = param.replace(/_/gi, ' ');
 			companies = companies.filter(c => c.fields_of_expertise.includes(filter));
-			this.setState({ companies, loaded: true });
 		}
+		companies.sort((a, b) => a.name.localeCompare(b.name));
 		this.setState({ companies, loaded: true });
 	}
 	render() {
@@ -46,7 +46,7 @@ class Companies extends Component {
 			});
 		}
 		let close = null;
-		if (this.props.match.params.filter) close = <Close />;
+		if (this.props.match.params.filter) close = <Close nav="Offer" title="Offer" />;
 		return (
 			<div className="page companies">
 				{loader}

@@ -1,9 +1,33 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import AppContext from '../App/AppContext';
+
 import CloseIcon from './assets/close.svg';
 import './style.scss';
 
-const Close = props => <CloseIcon className="close" onClick={() => props.history.goBack()} />;
+const Icon = withRouter(props => {
+	const handleClick = () => {
+		if (props.nav) props.updateNav(props.nav);
+		if (props.title) props.updateTitle(props.title);
+		props.history.goBack();
+	};
+	return <CloseIcon className="close" onClick={handleClick} />;
+});
 
-export default withRouter(Close);
+const Close = props => {
+	return (
+		<AppContext.Consumer>
+			{context => (
+				<Icon
+					updateNav={context.changeNav}
+					nav={props.nav}
+					updateTitle={context.changeTitle}
+					title={props.title}
+				/>
+			)}
+		</AppContext.Consumer>
+	);
+};
+
+export default Close;

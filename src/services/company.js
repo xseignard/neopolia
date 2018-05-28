@@ -1,7 +1,7 @@
 const companyUrl = `${process.env.WP_JSON_URL}company/`;
 
 export const getAllCompanies = async () => {
-	const res = await fetch(companyUrl);
+	const res = await fetch(companyUrl + '?per_page=100');
 	const companies = await res.json();
 	return companies.map(company => {
 		return {

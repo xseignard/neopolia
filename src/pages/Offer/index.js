@@ -32,9 +32,9 @@ const Offer = props => {
 	});
 
 	const clicks = [
-		{ id: 'teamNeopolia', target: '/about', nav: 'About us' },
-		{ id: 'Members', target: '/companies/close', nav: 'Members' },
-		{ id: 'Leader', target: '/about/3', nav: 'About us' },
+		{ id: 'teamNeopolia', target: '/about', nav: 'About us', title: 'About us' },
+		{ id: 'Members', target: '/companies/close', nav: 'Members', title: 'Members' },
+		{ id: 'Leader', target: '/about/3', nav: 'About us', title: 'About us' },
 		{
 			id: 'Conception__x26__Manufacturing_of_sub-assemblies',
 			target: '/companies/Conception_and_manufacturing_of_sub-assemblies',

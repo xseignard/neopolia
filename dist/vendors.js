@@ -61,7 +61,7 @@ module.exports = $export;
 if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(375)();
+  module.exports = __webpack_require__(376)();
 }
 
 
@@ -157,7 +157,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(85)('wks');
-var uid = __webpack_require__(49);
+var uid = __webpack_require__(48);
 var Symbol = __webpack_require__(5).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -318,7 +318,7 @@ module.exports = function (NAME, exec) {
 var global = __webpack_require__(5);
 var hide = __webpack_require__(17);
 var has = __webpack_require__(18);
-var SRC = __webpack_require__(49)('src');
+var SRC = __webpack_require__(48)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
@@ -353,7 +353,7 @@ __webpack_require__(31).inspectSource = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(10);
-var createDesc = __webpack_require__(50);
+var createDesc = __webpack_require__(49);
 module.exports = __webpack_require__(11) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
@@ -396,7 +396,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(61);
-var createDesc = __webpack_require__(50);
+var createDesc = __webpack_require__(49);
 var toIObject = __webpack_require__(21);
 var toPrimitive = __webpack_require__(30);
 var has = __webpack_require__(18);
@@ -2977,32 +2977,32 @@ module.exports = {
 "use strict";
 
 if (__webpack_require__(11)) {
-  var LIBRARY = __webpack_require__(48);
+  var LIBRARY = __webpack_require__(47);
   var global = __webpack_require__(5);
   var fails = __webpack_require__(6);
   var $export = __webpack_require__(0);
   var $typed = __webpack_require__(75);
   var $buffer = __webpack_require__(99);
   var ctx = __webpack_require__(24);
-  var anInstance = __webpack_require__(42);
-  var propertyDesc = __webpack_require__(50);
+  var anInstance = __webpack_require__(41);
+  var propertyDesc = __webpack_require__(49);
   var hide = __webpack_require__(17);
-  var redefineAll = __webpack_require__(40);
+  var redefineAll = __webpack_require__(39);
   var toInteger = __webpack_require__(28);
   var toLength = __webpack_require__(9);
   var toIndex = __webpack_require__(171);
-  var toAbsoluteIndex = __webpack_require__(46);
+  var toAbsoluteIndex = __webpack_require__(45);
   var toPrimitive = __webpack_require__(30);
   var has = __webpack_require__(18);
   var classof = __webpack_require__(60);
   var isObject = __webpack_require__(7);
   var toObject = __webpack_require__(13);
   var isArrayIter = __webpack_require__(108);
-  var create = __webpack_require__(45);
+  var create = __webpack_require__(44);
   var getPrototypeOf = __webpack_require__(19);
-  var gOPN = __webpack_require__(44).f;
+  var gOPN = __webpack_require__(43).f;
   var getIterFn = __webpack_require__(106);
-  var uid = __webpack_require__(49);
+  var uid = __webpack_require__(48);
   var wks = __webpack_require__(8);
   var createArrayMethod = __webpack_require__(26);
   var createArrayIncludes = __webpack_require__(84);
@@ -3010,7 +3010,7 @@ if (__webpack_require__(11)) {
   var ArrayIterators = __webpack_require__(103);
   var Iterators = __webpack_require__(54);
   var $iterDetect = __webpack_require__(80);
-  var setSpecies = __webpack_require__(43);
+  var setSpecies = __webpack_require__(42);
   var arrayFill = __webpack_require__(104);
   var arrayCopyWithin = __webpack_require__(181);
   var $DP = __webpack_require__(10);
@@ -3458,7 +3458,8 @@ if (__webpack_require__(11)) {
 
 
 /***/ }),
-/* 35 */
+/* 35 */,
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 22.1.3.31 Array.prototype[@@unscopables]
@@ -3471,10 +3472,10 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(49)('meta');
+var META = __webpack_require__(48)('meta');
 var isObject = __webpack_require__(7);
 var has = __webpack_require__(18);
 var setDesc = __webpack_require__(10).f;
@@ -3530,7 +3531,7 @@ var meta = module.exports = {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 /**
@@ -3567,12 +3568,218 @@ module.exports = isObject;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var redefine = __webpack_require__(16);
+module.exports = function (target, src, safe) {
+  for (var key in src) redefine(target, key, src[key], safe);
+  return target;
+};
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ctx = __webpack_require__(24);
+var call = __webpack_require__(183);
+var isArrayIter = __webpack_require__(108);
+var anObject = __webpack_require__(4);
+var toLength = __webpack_require__(9);
+var getIterFn = __webpack_require__(106);
+var BREAK = {};
+var RETURN = {};
+var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
+  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
+  var f = ctx(fn, that, entries ? 2 : 1);
+  var index = 0;
+  var length, step, iterator, result;
+  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+  // fast case for arrays with default iterator
+  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    if (result === BREAK || result === RETURN) return result;
+  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+    result = call(iterator, f, step.value, entries);
+    if (result === BREAK || result === RETURN) return result;
+  }
+};
+exports.BREAK = BREAK;
+exports.RETURN = RETURN;
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+module.exports = function (it, Constructor, name, forbiddenField) {
+  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
+    throw TypeError(name + ': incorrect invocation!');
+  } return it;
+};
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var global = __webpack_require__(5);
+var dP = __webpack_require__(10);
+var DESCRIPTORS = __webpack_require__(11);
+var SPECIES = __webpack_require__(8)('species');
+
+module.exports = function (KEY) {
+  var C = global[KEY];
+  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
+    configurable: true,
+    get: function () { return this; }
+  });
+};
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys = __webpack_require__(195);
+var hiddenKeys = __webpack_require__(121).concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return $keys(O, hiddenKeys);
+};
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = __webpack_require__(4);
+var dPs = __webpack_require__(194);
+var enumBugKeys = __webpack_require__(121);
+var IE_PROTO = __webpack_require__(122)('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__(124)('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__(120).appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(28);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = __webpack_require__(195);
+var enumBugKeys = __webpack_require__(121);
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+module.exports = false;
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var freeGlobal = __webpack_require__(154);
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
+
+
+/***/ }),
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebGLRenderTargetCube", function() { return WebGLRenderTargetCube; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebGLRenderTargetCube", function() { return WebGLRenderTargetCube; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebGLRenderTarget", function() { return WebGLRenderTarget; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebGLRenderer", function() { return WebGLRenderer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShaderLib", function() { return ShaderLib; });
@@ -4152,7 +4359,7 @@ Object.assign( EventDispatcher.prototype, {
 
 } );
 
-var REVISION = '91';
+var REVISION = '92';
 var MOUSE = { LEFT: 0, MIDDLE: 1, RIGHT: 2 };
 var CullFaceNone = 0;
 var CullFaceBack = 1;
@@ -4310,7 +4517,7 @@ var _Math = {
 
 		for ( var i = 0; i < 256; i ++ ) {
 
-			lut[ i ] = ( i < 16 ? '0' : '' ) + ( i ).toString( 16 ).toUpperCase();
+			lut[ i ] = ( i < 16 ? '0' : '' ) + ( i ).toString( 16 );
 
 		}
 
@@ -4320,10 +4527,13 @@ var _Math = {
 			var d1 = Math.random() * 0xffffffff | 0;
 			var d2 = Math.random() * 0xffffffff | 0;
 			var d3 = Math.random() * 0xffffffff | 0;
-			return lut[ d0 & 0xff ] + lut[ d0 >> 8 & 0xff ] + lut[ d0 >> 16 & 0xff ] + lut[ d0 >> 24 & 0xff ] + '-' +
+			var uuid = lut[ d0 & 0xff ] + lut[ d0 >> 8 & 0xff ] + lut[ d0 >> 16 & 0xff ] + lut[ d0 >> 24 & 0xff ] + '-' +
 				lut[ d1 & 0xff ] + lut[ d1 >> 8 & 0xff ] + '-' + lut[ d1 >> 16 & 0x0f | 0x40 ] + lut[ d1 >> 24 & 0xff ] + '-' +
 				lut[ d2 & 0x3f | 0x80 ] + lut[ d2 >> 8 & 0xff ] + '-' + lut[ d2 >> 16 & 0xff ] + lut[ d2 >> 24 & 0xff ] +
 				lut[ d3 & 0xff ] + lut[ d3 >> 8 & 0xff ] + lut[ d3 >> 16 & 0xff ] + lut[ d3 >> 24 & 0xff ];
+
+			// .toUpperCase() here flattens concatenated strings to save heap memory space.
+			return uuid.toUpperCase();
 
 		};
 
@@ -7634,6 +7844,12 @@ Texture.prototype = Object.assign( Object.create( EventDispatcher.prototype ), {
 
 	isTexture: true,
 
+	updateMatrix: function () {
+
+		this.matrix.setUvTransform( this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y );
+
+	},
+
 	clone: function () {
 
 		return new this.constructor().copy( this );
@@ -9986,7 +10202,7 @@ var normal_fragment_begin = "#ifdef FLAT_SHADED\n\tvec3 fdx = vec3( dFdx( vViewP
 
 var normal_fragment_maps = "#ifdef USE_NORMALMAP\n\tnormal = perturbNormal2Arb( -vViewPosition, normal );\n#elif defined( USE_BUMPMAP )\n\tnormal = perturbNormalArb( -vViewPosition, normal, dHdxy_fwd() );\n#endif\n";
 
-var normalmap_pars_fragment = "#ifdef USE_NORMALMAP\n\tuniform sampler2D normalMap;\n\tuniform vec2 normalScale;\n\tvec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm ) {\n\t\tvec3 q0 = vec3( dFdx( eye_pos.x ), dFdx( eye_pos.y ), dFdx( eye_pos.z ) );\n\t\tvec3 q1 = vec3( dFdy( eye_pos.x ), dFdy( eye_pos.y ), dFdy( eye_pos.z ) );\n\t\tvec2 st0 = dFdx( vUv.st );\n\t\tvec2 st1 = dFdy( vUv.st );\n\t\tvec3 S = normalize( q0 * st1.t - q1 * st0.t );\n\t\tvec3 T = normalize( -q0 * st1.s + q1 * st0.s );\n\t\tvec3 N = normalize( surf_norm );\n\t\tvec3 mapN = texture2D( normalMap, vUv ).xyz * 2.0 - 1.0;\n\t\tmapN.xy = normalScale * mapN.xy;\n\t\tmat3 tsn = mat3( S, T, N );\n\t\treturn normalize( tsn * mapN );\n\t}\n#endif\n";
+var normalmap_pars_fragment = "#ifdef USE_NORMALMAP\n\tuniform sampler2D normalMap;\n\tuniform vec2 normalScale;\n\tvec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm ) {\n\t\tvec3 q0 = vec3( dFdx( eye_pos.x ), dFdx( eye_pos.y ), dFdx( eye_pos.z ) );\n\t\tvec3 q1 = vec3( dFdy( eye_pos.x ), dFdy( eye_pos.y ), dFdy( eye_pos.z ) );\n\t\tvec2 st0 = dFdx( vUv.st );\n\t\tvec2 st1 = dFdy( vUv.st );\n\t\tfloat scale = sign( st1.t * st0.s - st0.t * st1.s );\t\tscale *= float( gl_FrontFacing ) * 2.0 - 1.0;\n\t\tvec3 S = normalize( ( q0 * st1.t - q1 * st0.t ) * scale );\n\t\tvec3 T = normalize( ( - q0 * st1.s + q1 * st0.s ) * scale );\n\t\tvec3 N = normalize( surf_norm );\n\t\tvec3 mapN = texture2D( normalMap, vUv ).xyz * 2.0 - 1.0;\n\t\tmapN.xy = normalScale * mapN.xy;\n\t\tmat3 tsn = mat3( S, T, N );\n\t\treturn normalize( tsn * mapN );\n\t}\n#endif\n";
 
 var packing = "vec3 packNormalToRGB( const in vec3 normal ) {\n\treturn normalize( normal ) * 0.5 + 0.5;\n}\nvec3 unpackRGBToNormal( const in vec3 rgb ) {\n\treturn 2.0 * rgb.xyz - 1.0;\n}\nconst float PackUpscale = 256. / 255.;const float UnpackDownscale = 255. / 256.;\nconst vec3 PackFactors = vec3( 256. * 256. * 256., 256. * 256.,  256. );\nconst vec4 UnpackFactors = UnpackDownscale / vec4( PackFactors, 1. );\nconst float ShiftRight8 = 1. / 256.;\nvec4 packDepthToRGBA( const in float v ) {\n\tvec4 r = vec4( fract( v * PackFactors ), v );\n\tr.yzw -= r.xyz * ShiftRight8;\treturn r * PackUpscale;\n}\nfloat unpackRGBAToDepth( const in vec4 v ) {\n\treturn dot( v, UnpackFactors );\n}\nfloat viewZToOrthographicDepth( const in float viewZ, const in float near, const in float far ) {\n\treturn ( viewZ + near ) / ( near - far );\n}\nfloat orthographicDepthToViewZ( const in float linearClipZ, const in float near, const in float far ) {\n\treturn linearClipZ * ( near - far ) - near;\n}\nfloat viewZToPerspectiveDepth( const in float viewZ, const in float near, const in float far ) {\n\treturn (( near + viewZ ) * far ) / (( far - near ) * viewZ );\n}\nfloat perspectiveDepthToViewZ( const in float invClipZ, const in float near, const in float far ) {\n\treturn ( near * far ) / ( ( far - near ) * invClipZ - far );\n}\n";
 
@@ -12416,6 +12632,8 @@ Object3D.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		object.matrix = this.matrix.toArray();
 
+		if ( this.matrixAutoUpdate === false ) object.matrixAutoUpdate = false;
+
 		//
 
 		function serialize( library, element ) {
@@ -14336,6 +14554,8 @@ Object.assign( BufferAttribute.prototype, {
 		this.count = array !== undefined ? array.length / this.itemSize : 0;
 		this.array = array;
 
+		return this;
+
 	},
 
 	setDynamic: function ( value ) {
@@ -14348,6 +14568,7 @@ Object.assign( BufferAttribute.prototype, {
 
 	copy: function ( source ) {
 
+		this.name = source.name;
 		this.array = new source.array.constructor( source.array );
 		this.itemSize = source.itemSize;
 		this.count = source.count;
@@ -16981,7 +17202,7 @@ ShaderMaterial.prototype.copy = function ( source ) {
 
 	this.uniforms = UniformsUtils.clone( source.uniforms );
 
-	this.defines = source.defines;
+	this.defines = Object.assign( {}, source.defines );
 
 	this.wireframe = source.wireframe;
 	this.wireframeLinewidth = source.wireframeLinewidth;
@@ -18271,12 +18492,7 @@ Mesh.prototype = Object.assign( Object.create( Object3D.prototype ), {
 
 						intersection = checkBufferGeometryIntersection( this, raycaster, ray, position, uv, a, b, c );
 
-						if ( intersection ) {
-
-							intersection.index = a; // triangle number in positions buffer semantics
-							intersects.push( intersection );
-
-						}
+						if ( intersection ) intersects.push( intersection );
 
 					}
 
@@ -18868,10 +19084,6 @@ function WebGLExtensions( gl ) {
 
 				case 'WEBGL_compressed_texture_pvrtc':
 					extension = gl.getExtension( 'WEBGL_compressed_texture_pvrtc' ) || gl.getExtension( 'WEBKIT_WEBGL_compressed_texture_pvrtc' );
-					break;
-
-				case 'WEBGL_compressed_texture_etc1':
-					extension = gl.getExtension( 'WEBGL_compressed_texture_etc1' );
 					break;
 
 				default:
@@ -19961,8 +20173,7 @@ function WebGLUniforms( gl, program, renderer ) {
 	for ( var i = 0; i < n; ++ i ) {
 
 		var info = gl.getActiveUniform( program, i ),
-			path = info.name,
-			addr = gl.getUniformLocation( program, path );
+			addr = gl.getUniformLocation( program, info.name );
 
 		parseUniform( info, addr, this );
 
@@ -20730,6 +20941,7 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters 
 
 	//
 
+	this.name = shader.name;
 	this.id = programIdCount ++;
 	this.code = code;
 	this.usedTimes = 1;
@@ -22991,13 +23203,13 @@ function WebGLState( gl, extensions, utils ) {
 
 	if ( glVersion.indexOf( 'WebGL' ) !== - 1 ) {
 
-	   version = parseFloat( /^WebGL\ ([0-9])/.exec( glVersion )[ 1 ] );
-	   lineWidthAvailable = ( version >= 1.0 );
+		version = parseFloat( /^WebGL\ ([0-9])/.exec( glVersion )[ 1 ] );
+		lineWidthAvailable = ( version >= 1.0 );
 
 	} else if ( glVersion.indexOf( 'OpenGL ES' ) !== - 1 ) {
 
-	   version = parseFloat( /^OpenGL\ ES\ ([0-9])/.exec( glVersion )[ 1 ] );
-	   lineWidthAvailable = ( version >= 2.0 );
+		version = parseFloat( /^OpenGL\ ES\ ([0-9])/.exec( glVersion )[ 1 ] );
+		lineWidthAvailable = ( version >= 2.0 );
 
 	}
 
@@ -23697,7 +23909,9 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 		_gl.generateMipmap( target );
 
 		var textureProperties = properties.get( texture );
-		textureProperties.__maxMipLevel = Math.log2( Math.max( width, height ) );
+
+		// Note: Math.log( x ) * Math.LOG2E used instead of Math.log2( x ) which is not supported by IE11
+		textureProperties.__maxMipLevel = Math.log( Math.max( width, height ) ) * Math.LOG2E;
 
 	}
 
@@ -24899,6 +25113,7 @@ function WebVRManager( renderer ) {
 	if ( typeof window !== 'undefined' && 'VRFrameData' in window ) {
 
 		frameData = new window.VRFrameData();
+		window.addEventListener( 'vrdisplaypresentchange', onVRDisplayPresentChange, false );
 
 	}
 
@@ -24920,11 +25135,17 @@ function WebVRManager( renderer ) {
 
 	//
 
+	function isPresenting() {
+
+		return device !== null && device.isPresenting === true;
+
+	}
+
 	var currentSize, currentPixelRatio;
 
 	function onVRDisplayPresentChange() {
 
-		if ( device !== null && device.isPresenting ) {
+		if ( isPresenting() ) {
 
 			var eyeParameters = device.getEyeParameters( 'left' );
 			var renderWidth = eyeParameters.renderWidth;
@@ -24940,12 +25161,6 @@ function WebVRManager( renderer ) {
 			renderer.setDrawingBufferSize( currentSize.width, currentSize.height, currentPixelRatio );
 
 		}
-
-	}
-
-	if ( typeof window !== 'undefined' ) {
-
-		window.addEventListener( 'vrdisplaypresentchange', onVRDisplayPresentChange, false );
 
 	}
 
@@ -25102,7 +25317,7 @@ function WebVRManager( renderer ) {
 
 	this.submitFrame = function () {
 
-		if ( device && device.isPresenting ) device.submitFrame();
+		if ( isPresenting() ) device.submitFrame();
 
 	};
 
@@ -25911,7 +26126,7 @@ function WebGLRenderer( parameters ) {
 
 	};
 
-	function setupVertexAttributes( material, program, geometry, startIndex ) {
+	function setupVertexAttributes( material, program, geometry ) {
 
 		if ( geometry && geometry.isInstancedBufferGeometry ) {
 
@@ -25923,8 +26138,6 @@ function WebGLRenderer( parameters ) {
 			}
 
 		}
-
-		if ( startIndex === undefined ) startIndex = 0;
 
 		state.initAttributes();
 
@@ -25980,7 +26193,7 @@ function WebGLRenderer( parameters ) {
 						}
 
 						_gl.bindBuffer( _gl.ARRAY_BUFFER, buffer );
-						_gl.vertexAttribPointer( programAttribute, size, type, normalized, stride * bytesPerElement, ( startIndex * stride + offset ) * bytesPerElement );
+						_gl.vertexAttribPointer( programAttribute, size, type, normalized, stride * bytesPerElement, offset * bytesPerElement );
 
 					} else {
 
@@ -26001,7 +26214,7 @@ function WebGLRenderer( parameters ) {
 						}
 
 						_gl.bindBuffer( _gl.ARRAY_BUFFER, buffer );
-						_gl.vertexAttribPointer( programAttribute, size, type, normalized, 0, startIndex * size * bytesPerElement );
+						_gl.vertexAttribPointer( programAttribute, size, type, normalized, 0, 0 );
 
 					}
 
@@ -27128,12 +27341,7 @@ function WebGLRenderer( parameters ) {
 
 			if ( uvScaleMap.matrixAutoUpdate === true ) {
 
-				var offset = uvScaleMap.offset;
-				var repeat = uvScaleMap.repeat;
-				var rotation = uvScaleMap.rotation;
-				var center = uvScaleMap.center;
-
-				uvScaleMap.matrix.setUvTransform( offset.x, offset.y, repeat.x, repeat.y, rotation, center.x, center.y );
+				uvScaleMap.updateMatrix();
 
 			}
 
@@ -27171,12 +27379,7 @@ function WebGLRenderer( parameters ) {
 
 			if ( material.map.matrixAutoUpdate === true ) {
 
-				var offset = material.map.offset;
-				var repeat = material.map.repeat;
-				var rotation = material.map.rotation;
-				var center = material.map.center;
-
-				material.map.matrix.setUvTransform( offset.x, offset.y, repeat.x, repeat.y, rotation, center.x, center.y );
+				material.map.updateMatrix();
 
 			}
 
@@ -28583,7 +28786,7 @@ Line.prototype = Object.assign( Object.create( Object3D.prototype ), {
 
 					}
 
-					geometry.addAttribute( 'lineDistance', new THREE.Float32BufferAttribute( lineDistances, 1 ) );
+					geometry.addAttribute( 'lineDistance', new Float32BufferAttribute( lineDistances, 1 ) );
 
 				} else {
 
@@ -28816,7 +29019,7 @@ LineSegments.prototype = Object.assign( Object.create( Line.prototype ), {
 
 					}
 
-					geometry.addAttribute( 'lineDistance', new THREE.Float32BufferAttribute( lineDistances, 1 ) );
+					geometry.addAttribute( 'lineDistance', new Float32BufferAttribute( lineDistances, 1 ) );
 
 				} else {
 
@@ -31535,7 +31738,6 @@ function addContour( vertices, contour ) {
  *  bevelSegments: <int>, // number of bevel layers
  *
  *  extrudePath: <THREE.Curve> // curve to extrude shape along
- *  frames: <Object> // containing arrays of tangents, normals, binormals
  *
  *  UVGenerator: <Object> // object that provides UV generator functions
  *
@@ -31567,279 +31769,229 @@ ExtrudeGeometry.prototype.constructor = ExtrudeGeometry;
 
 function ExtrudeBufferGeometry( shapes, options ) {
 
-	if ( typeof ( shapes ) === "undefined" ) {
-
-		return;
-
-	}
-
 	BufferGeometry.call( this );
 
 	this.type = 'ExtrudeBufferGeometry';
 
+	this.parameters = {
+		shapes: shapes,
+		options: options
+	};
+
 	shapes = Array.isArray( shapes ) ? shapes : [ shapes ];
 
-	this.addShapeList( shapes, options );
+	var scope = this;
+
+	var verticesArray = [];
+	var uvArray = [];
+
+	for ( var i = 0, l = shapes.length; i < l; i ++ ) {
+
+		var shape = shapes[ i ];
+		addShape( shape, options );
+
+	}
+
+	// build geometry
+
+	this.addAttribute( 'position', new Float32BufferAttribute( verticesArray, 3 ) );
+	this.addAttribute( 'uv', new Float32BufferAttribute( uvArray, 2 ) );
 
 	this.computeVertexNormals();
 
-	// can't really use automatic vertex normals
-	// as then front and back sides get smoothed too
-	// should do separate smoothing just for sides
+	// functions
 
-	//this.computeVertexNormals();
+	function addShape( shape ) {
 
-	//console.log( "took", ( Date.now() - startTime ) );
+		var placeholder = [];
 
-}
+		// options
 
-ExtrudeBufferGeometry.prototype = Object.create( BufferGeometry.prototype );
-ExtrudeBufferGeometry.prototype.constructor = ExtrudeBufferGeometry;
+		var curveSegments = options.curveSegments !== undefined ? options.curveSegments : 12;
+		var steps = options.steps !== undefined ? options.steps : 1;
+		var amount = options.amount !== undefined ? options.amount : 100;
 
-ExtrudeBufferGeometry.prototype.getArrays = function () {
+		var bevelEnabled = options.bevelEnabled !== undefined ? options.bevelEnabled : true;
+		var bevelThickness = options.bevelThickness !== undefined ? options.bevelThickness : 6;
+		var bevelSize = options.bevelSize !== undefined ? options.bevelSize : bevelThickness - 2;
+		var bevelSegments = options.bevelSegments !== undefined ? options.bevelSegments : 3;
 
-	var positionAttribute = this.getAttribute( "position" );
-	var verticesArray = positionAttribute ? Array.prototype.slice.call( positionAttribute.array ) : [];
+		var extrudePath = options.extrudePath;
 
-	var uvAttribute = this.getAttribute( "uv" );
-	var uvArray = uvAttribute ? Array.prototype.slice.call( uvAttribute.array ) : [];
+		var uvgen = options.UVGenerator !== undefined ? options.UVGenerator : WorldUVGenerator;
 
-	var IndexAttribute = this.index;
-	var indicesArray = IndexAttribute ? Array.prototype.slice.call( IndexAttribute.array ) : [];
+		//
 
-	return {
-		position: verticesArray,
-		uv: uvArray,
-		index: indicesArray
-	};
+		var extrudePts, extrudeByPath = false;
+		var splineTube, binormal, normal, position2;
 
-};
+		if ( extrudePath ) {
 
-ExtrudeBufferGeometry.prototype.addShapeList = function ( shapes, options ) {
+			extrudePts = extrudePath.getSpacedPoints( steps );
 
-	var sl = shapes.length;
-	options.arrays = this.getArrays();
+			extrudeByPath = true;
+			bevelEnabled = false; // bevels not supported for path extrusion
 
-	for ( var s = 0; s < sl; s ++ ) {
+			// SETUP TNB variables
 
-		var shape = shapes[ s ];
-		this.addShape( shape, options );
+			// TODO1 - have a .isClosed in spline?
 
-	}
+			splineTube = extrudePath.computeFrenetFrames( steps, false );
 
-	this.setIndex( options.arrays.index );
-	this.addAttribute( 'position', new Float32BufferAttribute( options.arrays.position, 3 ) );
-	this.addAttribute( 'uv', new Float32BufferAttribute( options.arrays.uv, 2 ) );
+			// console.log(splineTube, 'splineTube', splineTube.normals.length, 'steps', steps, 'extrudePts', extrudePts.length);
 
-};
+			binormal = new Vector3();
+			normal = new Vector3();
+			position2 = new Vector3();
 
-ExtrudeBufferGeometry.prototype.addShape = function ( shape, options ) {
+		}
 
-	var arrays = options.arrays ? options.arrays : this.getArrays();
-	var verticesArray = arrays.position;
-	var indicesArray = arrays.index;
-	var uvArray = arrays.uv;
+		// Safeguards if bevels are not enabled
 
-	var placeholder = [];
+		if ( ! bevelEnabled ) {
 
+			bevelSegments = 0;
+			bevelThickness = 0;
+			bevelSize = 0;
 
-	var amount = options.amount !== undefined ? options.amount : 100;
+		}
 
-	var bevelThickness = options.bevelThickness !== undefined ? options.bevelThickness : 6; // 10
-	var bevelSize = options.bevelSize !== undefined ? options.bevelSize : bevelThickness - 2; // 8
-	var bevelSegments = options.bevelSegments !== undefined ? options.bevelSegments : 3;
+		// Variables initialization
 
-	var bevelEnabled = options.bevelEnabled !== undefined ? options.bevelEnabled : true; // false
+		var ahole, h, hl; // looping of holes
 
-	var curveSegments = options.curveSegments !== undefined ? options.curveSegments : 12;
+		var shapePoints = shape.extractPoints( curveSegments );
 
-	var steps = options.steps !== undefined ? options.steps : 1;
+		var vertices = shapePoints.shape;
+		var holes = shapePoints.holes;
 
-	var extrudePath = options.extrudePath;
-	var extrudePts, extrudeByPath = false;
+		var reverse = ! ShapeUtils.isClockWise( vertices );
 
-	// Use default WorldUVGenerator if no UV generators are specified.
-	var uvgen = options.UVGenerator !== undefined ? options.UVGenerator : ExtrudeGeometry.WorldUVGenerator;
+		if ( reverse ) {
 
-	var splineTube, binormal, normal, position2;
-	if ( extrudePath ) {
+			vertices = vertices.reverse();
 
-		extrudePts = extrudePath.getSpacedPoints( steps );
+			// Maybe we should also check if holes are in the opposite direction, just to be safe ...
 
-		extrudeByPath = true;
-		bevelEnabled = false; // bevels not supported for path extrusion
+			for ( h = 0, hl = holes.length; h < hl; h ++ ) {
 
-		// SETUP TNB variables
+				ahole = holes[ h ];
 
-		// TODO1 - have a .isClosed in spline?
+				if ( ShapeUtils.isClockWise( ahole ) ) {
 
-		splineTube = options.frames !== undefined ? options.frames : extrudePath.computeFrenetFrames( steps, false );
+					holes[ h ] = ahole.reverse();
 
-		// console.log(splineTube, 'splineTube', splineTube.normals.length, 'steps', steps, 'extrudePts', extrudePts.length);
-
-		binormal = new Vector3();
-		normal = new Vector3();
-		position2 = new Vector3();
-
-	}
-
-	// Safeguards if bevels are not enabled
-
-	if ( ! bevelEnabled ) {
-
-		bevelSegments = 0;
-		bevelThickness = 0;
-		bevelSize = 0;
-
-	}
-
-	// Variables initialization
-
-	var ahole, h, hl; // looping of holes
-	var scope = this;
-
-	var shapePoints = shape.extractPoints( curveSegments );
-
-	var vertices = shapePoints.shape;
-	var holes = shapePoints.holes;
-
-	var reverse = ! ShapeUtils.isClockWise( vertices );
-
-	if ( reverse ) {
-
-		vertices = vertices.reverse();
-
-		// Maybe we should also check if holes are in the opposite direction, just to be safe ...
-
-		for ( h = 0, hl = holes.length; h < hl; h ++ ) {
-
-			ahole = holes[ h ];
-
-			if ( ShapeUtils.isClockWise( ahole ) ) {
-
-				holes[ h ] = ahole.reverse();
+				}
 
 			}
 
 		}
 
-	}
+
+		var faces = ShapeUtils.triangulateShape( vertices, holes );
+
+		/* Vertices */
+
+		var contour = vertices; // vertices has all points but contour has only points of circumference
+
+		for ( h = 0, hl = holes.length; h < hl; h ++ ) {
+
+			ahole = holes[ h ];
+
+			vertices = vertices.concat( ahole );
+
+		}
 
 
-	var faces = ShapeUtils.triangulateShape( vertices, holes );
+		function scalePt2( pt, vec, size ) {
 
-	/* Vertices */
+			if ( ! vec ) console.error( "THREE.ExtrudeGeometry: vec does not exist" );
 
-	var contour = vertices; // vertices has all points but contour has only points of circumference
+			return vec.clone().multiplyScalar( size ).add( pt );
 
-	for ( h = 0, hl = holes.length; h < hl; h ++ ) {
+		}
 
-		ahole = holes[ h ];
-
-		vertices = vertices.concat( ahole );
-
-	}
+		var b, bs, t, z,
+			vert, vlen = vertices.length,
+			face, flen = faces.length;
 
 
-	function scalePt2( pt, vec, size ) {
-
-		if ( ! vec ) console.error( "THREE.ExtrudeGeometry: vec does not exist" );
-
-		return vec.clone().multiplyScalar( size ).add( pt );
-
-	}
-
-	var b, bs, t, z,
-		vert, vlen = vertices.length,
-		face, flen = faces.length;
+		// Find directions for point movement
 
 
-	// Find directions for point movement
+		function getBevelVec( inPt, inPrev, inNext ) {
 
+			// computes for inPt the corresponding point inPt' on a new contour
+			//   shifted by 1 unit (length of normalized vector) to the left
+			// if we walk along contour clockwise, this new contour is outside the old one
+			//
+			// inPt' is the intersection of the two lines parallel to the two
+			//  adjacent edges of inPt at a distance of 1 unit on the left side.
 
-	function getBevelVec( inPt, inPrev, inNext ) {
+			var v_trans_x, v_trans_y, shrink_by; // resulting translation vector for inPt
 
-		// computes for inPt the corresponding point inPt' on a new contour
-		//   shifted by 1 unit (length of normalized vector) to the left
-		// if we walk along contour clockwise, this new contour is outside the old one
-		//
-		// inPt' is the intersection of the two lines parallel to the two
-		//  adjacent edges of inPt at a distance of 1 unit on the left side.
+			// good reading for geometry algorithms (here: line-line intersection)
+			// http://geomalgorithms.com/a05-_intersect-1.html
 
-		var v_trans_x, v_trans_y, shrink_by; // resulting translation vector for inPt
+			var v_prev_x = inPt.x - inPrev.x,
+				v_prev_y = inPt.y - inPrev.y;
+			var v_next_x = inNext.x - inPt.x,
+				v_next_y = inNext.y - inPt.y;
 
-		// good reading for geometry algorithms (here: line-line intersection)
-		// http://geomalgorithms.com/a05-_intersect-1.html
+			var v_prev_lensq = ( v_prev_x * v_prev_x + v_prev_y * v_prev_y );
 
-		var v_prev_x = inPt.x - inPrev.x,
-			v_prev_y = inPt.y - inPrev.y;
-		var v_next_x = inNext.x - inPt.x,
-			v_next_y = inNext.y - inPt.y;
+			// check for collinear edges
+			var collinear0 = ( v_prev_x * v_next_y - v_prev_y * v_next_x );
 
-		var v_prev_lensq = ( v_prev_x * v_prev_x + v_prev_y * v_prev_y );
+			if ( Math.abs( collinear0 ) > Number.EPSILON ) {
 
-		// check for collinear edges
-		var collinear0 = ( v_prev_x * v_next_y - v_prev_y * v_next_x );
+				// not collinear
 
-		if ( Math.abs( collinear0 ) > Number.EPSILON ) {
+				// length of vectors for normalizing
 
-			// not collinear
+				var v_prev_len = Math.sqrt( v_prev_lensq );
+				var v_next_len = Math.sqrt( v_next_x * v_next_x + v_next_y * v_next_y );
 
-			// length of vectors for normalizing
+				// shift adjacent points by unit vectors to the left
 
-			var v_prev_len = Math.sqrt( v_prev_lensq );
-			var v_next_len = Math.sqrt( v_next_x * v_next_x + v_next_y * v_next_y );
+				var ptPrevShift_x = ( inPrev.x - v_prev_y / v_prev_len );
+				var ptPrevShift_y = ( inPrev.y + v_prev_x / v_prev_len );
 
-			// shift adjacent points by unit vectors to the left
+				var ptNextShift_x = ( inNext.x - v_next_y / v_next_len );
+				var ptNextShift_y = ( inNext.y + v_next_x / v_next_len );
 
-			var ptPrevShift_x = ( inPrev.x - v_prev_y / v_prev_len );
-			var ptPrevShift_y = ( inPrev.y + v_prev_x / v_prev_len );
+				// scaling factor for v_prev to intersection point
 
-			var ptNextShift_x = ( inNext.x - v_next_y / v_next_len );
-			var ptNextShift_y = ( inNext.y + v_next_x / v_next_len );
+				var sf = ( ( ptNextShift_x - ptPrevShift_x ) * v_next_y -
+						( ptNextShift_y - ptPrevShift_y ) * v_next_x ) /
+					( v_prev_x * v_next_y - v_prev_y * v_next_x );
 
-			// scaling factor for v_prev to intersection point
+				// vector from inPt to intersection point
 
-			var sf = ( ( ptNextShift_x - ptPrevShift_x ) * v_next_y -
-					( ptNextShift_y - ptPrevShift_y ) * v_next_x ) /
-				( v_prev_x * v_next_y - v_prev_y * v_next_x );
+				v_trans_x = ( ptPrevShift_x + v_prev_x * sf - inPt.x );
+				v_trans_y = ( ptPrevShift_y + v_prev_y * sf - inPt.y );
 
-			// vector from inPt to intersection point
+				// Don't normalize!, otherwise sharp corners become ugly
+				//  but prevent crazy spikes
+				var v_trans_lensq = ( v_trans_x * v_trans_x + v_trans_y * v_trans_y );
+				if ( v_trans_lensq <= 2 ) {
 
-			v_trans_x = ( ptPrevShift_x + v_prev_x * sf - inPt.x );
-			v_trans_y = ( ptPrevShift_y + v_prev_y * sf - inPt.y );
+					return new Vector2( v_trans_x, v_trans_y );
 
-			// Don't normalize!, otherwise sharp corners become ugly
-			//  but prevent crazy spikes
-			var v_trans_lensq = ( v_trans_x * v_trans_x + v_trans_y * v_trans_y );
-			if ( v_trans_lensq <= 2 ) {
+				} else {
 
-				return new Vector2( v_trans_x, v_trans_y );
-
-			} else {
-
-				shrink_by = Math.sqrt( v_trans_lensq / 2 );
-
-			}
-
-		} else {
-
-			// handle special case of collinear edges
-
-			var direction_eq = false; // assumes: opposite
-			if ( v_prev_x > Number.EPSILON ) {
-
-				if ( v_next_x > Number.EPSILON ) {
-
-					direction_eq = true;
+					shrink_by = Math.sqrt( v_trans_lensq / 2 );
 
 				}
 
 			} else {
 
-				if ( v_prev_x < - Number.EPSILON ) {
+				// handle special case of collinear edges
 
-					if ( v_next_x < - Number.EPSILON ) {
+				var direction_eq = false; // assumes: opposite
+				if ( v_prev_x > Number.EPSILON ) {
+
+					if ( v_next_x > Number.EPSILON ) {
 
 						direction_eq = true;
 
@@ -31847,150 +31999,130 @@ ExtrudeBufferGeometry.prototype.addShape = function ( shape, options ) {
 
 				} else {
 
-					if ( Math.sign( v_prev_y ) === Math.sign( v_next_y ) ) {
+					if ( v_prev_x < - Number.EPSILON ) {
 
-						direction_eq = true;
+						if ( v_next_x < - Number.EPSILON ) {
+
+							direction_eq = true;
+
+						}
+
+					} else {
+
+						if ( Math.sign( v_prev_y ) === Math.sign( v_next_y ) ) {
+
+							direction_eq = true;
+
+						}
 
 					}
 
 				}
 
+				if ( direction_eq ) {
+
+					// console.log("Warning: lines are a straight sequence");
+					v_trans_x = - v_prev_y;
+					v_trans_y = v_prev_x;
+					shrink_by = Math.sqrt( v_prev_lensq );
+
+				} else {
+
+					// console.log("Warning: lines are a straight spike");
+					v_trans_x = v_prev_x;
+					v_trans_y = v_prev_y;
+					shrink_by = Math.sqrt( v_prev_lensq / 2 );
+
+				}
+
 			}
 
-			if ( direction_eq ) {
-
-				// console.log("Warning: lines are a straight sequence");
-				v_trans_x = - v_prev_y;
-				v_trans_y = v_prev_x;
-				shrink_by = Math.sqrt( v_prev_lensq );
-
-			} else {
-
-				// console.log("Warning: lines are a straight spike");
-				v_trans_x = v_prev_x;
-				v_trans_y = v_prev_y;
-				shrink_by = Math.sqrt( v_prev_lensq / 2 );
-
-			}
+			return new Vector2( v_trans_x / shrink_by, v_trans_y / shrink_by );
 
 		}
 
-		return new Vector2( v_trans_x / shrink_by, v_trans_y / shrink_by );
 
-	}
+		var contourMovements = [];
 
-
-	var contourMovements = [];
-
-	for ( var i = 0, il = contour.length, j = il - 1, k = i + 1; i < il; i ++, j ++, k ++ ) {
-
-		if ( j === il ) j = 0;
-		if ( k === il ) k = 0;
-
-		//  (j)---(i)---(k)
-		// console.log('i,j,k', i, j , k)
-
-		contourMovements[ i ] = getBevelVec( contour[ i ], contour[ j ], contour[ k ] );
-
-	}
-
-	var holesMovements = [],
-		oneHoleMovements, verticesMovements = contourMovements.concat();
-
-	for ( h = 0, hl = holes.length; h < hl; h ++ ) {
-
-		ahole = holes[ h ];
-
-		oneHoleMovements = [];
-
-		for ( i = 0, il = ahole.length, j = il - 1, k = i + 1; i < il; i ++, j ++, k ++ ) {
+		for ( var i = 0, il = contour.length, j = il - 1, k = i + 1; i < il; i ++, j ++, k ++ ) {
 
 			if ( j === il ) j = 0;
 			if ( k === il ) k = 0;
 
 			//  (j)---(i)---(k)
-			oneHoleMovements[ i ] = getBevelVec( ahole[ i ], ahole[ j ], ahole[ k ] );
+			// console.log('i,j,k', i, j , k)
+
+			contourMovements[ i ] = getBevelVec( contour[ i ], contour[ j ], contour[ k ] );
 
 		}
 
-		holesMovements.push( oneHoleMovements );
-		verticesMovements = verticesMovements.concat( oneHoleMovements );
-
-	}
-
-
-	// Loop bevelSegments, 1 for the front, 1 for the back
-
-	for ( b = 0; b < bevelSegments; b ++ ) {
-
-		//for ( b = bevelSegments; b > 0; b -- ) {
-
-		t = b / bevelSegments;
-		z = bevelThickness * Math.cos( t * Math.PI / 2 );
-		bs = bevelSize * Math.sin( t * Math.PI / 2 );
-
-		// contract shape
-
-		for ( i = 0, il = contour.length; i < il; i ++ ) {
-
-			vert = scalePt2( contour[ i ], contourMovements[ i ], bs );
-
-			v( vert.x, vert.y, - z );
-
-		}
-
-		// expand holes
+		var holesMovements = [],
+			oneHoleMovements, verticesMovements = contourMovements.concat();
 
 		for ( h = 0, hl = holes.length; h < hl; h ++ ) {
 
 			ahole = holes[ h ];
-			oneHoleMovements = holesMovements[ h ];
 
-			for ( i = 0, il = ahole.length; i < il; i ++ ) {
+			oneHoleMovements = [];
 
-				vert = scalePt2( ahole[ i ], oneHoleMovements[ i ], bs );
+			for ( i = 0, il = ahole.length, j = il - 1, k = i + 1; i < il; i ++, j ++, k ++ ) {
+
+				if ( j === il ) j = 0;
+				if ( k === il ) k = 0;
+
+				//  (j)---(i)---(k)
+				oneHoleMovements[ i ] = getBevelVec( ahole[ i ], ahole[ j ], ahole[ k ] );
+
+			}
+
+			holesMovements.push( oneHoleMovements );
+			verticesMovements = verticesMovements.concat( oneHoleMovements );
+
+		}
+
+
+		// Loop bevelSegments, 1 for the front, 1 for the back
+
+		for ( b = 0; b < bevelSegments; b ++ ) {
+
+			//for ( b = bevelSegments; b > 0; b -- ) {
+
+			t = b / bevelSegments;
+			z = bevelThickness * Math.cos( t * Math.PI / 2 );
+			bs = bevelSize * Math.sin( t * Math.PI / 2 );
+
+			// contract shape
+
+			for ( i = 0, il = contour.length; i < il; i ++ ) {
+
+				vert = scalePt2( contour[ i ], contourMovements[ i ], bs );
 
 				v( vert.x, vert.y, - z );
 
 			}
 
-		}
+			// expand holes
 
-	}
+			for ( h = 0, hl = holes.length; h < hl; h ++ ) {
 
-	bs = bevelSize;
+				ahole = holes[ h ];
+				oneHoleMovements = holesMovements[ h ];
 
-	// Back facing vertices
+				for ( i = 0, il = ahole.length; i < il; i ++ ) {
 
-	for ( i = 0; i < vlen; i ++ ) {
+					vert = scalePt2( ahole[ i ], oneHoleMovements[ i ], bs );
 
-		vert = bevelEnabled ? scalePt2( vertices[ i ], verticesMovements[ i ], bs ) : vertices[ i ];
+					v( vert.x, vert.y, - z );
 
-		if ( ! extrudeByPath ) {
+				}
 
-			v( vert.x, vert.y, 0 );
-
-		} else {
-
-			// v( vert.x, vert.y + extrudePts[ 0 ].y, extrudePts[ 0 ].x );
-
-			normal.copy( splineTube.normals[ 0 ] ).multiplyScalar( vert.x );
-			binormal.copy( splineTube.binormals[ 0 ] ).multiplyScalar( vert.y );
-
-			position2.copy( extrudePts[ 0 ] ).add( normal ).add( binormal );
-
-			v( position2.x, position2.y, position2.z );
+			}
 
 		}
 
-	}
+		bs = bevelSize;
 
-	// Add stepped vertices...
-	// Including front facing vertices
-
-	var s;
-
-	for ( s = 1; s <= steps; s ++ ) {
+		// Back facing vertices
 
 		for ( i = 0; i < vlen; i ++ ) {
 
@@ -31998,16 +32130,16 @@ ExtrudeBufferGeometry.prototype.addShape = function ( shape, options ) {
 
 			if ( ! extrudeByPath ) {
 
-				v( vert.x, vert.y, amount / steps * s );
+				v( vert.x, vert.y, 0 );
 
 			} else {
 
-				// v( vert.x, vert.y + extrudePts[ s - 1 ].y, extrudePts[ s - 1 ].x );
+				// v( vert.x, vert.y + extrudePts[ 0 ].y, extrudePts[ 0 ].x );
 
-				normal.copy( splineTube.normals[ s ] ).multiplyScalar( vert.x );
-				binormal.copy( splineTube.binormals[ s ] ).multiplyScalar( vert.y );
+				normal.copy( splineTube.normals[ 0 ] ).multiplyScalar( vert.x );
+				binormal.copy( splineTube.binormals[ 0 ] ).multiplyScalar( vert.y );
 
-				position2.copy( extrudePts[ s ] ).add( normal ).add( binormal );
+				position2.copy( extrudePts[ 0 ] ).add( normal ).add( binormal );
 
 				v( position2.x, position2.y, position2.z );
 
@@ -32015,45 +32147,31 @@ ExtrudeBufferGeometry.prototype.addShape = function ( shape, options ) {
 
 		}
 
-	}
+		// Add stepped vertices...
+		// Including front facing vertices
 
+		var s;
 
-	// Add bevel segments planes
+		for ( s = 1; s <= steps; s ++ ) {
 
-	//for ( b = 1; b <= bevelSegments; b ++ ) {
-	for ( b = bevelSegments - 1; b >= 0; b -- ) {
+			for ( i = 0; i < vlen; i ++ ) {
 
-		t = b / bevelSegments;
-		z = bevelThickness * Math.cos( t * Math.PI / 2 );
-		bs = bevelSize * Math.sin( t * Math.PI / 2 );
-
-		// contract shape
-
-		for ( i = 0, il = contour.length; i < il; i ++ ) {
-
-			vert = scalePt2( contour[ i ], contourMovements[ i ], bs );
-			v( vert.x, vert.y, amount + z );
-
-		}
-
-		// expand holes
-
-		for ( h = 0, hl = holes.length; h < hl; h ++ ) {
-
-			ahole = holes[ h ];
-			oneHoleMovements = holesMovements[ h ];
-
-			for ( i = 0, il = ahole.length; i < il; i ++ ) {
-
-				vert = scalePt2( ahole[ i ], oneHoleMovements[ i ], bs );
+				vert = bevelEnabled ? scalePt2( vertices[ i ], verticesMovements[ i ], bs ) : vertices[ i ];
 
 				if ( ! extrudeByPath ) {
 
-					v( vert.x, vert.y, amount + z );
+					v( vert.x, vert.y, amount / steps * s );
 
 				} else {
 
-					v( vert.x, vert.y + extrudePts[ steps - 1 ].y, extrudePts[ steps - 1 ].x + z );
+					// v( vert.x, vert.y + extrudePts[ s - 1 ].y, extrudePts[ s - 1 ].x );
+
+					normal.copy( splineTube.normals[ s ] ).multiplyScalar( vert.x );
+					binormal.copy( splineTube.binormals[ s ] ).multiplyScalar( vert.y );
+
+					position2.copy( extrudePts[ s ] ).add( normal ).add( binormal );
+
+					v( position2.x, position2.y, position2.z );
 
 				}
 
@@ -32061,212 +32179,252 @@ ExtrudeBufferGeometry.prototype.addShape = function ( shape, options ) {
 
 		}
 
-	}
 
-	/* Faces */
+		// Add bevel segments planes
 
-	// Top and bottom faces
+		//for ( b = 1; b <= bevelSegments; b ++ ) {
+		for ( b = bevelSegments - 1; b >= 0; b -- ) {
 
-	buildLidFaces();
+			t = b / bevelSegments;
+			z = bevelThickness * Math.cos( t * Math.PI / 2 );
+			bs = bevelSize * Math.sin( t * Math.PI / 2 );
 
-	// Sides faces
+			// contract shape
 
-	buildSideFaces();
+			for ( i = 0, il = contour.length; i < il; i ++ ) {
 
-
-	/////  Internal functions
-
-	function buildLidFaces() {
-
-		var start = verticesArray.length / 3;
-
-		if ( bevelEnabled ) {
-
-			var layer = 0; // steps + 1
-			var offset = vlen * layer;
-
-			// Bottom faces
-
-			for ( i = 0; i < flen; i ++ ) {
-
-				face = faces[ i ];
-				f3( face[ 2 ] + offset, face[ 1 ] + offset, face[ 0 ] + offset );
+				vert = scalePt2( contour[ i ], contourMovements[ i ], bs );
+				v( vert.x, vert.y, amount + z );
 
 			}
 
-			layer = steps + bevelSegments * 2;
-			offset = vlen * layer;
+			// expand holes
 
-			// Top faces
+			for ( h = 0, hl = holes.length; h < hl; h ++ ) {
 
-			for ( i = 0; i < flen; i ++ ) {
+				ahole = holes[ h ];
+				oneHoleMovements = holesMovements[ h ];
 
-				face = faces[ i ];
-				f3( face[ 0 ] + offset, face[ 1 ] + offset, face[ 2 ] + offset );
+				for ( i = 0, il = ahole.length; i < il; i ++ ) {
 
-			}
+					vert = scalePt2( ahole[ i ], oneHoleMovements[ i ], bs );
 
-		} else {
+					if ( ! extrudeByPath ) {
 
-			// Bottom faces
+						v( vert.x, vert.y, amount + z );
 
-			for ( i = 0; i < flen; i ++ ) {
+					} else {
 
-				face = faces[ i ];
-				f3( face[ 2 ], face[ 1 ], face[ 0 ] );
+						v( vert.x, vert.y + extrudePts[ steps - 1 ].y, extrudePts[ steps - 1 ].x + z );
 
-			}
+					}
 
-			// Top faces
-
-			for ( i = 0; i < flen; i ++ ) {
-
-				face = faces[ i ];
-				f3( face[ 0 ] + vlen * steps, face[ 1 ] + vlen * steps, face[ 2 ] + vlen * steps );
+				}
 
 			}
 
 		}
 
-		scope.addGroup( start, verticesArray.length / 3 - start, 0 );
+		/* Faces */
 
-	}
+		// Top and bottom faces
 
-	// Create faces for the z-sides of the shape
+		buildLidFaces();
 
-	function buildSideFaces() {
+		// Sides faces
 
-		var start = verticesArray.length / 3;
-		var layeroffset = 0;
-		sidewalls( contour, layeroffset );
-		layeroffset += contour.length;
+		buildSideFaces();
 
-		for ( h = 0, hl = holes.length; h < hl; h ++ ) {
 
-			ahole = holes[ h ];
-			sidewalls( ahole, layeroffset );
+		/////  Internal functions
 
-			//, true
-			layeroffset += ahole.length;
+		function buildLidFaces() {
+
+			var start = verticesArray.length / 3;
+
+			if ( bevelEnabled ) {
+
+				var layer = 0; // steps + 1
+				var offset = vlen * layer;
+
+				// Bottom faces
+
+				for ( i = 0; i < flen; i ++ ) {
+
+					face = faces[ i ];
+					f3( face[ 2 ] + offset, face[ 1 ] + offset, face[ 0 ] + offset );
+
+				}
+
+				layer = steps + bevelSegments * 2;
+				offset = vlen * layer;
+
+				// Top faces
+
+				for ( i = 0; i < flen; i ++ ) {
+
+					face = faces[ i ];
+					f3( face[ 0 ] + offset, face[ 1 ] + offset, face[ 2 ] + offset );
+
+				}
+
+			} else {
+
+				// Bottom faces
+
+				for ( i = 0; i < flen; i ++ ) {
+
+					face = faces[ i ];
+					f3( face[ 2 ], face[ 1 ], face[ 0 ] );
+
+				}
+
+				// Top faces
+
+				for ( i = 0; i < flen; i ++ ) {
+
+					face = faces[ i ];
+					f3( face[ 0 ] + vlen * steps, face[ 1 ] + vlen * steps, face[ 2 ] + vlen * steps );
+
+				}
+
+			}
+
+			scope.addGroup( start, verticesArray.length / 3 - start, 0 );
 
 		}
 
+		// Create faces for the z-sides of the shape
 
-		scope.addGroup( start, verticesArray.length / 3 - start, 1 );
+		function buildSideFaces() {
+
+			var start = verticesArray.length / 3;
+			var layeroffset = 0;
+			sidewalls( contour, layeroffset );
+			layeroffset += contour.length;
+
+			for ( h = 0, hl = holes.length; h < hl; h ++ ) {
+
+				ahole = holes[ h ];
+				sidewalls( ahole, layeroffset );
+
+				//, true
+				layeroffset += ahole.length;
+
+			}
 
 
-	}
+			scope.addGroup( start, verticesArray.length / 3 - start, 1 );
 
-	function sidewalls( contour, layeroffset ) {
 
-		var j, k;
-		i = contour.length;
+		}
 
-		while ( -- i >= 0 ) {
+		function sidewalls( contour, layeroffset ) {
 
-			j = i;
-			k = i - 1;
-			if ( k < 0 ) k = contour.length - 1;
+			var j, k;
+			i = contour.length;
 
-			//console.log('b', i,j, i-1, k,vertices.length);
+			while ( -- i >= 0 ) {
 
-			var s = 0,
-				sl = steps + bevelSegments * 2;
+				j = i;
+				k = i - 1;
+				if ( k < 0 ) k = contour.length - 1;
 
-			for ( s = 0; s < sl; s ++ ) {
+				//console.log('b', i,j, i-1, k,vertices.length);
 
-				var slen1 = vlen * s;
-				var slen2 = vlen * ( s + 1 );
+				var s = 0,
+					sl = steps + bevelSegments * 2;
 
-				var a = layeroffset + j + slen1,
-					b = layeroffset + k + slen1,
-					c = layeroffset + k + slen2,
-					d = layeroffset + j + slen2;
+				for ( s = 0; s < sl; s ++ ) {
 
-				f4( a, b, c, d );
+					var slen1 = vlen * s;
+					var slen2 = vlen * ( s + 1 );
+
+					var a = layeroffset + j + slen1,
+						b = layeroffset + k + slen1,
+						c = layeroffset + k + slen2,
+						d = layeroffset + j + slen2;
+
+					f4( a, b, c, d );
+
+				}
 
 			}
 
 		}
 
-	}
+		function v( x, y, z ) {
 
-	function v( x, y, z ) {
+			placeholder.push( x );
+			placeholder.push( y );
+			placeholder.push( z );
 
-		placeholder.push( x );
-		placeholder.push( y );
-		placeholder.push( z );
-
-	}
+		}
 
 
-	function f3( a, b, c ) {
+		function f3( a, b, c ) {
 
-		addVertex( a );
-		addVertex( b );
-		addVertex( c );
+			addVertex( a );
+			addVertex( b );
+			addVertex( c );
 
-		var nextIndex = verticesArray.length / 3;
-		var uvs = uvgen.generateTopUV( scope, verticesArray, nextIndex - 3, nextIndex - 2, nextIndex - 1 );
+			var nextIndex = verticesArray.length / 3;
+			var uvs = uvgen.generateTopUV( scope, verticesArray, nextIndex - 3, nextIndex - 2, nextIndex - 1 );
 
-		addUV( uvs[ 0 ] );
-		addUV( uvs[ 1 ] );
-		addUV( uvs[ 2 ] );
+			addUV( uvs[ 0 ] );
+			addUV( uvs[ 1 ] );
+			addUV( uvs[ 2 ] );
 
-	}
+		}
 
-	function f4( a, b, c, d ) {
+		function f4( a, b, c, d ) {
 
-		addVertex( a );
-		addVertex( b );
-		addVertex( d );
+			addVertex( a );
+			addVertex( b );
+			addVertex( d );
 
-		addVertex( b );
-		addVertex( c );
-		addVertex( d );
-
-
-		var nextIndex = verticesArray.length / 3;
-		var uvs = uvgen.generateSideWallUV( scope, verticesArray, nextIndex - 6, nextIndex - 3, nextIndex - 2, nextIndex - 1 );
-
-		addUV( uvs[ 0 ] );
-		addUV( uvs[ 1 ] );
-		addUV( uvs[ 3 ] );
-
-		addUV( uvs[ 1 ] );
-		addUV( uvs[ 2 ] );
-		addUV( uvs[ 3 ] );
-
-	}
-
-	function addVertex( index ) {
-
-		indicesArray.push( verticesArray.length / 3 );
-		verticesArray.push( placeholder[ index * 3 + 0 ] );
-		verticesArray.push( placeholder[ index * 3 + 1 ] );
-		verticesArray.push( placeholder[ index * 3 + 2 ] );
-
-	}
+			addVertex( b );
+			addVertex( c );
+			addVertex( d );
 
 
-	function addUV( vector2 ) {
+			var nextIndex = verticesArray.length / 3;
+			var uvs = uvgen.generateSideWallUV( scope, verticesArray, nextIndex - 6, nextIndex - 3, nextIndex - 2, nextIndex - 1 );
 
-		uvArray.push( vector2.x );
-		uvArray.push( vector2.y );
+			addUV( uvs[ 0 ] );
+			addUV( uvs[ 1 ] );
+			addUV( uvs[ 3 ] );
 
-	}
+			addUV( uvs[ 1 ] );
+			addUV( uvs[ 2 ] );
+			addUV( uvs[ 3 ] );
 
-	if ( ! options.arrays ) {
+		}
 
-		this.setIndex( indicesArray );
-		this.addAttribute( 'position', new Float32BufferAttribute( verticesArray, 3 ) );
-		this.addAttribute( 'uv', new Float32BufferAttribute( uvArray, 2 ) );
+		function addVertex( index ) {
+
+			verticesArray.push( placeholder[ index * 3 + 0 ] );
+			verticesArray.push( placeholder[ index * 3 + 1 ] );
+			verticesArray.push( placeholder[ index * 3 + 2 ] );
+
+		}
+
+
+		function addUV( vector2 ) {
+
+			uvArray.push( vector2.x );
+			uvArray.push( vector2.y );
+
+		}
 
 	}
 
-};
+}
 
-ExtrudeGeometry.WorldUVGenerator = {
+ExtrudeBufferGeometry.prototype = Object.create( BufferGeometry.prototype );
+ExtrudeBufferGeometry.prototype.constructor = ExtrudeBufferGeometry;
+
+var WorldUVGenerator = {
 
 	generateTopUV: function ( geometry, vertices, indexA, indexB, indexC ) {
 
@@ -36046,7 +36204,7 @@ CatmullRomCurve3.prototype.getPoint = function ( t, optionalTarget ) {
 
 	if ( this.closed ) {
 
-		intPoint += intPoint > 0 ? 0 : ( Math.floor( Math.abs( intPoint ) / points.length ) + 1 ) * points.length;
+		intPoint += intPoint > 0 ? 0 : ( Math.floor( Math.abs( intPoint ) / l ) + 1 ) * l;
 
 	} else if ( weight === 0 && intPoint === l - 1 ) {
 
@@ -40130,13 +40288,11 @@ var LoaderUtils = {
 
 	extractUrlBase: function ( url ) {
 
-		var parts = url.split( '/' );
+		var index = url.lastIndexOf( '/' );
 
-		if ( parts.length === 1 ) return './';
+		if ( index === - 1 ) return './';
 
-		parts.pop();
-
-		return parts.join( '/' ) + '/';
+		return url.substr( 0, index + 1 );
 
 	}
 
@@ -41005,9 +41161,9 @@ Object.assign( ObjectLoader.prototype, {
 
 						var geometryShapes = [];
 
-						for ( var i = 0, l = data.shapes.length; i < l; i ++ ) {
+						for ( var j = 0, jl = data.shapes.length; j < jl; j ++ ) {
 
-							var shape = shapes[ data.shapes[ i ] ];
+							var shape = shapes[ data.shapes[ j ] ];
 
 							geometryShapes.push( shape );
 
@@ -41440,10 +41596,13 @@ Object.assign( ObjectLoader.prototype, {
 		object.uuid = data.uuid;
 
 		if ( data.name !== undefined ) object.name = data.name;
+
 		if ( data.matrix !== undefined ) {
 
 			object.matrix.fromArray( data.matrix );
-			object.matrix.decompose( object.position, object.quaternion, object.scale );
+
+			if ( data.matrixAutoUpdate !== undefined ) object.matrixAutoUpdate = data.matrixAutoUpdate;
+			if ( object.matrixAutoUpdate ) object.matrix.decompose( object.position, object.quaternion, object.scale );
 
 		} else {
 
@@ -41645,6 +41804,8 @@ ImageBitmapLoader.prototype = {
 function ShapePath() {
 
 	this.type = 'ShapePath';
+
+	this.color = new Color();
 
 	this.subPaths = [];
 	this.currentPath = null;
@@ -42444,7 +42605,7 @@ AudioListener.prototype = Object.assign( Object.create( Object3D.prototype ), {
 
 	setMasterVolume: function ( value ) {
 
-		this.gain.gain.value = value;
+		this.gain.gain.setTargetAtTime( value, this.context.currentTime, 0.01 );
 
 	},
 
@@ -42787,7 +42948,7 @@ Audio.prototype = Object.assign( Object.create( Object3D.prototype ), {
 
 	setVolume: function ( value ) {
 
-		this.gain.gain.value = value;
+		this.gain.gain.setTargetAtTime( value, this.context.currentTime, 0.01 );
 
 		return this;
 
@@ -45887,6 +46048,8 @@ Object.assign( InterleavedBuffer.prototype, {
 
 		this.count = array !== undefined ? array.length / this.stride : 0;
 		this.array = array;
+
+		return this;
 
 	},
 
@@ -49202,6 +49365,30 @@ Object.defineProperties( BufferGeometry.prototype, {
 
 //
 
+Object.assign( ExtrudeBufferGeometry.prototype, {
+
+	getArrays: function () {
+
+		console.error( 'THREE.ExtrudeBufferGeometry: .getArrays() has been removed.' );
+
+	},
+
+	addShapeList: function () {
+
+		console.error( 'THREE.ExtrudeBufferGeometry: .addShapeList() has been removed.' );
+
+	},
+
+	addShape: function () {
+
+		console.error( 'THREE.ExtrudeBufferGeometry: .addShape() has been removed.' );
+
+	}
+
+} );
+
+//
+
 Object.defineProperties( Uniform.prototype, {
 
 	dynamic: {
@@ -49848,214 +50035,6 @@ function LensFlare() {
 }
 
 
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)))
-
-/***/ }),
-/* 39 */,
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var redefine = __webpack_require__(16);
-module.exports = function (target, src, safe) {
-  for (var key in src) redefine(target, key, src[key], safe);
-  return target;
-};
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ctx = __webpack_require__(24);
-var call = __webpack_require__(183);
-var isArrayIter = __webpack_require__(108);
-var anObject = __webpack_require__(4);
-var toLength = __webpack_require__(9);
-var getIterFn = __webpack_require__(106);
-var BREAK = {};
-var RETURN = {};
-var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
-  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
-  var f = ctx(fn, that, entries ? 2 : 1);
-  var index = 0;
-  var length, step, iterator, result;
-  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
-  // fast case for arrays with default iterator
-  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
-    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-    if (result === BREAK || result === RETURN) return result;
-  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
-    result = call(iterator, f, step.value, entries);
-    if (result === BREAK || result === RETURN) return result;
-  }
-};
-exports.BREAK = BREAK;
-exports.RETURN = RETURN;
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-module.exports = function (it, Constructor, name, forbiddenField) {
-  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
-    throw TypeError(name + ': incorrect invocation!');
-  } return it;
-};
-
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var global = __webpack_require__(5);
-var dP = __webpack_require__(10);
-var DESCRIPTORS = __webpack_require__(11);
-var SPECIES = __webpack_require__(8)('species');
-
-module.exports = function (KEY) {
-  var C = global[KEY];
-  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
-    configurable: true,
-    get: function () { return this; }
-  });
-};
-
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(195);
-var hiddenKeys = __webpack_require__(121).concat('length', 'prototype');
-
-exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
-  return $keys(O, hiddenKeys);
-};
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(4);
-var dPs = __webpack_require__(194);
-var enumBugKeys = __webpack_require__(121);
-var IE_PROTO = __webpack_require__(122)('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(124)('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  __webpack_require__(120).appendChild(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__(28);
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(195);
-var enumBugKeys = __webpack_require__(121);
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports) {
-
-module.exports = false;
-
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports) {
-
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports) {
-
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var freeGlobal = __webpack_require__(154);
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-module.exports = root;
 
 
 /***/ }),
@@ -51074,7 +51053,7 @@ var canUseDOM = exports.canUseDOM = function canUseDOM() {
 /* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isKeyable = __webpack_require__(318);
+var isKeyable = __webpack_require__(319);
 
 /**
  * Gets the data for `map`.
@@ -51111,8 +51090,8 @@ module.exports = nativeCreate;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(155),
-    getRawTag = __webpack_require__(333),
-    objectToString = __webpack_require__(332);
+    getRawTag = __webpack_require__(334),
+    objectToString = __webpack_require__(333);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -51214,11 +51193,11 @@ module.exports = assocIndexOf;
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var listCacheClear = __webpack_require__(344),
-    listCacheDelete = __webpack_require__(343),
-    listCacheGet = __webpack_require__(342),
-    listCacheHas = __webpack_require__(341),
-    listCacheSet = __webpack_require__(340);
+var listCacheClear = __webpack_require__(345),
+    listCacheDelete = __webpack_require__(344),
+    listCacheGet = __webpack_require__(343),
+    listCacheHas = __webpack_require__(342),
+    listCacheSet = __webpack_require__(341);
 
 /**
  * Creates an list cache object.
@@ -51259,7 +51238,7 @@ module.exports = ListCache;
 var $export = __webpack_require__(0);
 var aFunction = __webpack_require__(14);
 var ctx = __webpack_require__(24);
-var forOf = __webpack_require__(41);
+var forOf = __webpack_require__(40);
 
 module.exports = function (COLLECTION) {
   $export($export.S, COLLECTION, { from: function from(source /* , mapFn, thisArg */) {
@@ -51310,7 +51289,7 @@ module.exports = function (COLLECTION) {
 "use strict";
 
 // Forced replacement prototype accessors methods
-module.exports = __webpack_require__(48) || !__webpack_require__(6)(function () {
+module.exports = __webpack_require__(47) || !__webpack_require__(6)(function () {
   var K = Math.random();
   // In FF throws only define methods
   // eslint-disable-next-line no-undef, no-useless-call
@@ -51325,7 +51304,7 @@ module.exports = __webpack_require__(48) || !__webpack_require__(6)(function () 
 
 var global = __webpack_require__(5);
 var hide = __webpack_require__(17);
-var uid = __webpack_require__(49);
+var uid = __webpack_require__(48);
 var TYPED = uid('typed_array');
 var VIEW = uid('view');
 var ABV = !!(global.ArrayBuffer && global.DataView);
@@ -51362,10 +51341,10 @@ module.exports = {
 var global = __webpack_require__(5);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(16);
-var redefineAll = __webpack_require__(40);
-var meta = __webpack_require__(36);
-var forOf = __webpack_require__(41);
-var anInstance = __webpack_require__(42);
+var redefineAll = __webpack_require__(39);
+var meta = __webpack_require__(37);
+var forOf = __webpack_require__(40);
+var anInstance = __webpack_require__(41);
 var isObject = __webpack_require__(7);
 var fails = __webpack_require__(6);
 var $iterDetect = __webpack_require__(80);
@@ -51583,7 +51562,7 @@ exports.f = Object.getOwnPropertySymbols;
 // true  -> Array#includes
 var toIObject = __webpack_require__(21);
 var toLength = __webpack_require__(9);
-var toAbsoluteIndex = __webpack_require__(46);
+var toAbsoluteIndex = __webpack_require__(45);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -51745,7 +51724,7 @@ module.exports = baseAssignValue;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(67),
-    isObject = __webpack_require__(37);
+    isObject = __webpack_require__(38);
 
 /** `Object#toString` result references. */
 var asyncTag = '[object AsyncFunction]',
@@ -51787,8 +51766,8 @@ module.exports = isFunction;
 /* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsNative = __webpack_require__(334),
-    getValue = __webpack_require__(328);
+var baseIsNative = __webpack_require__(335),
+    getValue = __webpack_require__(329);
 
 /**
  * Gets the native function at `key` of `object`.
@@ -52041,16 +52020,16 @@ module.exports = navigator && navigator.userAgent || '';
 
 var global = __webpack_require__(5);
 var DESCRIPTORS = __webpack_require__(11);
-var LIBRARY = __webpack_require__(48);
+var LIBRARY = __webpack_require__(47);
 var $typed = __webpack_require__(75);
 var hide = __webpack_require__(17);
-var redefineAll = __webpack_require__(40);
+var redefineAll = __webpack_require__(39);
 var fails = __webpack_require__(6);
-var anInstance = __webpack_require__(42);
+var anInstance = __webpack_require__(41);
 var toInteger = __webpack_require__(28);
 var toLength = __webpack_require__(9);
 var toIndex = __webpack_require__(171);
-var gOPN = __webpack_require__(44).f;
+var gOPN = __webpack_require__(43).f;
 var dP = __webpack_require__(10).f;
 var arrayFill = __webpack_require__(104);
 var setToStringTag = __webpack_require__(56);
@@ -52511,7 +52490,7 @@ module.exports = {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(35);
+var addToUnscopables = __webpack_require__(36);
 var step = __webpack_require__(180);
 var Iterators = __webpack_require__(54);
 var toIObject = __webpack_require__(21);
@@ -52554,7 +52533,7 @@ addToUnscopables('entries');
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 
 var toObject = __webpack_require__(13);
-var toAbsoluteIndex = __webpack_require__(46);
+var toAbsoluteIndex = __webpack_require__(45);
 var toLength = __webpack_require__(9);
 module.exports = function fill(value /* , start = 0, end = @length */) {
   var O = toObject(this);
@@ -52601,7 +52580,7 @@ module.exports = __webpack_require__(31).getIteratorMethod = function (it) {
 "use strict";
 
 var $defineProperty = __webpack_require__(10);
-var createDesc = __webpack_require__(50);
+var createDesc = __webpack_require__(49);
 
 module.exports = function (object, index, value) {
   if (index in object) $defineProperty.f(object, index, createDesc(0, value));
@@ -52661,8 +52640,8 @@ module.exports = function (that, searchString, NAME) {
 
 "use strict";
 
-var create = __webpack_require__(45);
-var descriptor = __webpack_require__(50);
+var create = __webpack_require__(44);
+var descriptor = __webpack_require__(49);
 var setToStringTag = __webpack_require__(56);
 var IteratorPrototype = {};
 
@@ -52681,7 +52660,7 @@ module.exports = function (Constructor, NAME, next) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(48);
+var LIBRARY = __webpack_require__(47);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(16);
 var hide = __webpack_require__(17);
@@ -52898,7 +52877,7 @@ module.exports = (
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(85)('keys');
-var uid = __webpack_require__(49);
+var uid = __webpack_require__(48);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
@@ -52910,7 +52889,7 @@ module.exports = function (key) {
 
 var global = __webpack_require__(5);
 var core = __webpack_require__(31);
-var LIBRARY = __webpack_require__(48);
+var LIBRARY = __webpack_require__(47);
 var wksExt = __webpack_require__(196);
 var defineProperty = __webpack_require__(10).f;
 module.exports = function (name) {
@@ -53371,7 +53350,7 @@ exports.default = createBrowserHistory;
 /* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var wrappy = __webpack_require__(222)
+var wrappy = __webpack_require__(223)
 module.exports = wrappy(once)
 module.exports.strict = wrappy(onceStrict)
 
@@ -54090,8 +54069,8 @@ module.exports = isIndex;
 /* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeKeys = __webpack_require__(293),
-    baseKeysIn = __webpack_require__(291),
+var arrayLikeKeys = __webpack_require__(294),
+    baseKeysIn = __webpack_require__(292),
     isArrayLike = __webpack_require__(90);
 
 /**
@@ -54149,9 +54128,9 @@ module.exports = safeGet;
 /* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsTypedArray = __webpack_require__(299),
-    baseUnary = __webpack_require__(298),
-    nodeUtil = __webpack_require__(297);
+var baseIsTypedArray = __webpack_require__(300),
+    baseUnary = __webpack_require__(299),
+    nodeUtil = __webpack_require__(298);
 
 /* Node.js helper references. */
 var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -54182,8 +54161,8 @@ module.exports = isTypedArray;
 /* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(51),
-    stubFalse = __webpack_require__(301);
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(50),
+    stubFalse = __webpack_require__(302);
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -54300,7 +54279,7 @@ module.exports = isArray;
 /* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsArguments = __webpack_require__(303),
+var baseIsArguments = __webpack_require__(304),
     isObjectLike = __webpack_require__(57);
 
 /** Used for built-in method references. */
@@ -54366,7 +54345,7 @@ module.exports = isPrototype;
 /* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var overArg = __webpack_require__(304);
+var overArg = __webpack_require__(305);
 
 /** Built-in value references. */
 var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -54432,7 +54411,7 @@ module.exports = freeGlobal;
 /* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(51);
+var root = __webpack_require__(50);
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
@@ -54445,7 +54424,7 @@ module.exports = Symbol;
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(94),
-    root = __webpack_require__(51);
+    root = __webpack_require__(50);
 
 /* Built-in method references that are verified to be native. */
 var Map = getNative(root, 'Map');
@@ -54473,7 +54452,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ChildMapping = __webpack_require__(364);
+var _ChildMapping = __webpack_require__(365);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55414,7 +55393,7 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 /* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var forOf = __webpack_require__(41);
+var forOf = __webpack_require__(40);
 
 module.exports = function (iter, ITERATOR) {
   var result = [];
@@ -55442,7 +55421,7 @@ module.exports = function (NAME) {
 /* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getKeys = __webpack_require__(47);
+var getKeys = __webpack_require__(46);
 var toIObject = __webpack_require__(21);
 var isEnum = __webpack_require__(61).f;
 module.exports = function (isEntries) {
@@ -55533,7 +55512,7 @@ module.exports = flattenIntoArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 // all object keys, includes non-enumerable and symbols
-var gOPN = __webpack_require__(44);
+var gOPN = __webpack_require__(43);
 var gOPS = __webpack_require__(83);
 var anObject = __webpack_require__(4);
 var Reflect = __webpack_require__(5).Reflect;
@@ -55566,12 +55545,12 @@ module.exports = function (it) {
 
 "use strict";
 
-var redefineAll = __webpack_require__(40);
-var getWeak = __webpack_require__(36).getWeak;
+var redefineAll = __webpack_require__(39);
+var getWeak = __webpack_require__(37).getWeak;
 var anObject = __webpack_require__(4);
 var isObject = __webpack_require__(7);
-var anInstance = __webpack_require__(42);
-var forOf = __webpack_require__(41);
+var anInstance = __webpack_require__(41);
+var forOf = __webpack_require__(40);
 var createArrayMethod = __webpack_require__(26);
 var $has = __webpack_require__(18);
 var validate = __webpack_require__(53);
@@ -55660,7 +55639,7 @@ module.exports = {
 
 var each = __webpack_require__(26)(0);
 var redefine = __webpack_require__(16);
-var meta = __webpack_require__(36);
+var meta = __webpack_require__(37);
 var assign = __webpack_require__(192);
 var weak = __webpack_require__(172);
 var isObject = __webpack_require__(7);
@@ -55746,16 +55725,16 @@ module.exports = __webpack_require__(76)(SET, function (get) {
 "use strict";
 
 var dP = __webpack_require__(10).f;
-var create = __webpack_require__(45);
-var redefineAll = __webpack_require__(40);
+var create = __webpack_require__(44);
+var redefineAll = __webpack_require__(39);
 var ctx = __webpack_require__(24);
-var anInstance = __webpack_require__(42);
-var forOf = __webpack_require__(41);
+var anInstance = __webpack_require__(41);
+var forOf = __webpack_require__(40);
 var $iterDefine = __webpack_require__(112);
 var step = __webpack_require__(180);
-var setSpecies = __webpack_require__(43);
+var setSpecies = __webpack_require__(42);
 var DESCRIPTORS = __webpack_require__(11);
-var fastKey = __webpack_require__(36).fastKey;
+var fastKey = __webpack_require__(37).fastKey;
 var validate = __webpack_require__(53);
 var SIZE = DESCRIPTORS ? '_s' : 'size';
 
@@ -55975,7 +55954,7 @@ module.exports = function (done, value) {
 // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 
 var toObject = __webpack_require__(13);
-var toAbsoluteIndex = __webpack_require__(46);
+var toAbsoluteIndex = __webpack_require__(45);
 var toLength = __webpack_require__(9);
 
 module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /* = 0, end = @length */) {
@@ -56204,7 +56183,7 @@ module.exports = Function.bind || function bind(that /* , ...args */) {
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(47);
+var getKeys = __webpack_require__(46);
 var gOPS = __webpack_require__(83);
 var pIE = __webpack_require__(61);
 var toObject = __webpack_require__(13);
@@ -56244,7 +56223,7 @@ module.exports = !$assign || __webpack_require__(6)(function () {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(21);
-var gOPN = __webpack_require__(44).f;
+var gOPN = __webpack_require__(43).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -56269,7 +56248,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 var dP = __webpack_require__(10);
 var anObject = __webpack_require__(4);
-var getKeys = __webpack_require__(47);
+var getKeys = __webpack_require__(46);
 
 module.exports = __webpack_require__(11) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
@@ -56329,7 +56308,7 @@ module.exports = !__webpack_require__(11) && !__webpack_require__(6)(function ()
 
 
 var
-  urllite = __webpack_require__(223),
+  urllite = __webpack_require__(224),
   once = __webpack_require__(134);
 
 var warningShown = false;
@@ -56404,10 +56383,10 @@ module.exports = {
 
 
 var
-  cleanURL = __webpack_require__(227),
-  XHR = __webpack_require__(226),
-  delay = __webpack_require__(225),
-  RequestError = __webpack_require__(224),
+  cleanURL = __webpack_require__(228),
+  XHR = __webpack_require__(227),
+  delay = __webpack_require__(226),
+  RequestError = __webpack_require__(225),
   Response = __webpack_require__(137),
   Request = __webpack_require__(136),
   extend = __webpack_require__(87),
@@ -56696,7 +56675,7 @@ function getError(req, err) {
 /* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(372)
+var isarray = __webpack_require__(373)
 
 /**
  * Expose `pathToRegexp`.
@@ -57649,7 +57628,8 @@ exports.default = createHashHistory;
 /* 219 */,
 /* 220 */,
 /* 221 */,
-/* 222 */
+/* 222 */,
+/* 223 */
 /***/ (function(module, exports) {
 
 // Returns a wrapper function that returns a wrapped callback
@@ -57688,7 +57668,7 @@ function wrappy (fn, cb) {
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports) {
 
 (function() {
@@ -57759,7 +57739,7 @@ function wrappy (fn, cb) {
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57802,7 +57782,7 @@ module.exports = RequestError;
 
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57824,14 +57804,14 @@ module.exports = function(fn) {
 
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports) {
 
 module.exports = window.XMLHttpRequest;
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57847,7 +57827,6 @@ module.exports = {
 
 
 /***/ }),
-/* 228 */,
 /* 229 */,
 /* 230 */,
 /* 231 */,
@@ -57864,7 +57843,8 @@ module.exports = {
 /* 242 */,
 /* 243 */,
 /* 244 */,
-/* 245 */
+/* 245 */,
+/* 246 */
 /***/ (function(module, exports) {
 
 /**
@@ -57944,10 +57924,10 @@ module.exports = QueryHandler;
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var QueryHandler = __webpack_require__(245);
+var QueryHandler = __webpack_require__(246);
 var each = __webpack_require__(139).each;
 
 /**
@@ -58043,10 +58023,10 @@ module.exports = MediaQuery;
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MediaQuery = __webpack_require__(246);
+var MediaQuery = __webpack_require__(247);
 var Util = __webpack_require__(139);
 var each = Util.each;
 var isFunction = Util.isFunction;
@@ -58134,15 +58114,15 @@ module.exports = MediaQueryDispatch;
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MediaQueryDispatch = __webpack_require__(247);
+var MediaQueryDispatch = __webpack_require__(248);
 module.exports = new MediaQueryDispatch();
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58224,7 +58204,7 @@ var defaultProps = {
 exports.default = defaultProps;
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports) {
 
 var camel2hyphen = function (str) {
@@ -58238,10 +58218,10 @@ var camel2hyphen = function (str) {
 module.exports = camel2hyphen;
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var camel2hyphen = __webpack_require__(250);
+var camel2hyphen = __webpack_require__(251);
 
 var isDimension = function (feature) {
   var re = /[height|width]$/;
@@ -58294,7 +58274,7 @@ var json2mq = function (query) {
 module.exports = json2mq;
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59327,7 +59307,7 @@ var index = (function () {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(63)))
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59467,7 +59447,7 @@ var NextArrow = exports.NextArrow = function (_React$PureComponent2) {
 }(_react2.default.PureComponent);
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59572,7 +59552,7 @@ var Dots = exports.Dots = function (_React$PureComponent) {
 }(_react2.default.PureComponent);
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59787,7 +59767,7 @@ var Track = exports.Track = function (_React$PureComponent) {
 }(_react2.default.PureComponent);
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -60171,7 +60151,7 @@ module.exports = debounce;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(63)))
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60206,7 +60186,7 @@ var initialState = {
 exports.default = initialState;
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60227,11 +60207,11 @@ var _reactDom = __webpack_require__(59);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _initialState = __webpack_require__(257);
+var _initialState = __webpack_require__(258);
 
 var _initialState2 = _interopRequireDefault(_initialState);
 
-var _lodash = __webpack_require__(256);
+var _lodash = __webpack_require__(257);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -60241,13 +60221,13 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _innerSliderUtils = __webpack_require__(64);
 
-var _track = __webpack_require__(255);
+var _track = __webpack_require__(256);
 
-var _dots = __webpack_require__(254);
+var _dots = __webpack_require__(255);
 
-var _arrows = __webpack_require__(253);
+var _arrows = __webpack_require__(254);
 
-var _resizeObserverPolyfill = __webpack_require__(252);
+var _resizeObserverPolyfill = __webpack_require__(253);
 
 var _resizeObserverPolyfill2 = _interopRequireDefault(_resizeObserverPolyfill);
 
@@ -60951,7 +60931,7 @@ var InnerSlider = exports.InnerSlider = function (_React$Component) {
 }(_react2.default.Component);
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60965,13 +60945,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _innerSlider = __webpack_require__(258);
+var _innerSlider = __webpack_require__(259);
 
-var _json2mq = __webpack_require__(251);
+var _json2mq = __webpack_require__(252);
 
 var _json2mq2 = _interopRequireDefault(_json2mq);
 
-var _defaultProps = __webpack_require__(249);
+var _defaultProps = __webpack_require__(250);
 
 var _defaultProps2 = _interopRequireDefault(_defaultProps);
 
@@ -60985,7 +60965,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var enquire = (0, _innerSliderUtils.canUseDOM)() && __webpack_require__(248);
+var enquire = (0, _innerSliderUtils.canUseDOM)() && __webpack_require__(249);
 
 var Slider = function (_React$Component) {
   _inherits(Slider, _React$Component);
@@ -61200,7 +61180,7 @@ var Slider = function (_React$Component) {
 exports.default = Slider;
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61208,7 +61188,7 @@ exports.default = Slider;
 
 exports.__esModule = true;
 
-var _slider = __webpack_require__(259);
+var _slider = __webpack_require__(260);
 
 var _slider2 = _interopRequireDefault(_slider);
 
@@ -61217,7 +61197,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _slider2.default;
 
 /***/ }),
-/* 261 */,
 /* 262 */,
 /* 263 */,
 /* 264 */,
@@ -61237,13 +61216,14 @@ exports.default = _slider2.default;
 /* 278 */,
 /* 279 */,
 /* 280 */,
-/* 281 */
+/* 281 */,
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var eq = __webpack_require__(68),
     isArrayLike = __webpack_require__(90),
     isIndex = __webpack_require__(142),
-    isObject = __webpack_require__(37);
+    isObject = __webpack_require__(38);
 
 /**
  * Checks if the given arguments are from an iteratee call.
@@ -61273,7 +61253,7 @@ module.exports = isIterateeCall;
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports) {
 
 /** Used to detect hot functions by number of calls within a span of milliseconds. */
@@ -61316,7 +61296,7 @@ module.exports = shortOut;
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports) {
 
 /**
@@ -61348,10 +61328,10 @@ module.exports = constant;
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constant = __webpack_require__(283),
+var constant = __webpack_require__(284),
     defineProperty = __webpack_require__(152),
     identity = __webpack_require__(141);
 
@@ -61376,11 +61356,11 @@ module.exports = baseSetToString;
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseSetToString = __webpack_require__(284),
-    shortOut = __webpack_require__(282);
+var baseSetToString = __webpack_require__(285),
+    shortOut = __webpack_require__(283);
 
 /**
  * Sets the `toString` method of `func` to return `string`.
@@ -61396,7 +61376,7 @@ module.exports = setToString;
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports) {
 
 /**
@@ -61423,10 +61403,10 @@ module.exports = apply;
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var apply = __webpack_require__(286);
+var apply = __webpack_require__(287);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -61465,12 +61445,12 @@ module.exports = overRest;
 
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var identity = __webpack_require__(141),
-    overRest = __webpack_require__(287),
-    setToString = __webpack_require__(285);
+    overRest = __webpack_require__(288),
+    setToString = __webpack_require__(286);
 
 /**
  * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -61488,11 +61468,11 @@ module.exports = baseRest;
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseRest = __webpack_require__(288),
-    isIterateeCall = __webpack_require__(281);
+var baseRest = __webpack_require__(289),
+    isIterateeCall = __webpack_require__(282);
 
 /**
  * Creates a function like `_.assign`.
@@ -61531,7 +61511,7 @@ module.exports = createAssigner;
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports) {
 
 /**
@@ -61557,12 +61537,12 @@ module.exports = nativeKeysIn;
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(37),
+var isObject = __webpack_require__(38),
     isPrototype = __webpack_require__(150),
-    nativeKeysIn = __webpack_require__(290);
+    nativeKeysIn = __webpack_require__(291);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -61596,7 +61576,7 @@ module.exports = baseKeysIn;
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports) {
 
 /**
@@ -61622,10 +61602,10 @@ module.exports = baseTimes;
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseTimes = __webpack_require__(292),
+var baseTimes = __webpack_require__(293),
     isArguments = __webpack_require__(149),
     isArray = __webpack_require__(148),
     isBuffer = __webpack_require__(146),
@@ -61677,7 +61657,7 @@ module.exports = arrayLikeKeys;
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseAssignValue = __webpack_require__(92),
@@ -61711,10 +61691,10 @@ module.exports = assignValue;
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var assignValue = __webpack_require__(294),
+var assignValue = __webpack_require__(295),
     baseAssignValue = __webpack_require__(92);
 
 /**
@@ -61757,10 +61737,10 @@ module.exports = copyObject;
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(295),
+var copyObject = __webpack_require__(296),
     keysIn = __webpack_require__(143);
 
 /**
@@ -61795,7 +61775,7 @@ module.exports = toPlainObject;
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(154);
@@ -61824,7 +61804,7 @@ module.exports = nodeUtil;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(91)(module)))
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports) {
 
 /**
@@ -61844,7 +61824,7 @@ module.exports = baseUnary;
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(67),
@@ -61910,7 +61890,7 @@ module.exports = baseIsTypedArray;
 
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(67),
@@ -61978,7 +61958,7 @@ module.exports = isPlainObject;
 
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports) {
 
 /**
@@ -62002,7 +61982,7 @@ module.exports = stubFalse;
 
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(90),
@@ -62041,7 +62021,7 @@ module.exports = isArrayLikeObject;
 
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(67),
@@ -62065,7 +62045,7 @@ module.exports = baseIsArguments;
 
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports) {
 
 /**
@@ -62086,10 +62066,10 @@ module.exports = overArg;
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(37);
+var isObject = __webpack_require__(38);
 
 /** Built-in value references. */
 var objectCreate = Object.create;
@@ -62122,10 +62102,10 @@ module.exports = baseCreate;
 
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseCreate = __webpack_require__(305),
+var baseCreate = __webpack_require__(306),
     getPrototype = __webpack_require__(151),
     isPrototype = __webpack_require__(150);
 
@@ -62146,7 +62126,7 @@ module.exports = initCloneObject;
 
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports) {
 
 /**
@@ -62172,10 +62152,10 @@ module.exports = copyArray;
 
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(51);
+var root = __webpack_require__(50);
 
 /** Built-in value references. */
 var Uint8Array = root.Uint8Array;
@@ -62184,10 +62164,10 @@ module.exports = Uint8Array;
 
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Uint8Array = __webpack_require__(308);
+var Uint8Array = __webpack_require__(309);
 
 /**
  * Creates a clone of `arrayBuffer`.
@@ -62206,10 +62186,10 @@ module.exports = cloneArrayBuffer;
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var cloneArrayBuffer = __webpack_require__(309);
+var cloneArrayBuffer = __webpack_require__(310);
 
 /**
  * Creates a clone of `typedArray`.
@@ -62228,10 +62208,10 @@ module.exports = cloneTypedArray;
 
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(51);
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(50);
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -62270,24 +62250,24 @@ module.exports = cloneBuffer;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(91)(module)))
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assignMergeValue = __webpack_require__(153),
-    cloneBuffer = __webpack_require__(311),
-    cloneTypedArray = __webpack_require__(310),
-    copyArray = __webpack_require__(307),
-    initCloneObject = __webpack_require__(306),
+    cloneBuffer = __webpack_require__(312),
+    cloneTypedArray = __webpack_require__(311),
+    copyArray = __webpack_require__(308),
+    initCloneObject = __webpack_require__(307),
     isArguments = __webpack_require__(149),
     isArray = __webpack_require__(148),
-    isArrayLikeObject = __webpack_require__(302),
+    isArrayLikeObject = __webpack_require__(303),
     isBuffer = __webpack_require__(146),
     isFunction = __webpack_require__(93),
-    isObject = __webpack_require__(37),
-    isPlainObject = __webpack_require__(300),
+    isObject = __webpack_require__(38),
+    isPlainObject = __webpack_require__(301),
     isTypedArray = __webpack_require__(145),
     safeGet = __webpack_require__(144),
-    toPlainObject = __webpack_require__(296);
+    toPlainObject = __webpack_require__(297);
 
 /**
  * A specialized version of `baseMerge` for arrays and objects which performs
@@ -62370,7 +62350,7 @@ module.exports = baseMergeDeep;
 
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports) {
 
 /**
@@ -62401,10 +62381,10 @@ module.exports = createBaseFor;
 
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createBaseFor = __webpack_require__(313);
+var createBaseFor = __webpack_require__(314);
 
 /**
  * The base implementation of `baseForOwn` which iterates over `object`
@@ -62423,7 +62403,7 @@ module.exports = baseFor;
 
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(65);
@@ -62451,7 +62431,7 @@ module.exports = mapCacheSet;
 
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(65);
@@ -62473,7 +62453,7 @@ module.exports = mapCacheHas;
 
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(65);
@@ -62495,7 +62475,7 @@ module.exports = mapCacheGet;
 
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports) {
 
 /**
@@ -62516,7 +62496,7 @@ module.exports = isKeyable;
 
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(65);
@@ -62540,7 +62520,7 @@ module.exports = mapCacheDelete;
 
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(66);
@@ -62569,7 +62549,7 @@ module.exports = hashSet;
 
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(66);
@@ -62598,7 +62578,7 @@ module.exports = hashHas;
 
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(66);
@@ -62634,7 +62614,7 @@ module.exports = hashGet;
 
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports) {
 
 /**
@@ -62657,7 +62637,7 @@ module.exports = hashDelete;
 
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(66);
@@ -62678,14 +62658,14 @@ module.exports = hashClear;
 
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hashClear = __webpack_require__(324),
-    hashDelete = __webpack_require__(323),
-    hashGet = __webpack_require__(322),
-    hashHas = __webpack_require__(321),
-    hashSet = __webpack_require__(320);
+var hashClear = __webpack_require__(325),
+    hashDelete = __webpack_require__(324),
+    hashGet = __webpack_require__(323),
+    hashHas = __webpack_require__(322),
+    hashSet = __webpack_require__(321);
 
 /**
  * Creates a hash object.
@@ -62716,10 +62696,10 @@ module.exports = Hash;
 
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Hash = __webpack_require__(325),
+var Hash = __webpack_require__(326),
     ListCache = __webpack_require__(70),
     Map = __webpack_require__(156);
 
@@ -62743,14 +62723,14 @@ module.exports = mapCacheClear;
 
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mapCacheClear = __webpack_require__(326),
-    mapCacheDelete = __webpack_require__(319),
-    mapCacheGet = __webpack_require__(317),
-    mapCacheHas = __webpack_require__(316),
-    mapCacheSet = __webpack_require__(315);
+var mapCacheClear = __webpack_require__(327),
+    mapCacheDelete = __webpack_require__(320),
+    mapCacheGet = __webpack_require__(318),
+    mapCacheHas = __webpack_require__(317),
+    mapCacheSet = __webpack_require__(316);
 
 /**
  * Creates a map cache object to store key-value pairs.
@@ -62781,7 +62761,7 @@ module.exports = MapCache;
 
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports) {
 
 /**
@@ -62800,7 +62780,7 @@ module.exports = getValue;
 
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -62832,10 +62812,10 @@ module.exports = toSource;
 
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(51);
+var root = __webpack_require__(50);
 
 /** Used to detect overreaching core-js shims. */
 var coreJsData = root['__core-js_shared__'];
@@ -62844,10 +62824,10 @@ module.exports = coreJsData;
 
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var coreJsData = __webpack_require__(330);
+var coreJsData = __webpack_require__(331);
 
 /** Used to detect methods masquerading as native. */
 var maskSrcKey = (function() {
@@ -62870,7 +62850,7 @@ module.exports = isMasked;
 
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -62898,7 +62878,7 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(155);
@@ -62950,13 +62930,13 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isFunction = __webpack_require__(93),
-    isMasked = __webpack_require__(331),
-    isObject = __webpack_require__(37),
-    toSource = __webpack_require__(329);
+    isMasked = __webpack_require__(332),
+    isObject = __webpack_require__(38),
+    toSource = __webpack_require__(330);
 
 /**
  * Used to match `RegExp`
@@ -63003,12 +62983,12 @@ module.exports = baseIsNative;
 
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(70),
     Map = __webpack_require__(156),
-    MapCache = __webpack_require__(327);
+    MapCache = __webpack_require__(328);
 
 /** Used as the size to enable large array optimizations. */
 var LARGE_ARRAY_SIZE = 200;
@@ -63043,7 +63023,7 @@ module.exports = stackSet;
 
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports) {
 
 /**
@@ -63063,7 +63043,7 @@ module.exports = stackHas;
 
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports) {
 
 /**
@@ -63083,7 +63063,7 @@ module.exports = stackGet;
 
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports) {
 
 /**
@@ -63107,7 +63087,7 @@ module.exports = stackDelete;
 
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(70);
@@ -63128,7 +63108,7 @@ module.exports = stackClear;
 
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(69);
@@ -63160,7 +63140,7 @@ module.exports = listCacheSet;
 
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(69);
@@ -63182,7 +63162,7 @@ module.exports = listCacheHas;
 
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(69);
@@ -63207,7 +63187,7 @@ module.exports = listCacheGet;
 
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(69);
@@ -63248,7 +63228,7 @@ module.exports = listCacheDelete;
 
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports) {
 
 /**
@@ -63267,15 +63247,15 @@ module.exports = listCacheClear;
 
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(70),
-    stackClear = __webpack_require__(339),
-    stackDelete = __webpack_require__(338),
-    stackGet = __webpack_require__(337),
-    stackHas = __webpack_require__(336),
-    stackSet = __webpack_require__(335);
+    stackClear = __webpack_require__(340),
+    stackDelete = __webpack_require__(339),
+    stackGet = __webpack_require__(338),
+    stackHas = __webpack_require__(337),
+    stackSet = __webpack_require__(336);
 
 /**
  * Creates a stack cache object to store key-value pairs.
@@ -63300,14 +63280,14 @@ module.exports = Stack;
 
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stack = __webpack_require__(345),
+var Stack = __webpack_require__(346),
     assignMergeValue = __webpack_require__(153),
-    baseFor = __webpack_require__(314),
-    baseMergeDeep = __webpack_require__(312),
-    isObject = __webpack_require__(37),
+    baseFor = __webpack_require__(315),
+    baseMergeDeep = __webpack_require__(313),
+    isObject = __webpack_require__(38),
     keysIn = __webpack_require__(143),
     safeGet = __webpack_require__(144);
 
@@ -63348,11 +63328,11 @@ module.exports = baseMerge;
 
 
 /***/ }),
-/* 347 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseMerge = __webpack_require__(346),
-    createAssigner = __webpack_require__(289);
+var baseMerge = __webpack_require__(347),
+    createAssigner = __webpack_require__(290);
 
 /**
  * This method is like `_.assign` except that it recursively merges own and
@@ -63393,7 +63373,7 @@ module.exports = merge;
 
 
 /***/ }),
-/* 348 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // stats.js - http://github.com/mrdoob/stats.js
@@ -63404,7 +63384,7 @@ b.fillRect(d,m,n,p);b.fillStyle=l;b.globalAlpha=.9;b.fillRect(d,m,n,p);return{do
 
 
 /***/ }),
-/* 349 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(THREE) {/**
@@ -63418,9 +63398,9 @@ b.fillRect(d,m,n,p);b.fillStyle=l;b.globalAlpha=.9;b.fillRect(d,m,n,p);return{do
 // This set of controls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
 //
-//    Orbit - left mouse / touch: one finger move
-//    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
-//    Pan - right mouse, or arrow keys / touch: three finger swipe
+//    Orbit - left mouse / touch: one-finger move
+//    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
+//    Pan - right mouse, or arrow keys / touch: two-finger move
 
 THREE.OrbitControls = function ( object, domElement ) {
 
@@ -63469,7 +63449,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 	// Set to false to disable panning
 	this.enablePan = true;
 	this.panSpeed = 1.0;
-	this.panningMode = THREE.ScreenSpacePanning; // alternate THREE.HorizontalPanning
+	this.screenSpacePanning = false; // if true, pan in screen-space
 	this.keyPanSpeed = 7.0;	// pixels moved per arrow key push
 
 	// Set to true to automatically rotate around the target
@@ -63659,7 +63639,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 	var startEvent = { type: 'start' };
 	var endEvent = { type: 'end' };
 
-	var STATE = { NONE: - 1, ROTATE: 0, DOLLY: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_DOLLY: 4, TOUCH_PAN: 5 };
+	var STATE = { NONE: - 1, ROTATE: 0, DOLLY: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_DOLLY_PAN: 4 };
 
 	var state = STATE.NONE;
 
@@ -63730,18 +63710,14 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		return function panUp( distance, objectMatrix ) {
 
-			switch ( scope.panningMode ) {
+			if ( scope.screenSpacePanning === true ) {
 
-				case THREE.ScreenSpacePanning:
+				v.setFromMatrixColumn( objectMatrix, 1 );
 
-					v.setFromMatrixColumn( objectMatrix, 1 );
-					break;
+			} else {
 
-				case THREE.HorizontalPanning:
-
-					v.setFromMatrixColumn( objectMatrix, 0 );
-					v.crossVectors( scope.object.up, v );
-					break;
+				v.setFromMatrixColumn( objectMatrix, 0 );
+				v.crossVectors( scope.object.up, v );
 
 			}
 
@@ -63772,7 +63748,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 				// half of the fov is center to top of screen
 				targetDistance *= Math.tan( ( scope.object.fov / 2 ) * Math.PI / 180.0 );
 
-				// we actually don't use screenWidth, since perspective camera is fixed to screen height
+				// we use only clientHeight here so aspect ratio does not distort speed
 				panLeft( 2 * deltaX * targetDistance / element.clientHeight, scope.object.matrix );
 				panUp( 2 * deltaY * targetDistance / element.clientHeight, scope.object.matrix );
 
@@ -63870,7 +63846,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		rotateEnd.set( event.clientX, event.clientY );
 
-		rotateDelta.subVectors( rotateEnd, rotateStart ).multiplyScalar( scope.rotateSpeed );;
+		rotateDelta.subVectors( rotateEnd, rotateStart ).multiplyScalar( scope.rotateSpeed );
 
 		var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
 
@@ -63988,24 +63964,29 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	}
 
-	function handleTouchStartDolly( event ) {
+	function handleTouchStartDollyPan( event ) {
 
-		//console.log( 'handleTouchStartDolly' );
+		//console.log( 'handleTouchStartDollyPan' );
 
-		var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
-		var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
+		if ( scope.enableZoom ) {
 
-		var distance = Math.sqrt( dx * dx + dy * dy );
+			var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
+			var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
 
-		dollyStart.set( 0, distance );
+			var distance = Math.sqrt( dx * dx + dy * dy );
 
-	}
+			dollyStart.set( 0, distance );
 
-	function handleTouchStartPan( event ) {
+		}
 
-		//console.log( 'handleTouchStartPan' );
+		if ( scope.enablePan ) {
 
-		panStart.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+			var x = 0.5 * ( event.touches[ 0 ].pageX + event.touches[ 1 ].pageX );
+			var y = 0.5 * ( event.touches[ 0 ].pageY + event.touches[ 1 ].pageY );
+
+			panStart.set( x, y );
+
+		}
 
 	}
 
@@ -64031,46 +64012,41 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	}
 
-	function handleTouchMoveDolly( event ) {
+	function handleTouchMoveDollyPan( event ) {
 
-		//console.log( 'handleTouchMoveDolly' );
+		//console.log( 'handleTouchMoveDollyPan' );
 
-		var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
-		var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
+		if ( scope.enableZoom ) {
 
-		var distance = Math.sqrt( dx * dx + dy * dy );
+			var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
+			var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
 
-		dollyEnd.set( 0, distance );
+			var distance = Math.sqrt( dx * dx + dy * dy );
 
-		dollyDelta.subVectors( dollyEnd, dollyStart );
+			dollyEnd.set( 0, distance );
 
-		if ( dollyDelta.y > 0 ) {
+			dollyDelta.set( 0, Math.pow( dollyEnd.y / dollyStart.y, scope.zoomSpeed ) );
 
-			dollyOut( getZoomScale() );
+			dollyIn( dollyDelta.y );
 
-		} else if ( dollyDelta.y < 0 ) {
-
-			dollyIn( getZoomScale() );
+			dollyStart.copy( dollyEnd );
 
 		}
 
-		dollyStart.copy( dollyEnd );
+		if ( scope.enablePan ) {
 
-		scope.update();
+			var x = 0.5 * ( event.touches[ 0 ].pageX + event.touches[ 1 ].pageX );
+			var y = 0.5 * ( event.touches[ 0 ].pageY + event.touches[ 1 ].pageY );
 
-	}
+			panEnd.set( x, y );
 
-	function handleTouchMovePan( event ) {
+			panDelta.subVectors( panEnd, panStart ).multiplyScalar( scope.panSpeed );
 
-		//console.log( 'handleTouchMovePan' );
+			pan( panDelta.x, panDelta.y );
 
-		panEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
+			panStart.copy( panEnd );
 
-		panDelta.subVectors( panEnd, panStart ).multiplyScalar( scope.panSpeed );
-
-		pan( panDelta.x, panDelta.y );
-
-		panStart.copy( panEnd );
+		}
 
 		scope.update();
 
@@ -64215,6 +64191,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
+		event.preventDefault();
+
 		switch ( event.touches.length ) {
 
 			case 1:	// one-fingered touch: rotate
@@ -64227,23 +64205,13 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 				break;
 
-			case 2:	// two-fingered touch: dolly
+			case 2:	// two-fingered touch: dolly-pan
 
-				if ( scope.enableZoom === false ) return;
+				if ( scope.enableZoom === false && scope.enablePan === false ) return;
 
-				handleTouchStartDolly( event );
+				handleTouchStartDollyPan( event );
 
-				state = STATE.TOUCH_DOLLY;
-
-				break;
-
-			case 3: // three-fingered touch: pan
-
-				if ( scope.enablePan === false ) return;
-
-				handleTouchStartPan( event );
-
-				state = STATE.TOUCH_PAN;
+				state = STATE.TOUCH_DOLLY_PAN;
 
 				break;
 
@@ -64273,27 +64241,18 @@ THREE.OrbitControls = function ( object, domElement ) {
 			case 1: // one-fingered touch: rotate
 
 				if ( scope.enableRotate === false ) return;
-				if ( state !== STATE.TOUCH_ROTATE ) return; // is this needed?...
+				if ( state !== STATE.TOUCH_ROTATE ) return; // is this needed?
 
 				handleTouchMoveRotate( event );
 
 				break;
 
-			case 2: // two-fingered touch: dolly
+			case 2: // two-fingered touch: dolly-pan
 
-				if ( scope.enableZoom === false ) return;
-				if ( state !== STATE.TOUCH_DOLLY ) return; // is this needed?...
+				if ( scope.enableZoom === false && scope.enablePan === false ) return;
+				if ( state !== STATE.TOUCH_DOLLY_PAN ) return; // is this needed?
 
-				handleTouchMoveDolly( event );
-
-				break;
-
-			case 3: // three-fingered touch: pan
-
-				if ( scope.enablePan === false ) return;
-				if ( state !== STATE.TOUCH_PAN ) return; // is this needed?...
-
-				handleTouchMovePan( event );
+				handleTouchMoveDollyPan( event );
 
 				break;
 
@@ -64472,14 +64431,11 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 
 } );
 
-THREE.ScreenSpacePanning = 0;
-THREE.HorizontalPanning = 1;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(51)))
 
 /***/ }),
-/* 350 */,
-/* 351 */
+/* 351 */,
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(THREE) {/**
@@ -64705,10 +64661,10 @@ THREE.Sky.SkyShader = {
 
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(51)))
 
 /***/ }),
-/* 352 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(THREE) {/**
@@ -65020,10 +64976,10 @@ THREE.Water = function ( geometry, options ) {
 THREE.Water.prototype = Object.create( THREE.Mesh.prototype );
 THREE.Water.prototype.constructor = THREE.Water;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(51)))
 
 /***/ }),
-/* 353 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(THREE) {/**
@@ -65175,9 +65131,13 @@ THREE.GLTFLoader = ( function () {
 
 				}
 
-			}
+				if ( json.extensionsUsed.indexOf( EXTENSIONS.MSFT_TEXTURE_DDS ) >= 0 ) {
 
-			console.time( 'GLTFLoader' );
+					extensions[ EXTENSIONS.MSFT_TEXTURE_DDS ] = new GLTFTextureDDSExtension();
+
+				}
+
+			}
 
 			var parser = new GLTFParser( json, extensions, {
 
@@ -65188,8 +65148,6 @@ THREE.GLTFLoader = ( function () {
 			} );
 
 			parser.parse( function ( scene, scenes, cameras, animations, asset ) {
-
-				console.timeEnd( 'GLTFLoader' );
 
 				var glTF = {
 					scene: scene,
@@ -65252,8 +65210,29 @@ THREE.GLTFLoader = ( function () {
 		KHR_DRACO_MESH_COMPRESSION: 'KHR_draco_mesh_compression',
 		KHR_LIGHTS: 'KHR_lights',
 		KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS: 'KHR_materials_pbrSpecularGlossiness',
-		KHR_MATERIALS_UNLIT: 'KHR_materials_unlit'
+		KHR_MATERIALS_UNLIT: 'KHR_materials_unlit',
+		MSFT_TEXTURE_DDS: 'MSFT_texture_dds'
 	};
+
+	/**
+	 * DDS Texture Extension
+	 *
+	 * Specification: 
+	 * https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/MSFT_texture_dds
+	 * 
+	 */
+	function GLTFTextureDDSExtension() {
+
+		if ( ! THREE.DDSLoader ) {
+
+			throw new Error( 'THREE.GLTFLoader: Attempting to load .dds texture without importing THREE.DDSLoader' );
+
+		}
+
+		this.name = EXTENSIONS.MSFT_TEXTURE_DDS;
+		this.ddsLoader = new THREE.DDSLoader();
+
+	}
 
 	/**
 	 * Lights Extension
@@ -65280,7 +65259,8 @@ THREE.GLTFLoader = ( function () {
 
 				case 'directional':
 					lightNode = new THREE.DirectionalLight( color );
-					lightNode.position.set( 0, 0, 1 );
+					lightNode.target.position.set( 0, 0, 1 );
+					lightNode.add( lightNode.target );
 					break;
 
 				case 'point':
@@ -65289,7 +65269,14 @@ THREE.GLTFLoader = ( function () {
 
 				case 'spot':
 					lightNode = new THREE.SpotLight( color );
-					lightNode.position.set( 0, 0, 1 );
+					// Handle spotlight properties.
+					light.spot = light.spot || {};
+					light.spot.innerConeAngle = light.spot.innerConeAngle !== undefined ? light.spot.innerConeAngle : 0;
+					light.spot.outerConeAngle = light.spot.outerConeAngle !== undefined ? light.spot.outerConeAngle : Math.PI / 4.0;
+					lightNode.angle = light.spot.outerConeAngle;
+					lightNode.penumbra = 1.0 - light.spot.innerConeAngle / light.spot.outerConeAngle;
+					lightNode.target.position.set( 0, 0, 1 );
+					lightNode.add( lightNode.target );
 					break;
 
 				case 'ambient':
@@ -65300,33 +65287,11 @@ THREE.GLTFLoader = ( function () {
 
 			if ( lightNode ) {
 
-				if ( light.constantAttenuation !== undefined ) {
+				lightNode.decay = 2;
 
-					lightNode.intensity = light.constantAttenuation;
+				if ( light.intensity !== undefined ) {
 
-				}
-
-				if ( light.linearAttenuation !== undefined ) {
-
-					lightNode.distance = 1 / light.linearAttenuation;
-
-				}
-
-				if ( light.quadraticAttenuation !== undefined ) {
-
-					lightNode.decay = light.quadraticAttenuation;
-
-				}
-
-				if ( light.fallOffAngle !== undefined ) {
-
-					lightNode.angle = light.fallOffAngle;
-
-				}
-
-				if ( light.fallOffExponent !== undefined ) {
-
-					console.warn( 'THREE.GLTFLoader:: light.fallOffExponent not currently supported.' );
+					lightNode.intensity = light.intensity;
 
 				}
 
@@ -66181,102 +66146,113 @@ THREE.GLTFLoader = ( function () {
 	function addMorphTargets( mesh, meshDef, primitiveDef, accessors ) {
 
 		var geometry = mesh.geometry;
-		var material = mesh.material;
-
 		var targets = primitiveDef.targets;
-		var morphAttributes = geometry.morphAttributes;
 
-		morphAttributes.position = [];
-		morphAttributes.normal = [];
+		var hasMorphPosition = false;
+		var hasMorphNormal = false;
 
-		material.morphTargets = true;
+		for ( var i = 0, il = targets.length; i < il; i ++ ) {
+
+			var target = targets[ i ];
+
+			if ( target.POSITION !== undefined ) hasMorphPosition = true;
+			if ( target.NORMAL !== undefined ) hasMorphNormal = true;
+
+			if ( hasMorphPosition && hasMorphNormal ) break;
+
+		}
+
+		if ( ! hasMorphPosition && ! hasMorphNormal ) return;
+
+		var morphPositions = [];
+		var morphNormals = [];
 
 		for ( var i = 0, il = targets.length; i < il; i ++ ) {
 
 			var target = targets[ i ];
 			var attributeName = 'morphTarget' + i;
 
-			var positionAttribute, normalAttribute;
+			if ( hasMorphPosition ) {
 
-			if ( target.POSITION !== undefined ) {
-
-				// Three.js morph formula is
-				//   position
-				//     + weight0 * ( morphTarget0 - position )
-				//     + weight1 * ( morphTarget1 - position )
+				// Three.js morph position is absolute value. The formula is
+				//   basePosition
+				//     + weight0 * ( morphPosition0 - basePosition )
+				//     + weight1 * ( morphPosition1 - basePosition )
 				//     ...
-				// while the glTF one is
-				//   position
-				//     + weight0 * morphTarget0
-				//     + weight1 * morphTarget1
+				// while the glTF one is relative
+				//   basePosition
+				//     + weight0 * glTFmorphPosition0
+				//     + weight1 * glTFmorphPosition1
 				//     ...
-				// then adding position to morphTarget.
-				// So morphTarget value will depend on mesh's position, then cloning attribute
-				// for the case if attribute is shared among two or more meshes.
+				// then we need to convert from relative to absolute here.
 
-				positionAttribute = cloneBufferAttribute( accessors[ target.POSITION ] );
-				var position = geometry.attributes.position;
+				if ( target.POSITION !== undefined ) {
 
-				for ( var j = 0, jl = positionAttribute.count; j < jl; j ++ ) {
+					// Cloning not to pollute original accessor
+					var positionAttribute = cloneBufferAttribute( accessors[ target.POSITION ] );
+					positionAttribute.name = attributeName;
 
-					positionAttribute.setXYZ(
-						j,
-						positionAttribute.getX( j ) + position.getX( j ),
-						positionAttribute.getY( j ) + position.getY( j ),
-						positionAttribute.getZ( j ) + position.getZ( j )
-					);
+					var position = geometry.attributes.position;
+
+					for ( var j = 0, jl = positionAttribute.count; j < jl; j ++ ) {
+
+						positionAttribute.setXYZ(
+							j,
+							positionAttribute.getX( j ) + position.getX( j ),
+							positionAttribute.getY( j ) + position.getY( j ),
+							positionAttribute.getZ( j ) + position.getZ( j )
+						);
+
+					}
+
+				} else {
+
+					positionAttribute = geometry.attributes.position;
 
 				}
 
-			} else if ( geometry.attributes.position ) {
-
-				// Copying the original position not to affect the final position.
-				// See the formula above.
-				positionAttribute = cloneBufferAttribute( geometry.attributes.position );
+				morphPositions.push( positionAttribute );
 
 			}
 
-			if ( positionAttribute !== undefined ) {
-
-				positionAttribute.name = attributeName;
-				morphAttributes.position.push( positionAttribute );
-
-			}
-
-			if ( target.NORMAL !== undefined ) {
-
-				material.morphNormals = true;
+			if ( hasMorphNormal ) {
 
 				// see target.POSITION's comment
 
-				normalAttribute = cloneBufferAttribute( accessors[ target.NORMAL ] );
-				var normal = geometry.attributes.normal;
+				var normalAttribute;
 
-				for ( var j = 0, jl = normalAttribute.count; j < jl; j ++ ) {
+				if ( target.NORMAL !== undefined ) {
 
-					normalAttribute.setXYZ(
-						j,
-						normalAttribute.getX( j ) + normal.getX( j ),
-						normalAttribute.getY( j ) + normal.getY( j ),
-						normalAttribute.getZ( j ) + normal.getZ( j )
-					);
+					var normalAttribute = cloneBufferAttribute( accessors[ target.NORMAL ] );
+					normalAttribute.name = attributeName;
+
+					var normal = geometry.attributes.normal;
+
+					for ( var j = 0, jl = normalAttribute.count; j < jl; j ++ ) {
+
+						normalAttribute.setXYZ(
+							j,
+							normalAttribute.getX( j ) + normal.getX( j ),
+							normalAttribute.getY( j ) + normal.getY( j ),
+							normalAttribute.getZ( j ) + normal.getZ( j )
+						);
+
+					}
+
+				} else {
+
+					normalAttribute = geometry.attributes.normal;
 
 				}
 
-			} else if ( geometry.attributes.normal !== undefined ) {
-
-				normalAttribute = cloneBufferAttribute( geometry.attributes.normal );
-
-			}
-
-			if ( normalAttribute !== undefined ) {
-
-				normalAttribute.name = attributeName;
-				morphAttributes.normal.push( normalAttribute );
+				morphNormals.push( normalAttribute );
 
 			}
 
 		}
+
+		if ( hasMorphPosition ) geometry.morphAttributes.position = morphPositions;
+		if ( hasMorphNormal ) geometry.morphAttributes.normal = morphNormals;
 
 		mesh.updateMorphTargets();
 
@@ -66293,9 +66269,21 @@ THREE.GLTFLoader = ( function () {
 		// .extras has user-defined data, so check that .extras.targetNames is an array.
 		if ( meshDef.extras && Array.isArray( meshDef.extras.targetNames ) ) {
 
-			for ( var i = 0, il = meshDef.extras.targetNames.length; i < il; i ++ ) {
+			var targetNames = meshDef.extras.targetNames;
 
-				mesh.morphTargetDictionary[ meshDef.extras.targetNames[ i ] ] = i;
+			if ( mesh.morphTargetInfluences.length === targetNames.length ) {
+
+				mesh.morphTargetDictionary = {};
+
+				for ( var i = 0, il = targetNames.length; i < il; i ++ ) {
+
+					mesh.morphTargetDictionary[ targetNames[ i ] ] = i;
+
+				}
+
+			} else {
+
+				console.warn( 'THREE.GLTFLoader: Invalid extras.targetNames length. Ignoring names.' );
 
 			}
 
@@ -66510,8 +66498,57 @@ THREE.GLTFLoader = ( function () {
 
 		if ( ! dependency ) {
 
-			var fnName = 'load' + type.charAt( 0 ).toUpperCase() + type.slice( 1 );
-			dependency = this[ fnName ]( index );
+			switch ( type ) {
+
+				case 'scene':
+					dependency = this.loadScene( index );
+					break;
+
+				case 'node':
+					dependency = this.loadNode( index );
+					break;
+
+				case 'mesh':
+					dependency = this.loadMesh( index );
+					break;
+
+				case 'accessor':
+					dependency = this.loadAccessor( index );
+					break;
+
+				case 'bufferView':
+					dependency = this.loadBufferView( index );
+					break;
+
+				case 'buffer':
+					dependency = this.loadBuffer( index );
+					break;
+
+				case 'material':
+					dependency = this.loadMaterial( index );
+					break;
+
+				case 'texture':
+					dependency = this.loadTexture( index );
+					break;
+
+				case 'skin':
+					dependency = this.loadSkin( index );
+					break;
+
+				case 'animation':
+					dependency = this.loadAnimation( index );
+					break;
+
+				case 'camera':
+					dependency = this.loadCamera( index );
+					break;
+
+				default:
+					throw new Error( 'Unknown type: ' + type );
+
+			}
+
 			this.cache.add( cacheKey, dependency );
 
 		}
@@ -66782,7 +66819,21 @@ THREE.GLTFLoader = ( function () {
 		var URL = window.URL || window.webkitURL;
 
 		var textureDef = json.textures[ textureIndex ];
-		var source = json.images[ textureDef.source ];
+
+		var textureExtensions = textureDef.extensions || {};
+
+		var source;
+
+		if ( textureExtensions[ EXTENSIONS.MSFT_TEXTURE_DDS ] ) {
+
+			source = json.images[ textureExtensions[ EXTENSIONS.MSFT_TEXTURE_DDS ].source ];
+
+		} else {
+
+			source = json.images[ textureDef.source ];
+
+		}
+
 		var sourceURI = source.uri;
 		var isObjectURL = false;
 
@@ -66805,7 +66856,15 @@ THREE.GLTFLoader = ( function () {
 
 			// Load Texture resource.
 
-			var loader = THREE.Loader.Handlers.get( sourceURI ) || textureLoader;
+			var loader = THREE.Loader.Handlers.get( sourceURI );
+
+			if ( ! loader ) {
+
+				loader = textureExtensions[ EXTENSIONS.MSFT_TEXTURE_DDS ]
+					? parser.extensions[ EXTENSIONS.MSFT_TEXTURE_DDS ].ddsLoader
+					: textureLoader;
+
+			}
 
 			return new Promise( function ( resolve, reject ) {
 
@@ -66827,7 +66886,12 @@ THREE.GLTFLoader = ( function () {
 
 			if ( textureDef.name !== undefined ) texture.name = textureDef.name;
 
-			texture.format = textureDef.format !== undefined ? WEBGL_TEXTURE_FORMATS[ textureDef.format ] : THREE.RGBAFormat;
+			// .format of dds texture is set in DDSLoader
+			if ( ! textureExtensions[ EXTENSIONS.MSFT_TEXTURE_DDS ] ) {
+
+				texture.format = textureDef.format !== undefined ? WEBGL_TEXTURE_FORMATS[ textureDef.format ] : THREE.RGBAFormat;
+
+			}
 
 			if ( textureDef.internalFormat !== undefined && texture.format !== WEBGL_TEXTURE_FORMATS[ textureDef.internalFormat ] ) {
 
@@ -66899,14 +66963,14 @@ THREE.GLTFLoader = ( function () {
 			materialType = kmuExtension.getMaterialType( materialDef );
 			pending.push( kmuExtension.extendParams( materialParams, materialDef, parser ) );
 
-		} else if ( materialDef.pbrMetallicRoughness !== undefined ) {
+		} else {
 
 			// Specification:
 			// https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#metallic-roughness-material
 
 			materialType = THREE.MeshStandardMaterial;
 
-			var metallicRoughness = materialDef.pbrMetallicRoughness;
+			var metallicRoughness = materialDef.pbrMetallicRoughness || {};
 
 			materialParams.color = new THREE.Color( 1.0, 1.0, 1.0 );
 			materialParams.opacity = 1.0;
@@ -66936,10 +67000,6 @@ THREE.GLTFLoader = ( function () {
 				pending.push( parser.assignTexture( materialParams, 'roughnessMap', textureIndex ) );
 
 			}
-
-		} else {
-
-			materialType = THREE.MeshPhongMaterial;
 
 		}
 
@@ -67025,7 +67085,7 @@ THREE.GLTFLoader = ( function () {
 			// https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#materialnormaltexture
 			if ( material.normalScale ) {
 
-				material.normalScale.x = - material.normalScale.x;
+				material.normalScale.y = - material.normalScale.y;
 
 			}
 
@@ -67084,7 +67144,6 @@ THREE.GLTFLoader = ( function () {
 
 		return this.getDependencies( 'accessor' ).then( function ( accessors ) {
 
-			var geometries = [];
 			var pending = [];
 
 			for ( var i = 0, il = primitives.length; i < il; i ++ ) {
@@ -67094,16 +67153,10 @@ THREE.GLTFLoader = ( function () {
 				// See if we've already created this geometry
 				var cached = getCachedGeometry( cache, primitive );
 
-				var geometry;
-
 				if ( cached ) {
 
 					// Use the cached geometry if it exists
-					pending.push( cached.then( function ( geometry ) {
-
-						geometries.push( geometry );
-
-					} ) );
+					pending.push( cached );
 
 				} else if ( primitive.extensions && primitive.extensions[ EXTENSIONS.KHR_DRACO_MESH_COMPRESSION ] ) {
 
@@ -67114,42 +67167,38 @@ THREE.GLTFLoader = ( function () {
 
 							addPrimitiveAttributes( geometry, primitive, accessors );
 
-							geometries.push( geometry );
-
 							return geometry;
 
 						} );
 
-					cache.push( { primitive: primitive, promise: geometryPromise  } );
+					cache.push( { primitive: primitive, promise: geometryPromise } );
 
 					pending.push( geometryPromise );
 
-				} else  {
+				} else {
 
 					// Otherwise create a new geometry
-					geometry = new THREE.BufferGeometry();
+					var geometry = new THREE.BufferGeometry();
 
 					addPrimitiveAttributes( geometry, primitive, accessors );
+
+					var geometryPromise = Promise.resolve( geometry );
 
 					// Cache this geometry
 					cache.push( {
 
 						primitive: primitive,
-						promise: Promise.resolve( geometry )
+						promise: geometryPromise
 
 					} );
 
-					geometries.push( geometry );
+					pending.push( geometryPromise );
 
 				}
 
 			}
 
-			return Promise.all( pending ).then( function () {
-
-				return geometries;
-
-			} );
+			return Promise.all( pending );
 
 		} );
 
@@ -67330,6 +67379,10 @@ THREE.GLTFLoader = ( function () {
 
 						addMorphTargets( mesh, meshDef, primitive, dependencies.accessors );
 
+						material.morphTargets = true;
+
+						if ( mesh.geometry.morphAttributes.normal !== undefined ) material.morphNormals = true;
+
 					}
 
 					if ( meshDef.extras !== undefined ) mesh.userData = meshDef.extras;
@@ -67384,10 +67437,7 @@ THREE.GLTFLoader = ( function () {
 
 		if ( cameraDef.type === 'perspective' ) {
 
-			var aspectRatio = params.aspectRatio || 1;
-			var xfov = params.yfov * aspectRatio;
-
-			camera = new THREE.PerspectiveCamera( THREE.Math.radToDeg( xfov ), aspectRatio, params.znear || 1, params.zfar || 2e6 );
+			camera = new THREE.PerspectiveCamera( THREE.Math.radToDeg( params.yfov ), params.aspectRatio || 1, params.znear || 1, params.zfar || 2e6 );
 
 		} else if ( cameraDef.type === 'orthographic' ) {
 
@@ -67592,7 +67642,8 @@ THREE.GLTFLoader = ( function () {
 
 			'mesh',
 			'skin',
-			'camera'
+			'camera',
+			'light'
 
 		] ).then( function ( dependencies ) {
 
@@ -67826,17 +67877,17 @@ THREE.GLTFLoader = ( function () {
 
 } )();
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(51)))
 
 /***/ }),
-/* 354 */,
 /* 355 */,
 /* 356 */,
 /* 357 */,
 /* 358 */,
 /* 359 */,
 /* 360 */,
-/* 361 */
+/* 361 */,
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -68069,9 +68120,9 @@ module.exports = __webpack_require__(58);
 /******/ ]);
 
 /***/ }),
-/* 362 */,
 /* 363 */,
-/* 364 */
+/* 364 */,
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68166,7 +68217,7 @@ function mergeChildMappings(prev, next) {
 }
 
 /***/ }),
-/* 365 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68341,7 +68392,7 @@ exports.default = ReplaceTransition;
 module.exports = exports['default'];
 
 /***/ }),
-/* 366 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68356,7 +68407,7 @@ module.exports = function removeClass(element, className) {
 };
 
 /***/ }),
-/* 367 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68372,7 +68423,7 @@ function hasClass(element, className) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 368 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68383,7 +68434,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = addClass;
 
-var _hasClass = __webpack_require__(367);
+var _hasClass = __webpack_require__(368);
 
 var _hasClass2 = _interopRequireDefault(_hasClass);
 
@@ -68395,7 +68446,7 @@ function addClass(element, className) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 369 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68409,11 +68460,11 @@ var _propTypes = __webpack_require__(1);
 
 var PropTypes = _interopRequireWildcard(_propTypes);
 
-var _addClass = __webpack_require__(368);
+var _addClass = __webpack_require__(369);
 
 var _addClass2 = _interopRequireDefault(_addClass);
 
-var _removeClass = __webpack_require__(366);
+var _removeClass = __webpack_require__(367);
 
 var _removeClass2 = _interopRequireDefault(_removeClass);
 
@@ -68683,17 +68734,17 @@ exports.default = CSSTransition;
 module.exports = exports['default'];
 
 /***/ }),
-/* 370 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _CSSTransition = __webpack_require__(369);
+var _CSSTransition = __webpack_require__(370);
 
 var _CSSTransition2 = _interopRequireDefault(_CSSTransition);
 
-var _ReplaceTransition = __webpack_require__(365);
+var _ReplaceTransition = __webpack_require__(366);
 
 var _ReplaceTransition2 = _interopRequireDefault(_ReplaceTransition);
 
@@ -68715,8 +68766,8 @@ module.exports = {
 };
 
 /***/ }),
-/* 371 */,
-/* 372 */
+/* 372 */,
+/* 373 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -68725,7 +68776,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68744,7 +68795,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 374 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68797,7 +68848,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 375 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68811,8 +68862,8 @@ module.exports = invariant;
 
 
 var emptyFunction = __webpack_require__(97);
-var invariant = __webpack_require__(374);
-var ReactPropTypesSecret = __webpack_require__(373);
+var invariant = __webpack_require__(375);
+var ReactPropTypesSecret = __webpack_require__(374);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -68862,71 +68913,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 376 */,
-/* 377 */
-/***/ (function(module, exports) {
-
-var appCacheIframe;
-
-function hasSW() {
-  
-    return 'serviceWorker' in navigator && (
-      window.location.protocol === 'https:' ||
-      window.location.hostname === 'localhost' ||
-      window.location.hostname.indexOf('127.') === 0
-    );
-  
-}
-
-function install(options) {
-  options || (options = {});
-
-  
-    if (hasSW()) {
-      var registration = navigator.serviceWorker
-        .register(
-          "sw.js", {
-            
-            
-          }
-        );
-
-      
-
-      return;
-    }
-  
-
-  
-}
-
-function applyUpdate(callback, errback) {
-  
-
-  
-}
-
-function update() {
-  
-    if (hasSW()) {
-      navigator.serviceWorker.getRegistration().then(function(registration) {
-        if (!registration) return;
-        return registration.update();
-      });
-    }
-  
-
-  
-}
-
-
-
-exports.install = install;
-exports.applyUpdate = applyUpdate;
-exports.update = update;
-
-
-/***/ }),
+/* 377 */,
 /* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -70240,7 +70227,7 @@ module.exports = __webpack_require__(31).RegExp.escape;
 /***/ (function(module, exports, __webpack_require__) {
 
 var $iterators = __webpack_require__(103);
-var getKeys = __webpack_require__(47);
+var getKeys = __webpack_require__(46);
 var redefine = __webpack_require__(16);
 var global = __webpack_require__(5);
 var hide = __webpack_require__(17);
@@ -70351,10 +70338,10 @@ var microtask = __webpack_require__(101)();
 var OBSERVABLE = __webpack_require__(8)('observable');
 var aFunction = __webpack_require__(14);
 var anObject = __webpack_require__(4);
-var anInstance = __webpack_require__(42);
-var redefineAll = __webpack_require__(40);
+var anInstance = __webpack_require__(41);
+var redefineAll = __webpack_require__(39);
 var hide = __webpack_require__(17);
-var forOf = __webpack_require__(41);
+var forOf = __webpack_require__(40);
 var RETURN = forOf.RETURN;
 
 var getMethod = function (fn) {
@@ -70540,7 +70527,7 @@ hide($Observable.prototype, OBSERVABLE, function () { return this; });
 
 $export($export.G, { Observable: $Observable });
 
-__webpack_require__(43)('Observable');
+__webpack_require__(42)('Observable');
 
 
 /***/ }),
@@ -71382,7 +71369,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(35)('flatten');
+__webpack_require__(36)('flatten');
 
 
 /***/ }),
@@ -71411,7 +71398,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(35)('flatMap');
+__webpack_require__(36)('flatMap');
 
 
 /***/ }),
@@ -71430,7 +71417,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(35)('includes');
+__webpack_require__(36)('includes');
 
 
 /***/ }),
@@ -71464,7 +71451,7 @@ var gOPD = __webpack_require__(20);
 var getPrototypeOf = __webpack_require__(19);
 var has = __webpack_require__(18);
 var $export = __webpack_require__(0);
-var createDesc = __webpack_require__(50);
+var createDesc = __webpack_require__(49);
 var anObject = __webpack_require__(4);
 var isObject = __webpack_require__(7);
 
@@ -71698,7 +71685,7 @@ $export($export.S + $export.F * __webpack_require__(6)(function () {
 
 // 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
 var $export = __webpack_require__(0);
-var create = __webpack_require__(45);
+var create = __webpack_require__(44);
 var aFunction = __webpack_require__(14);
 var anObject = __webpack_require__(4);
 var isObject = __webpack_require__(7);
@@ -71886,7 +71873,7 @@ var $export = __webpack_require__(0);
 var $typed = __webpack_require__(75);
 var buffer = __webpack_require__(99);
 var anObject = __webpack_require__(4);
-var toAbsoluteIndex = __webpack_require__(46);
+var toAbsoluteIndex = __webpack_require__(45);
 var toLength = __webpack_require__(9);
 var isObject = __webpack_require__(7);
 var ArrayBuffer = __webpack_require__(5).ArrayBuffer;
@@ -71926,7 +71913,7 @@ $export($export.P + $export.U + $export.F * __webpack_require__(6)(function () {
   }
 });
 
-__webpack_require__(43)(ARRAY_BUFFER);
+__webpack_require__(42)(ARRAY_BUFFER);
 
 
 /***/ }),
@@ -71956,15 +71943,15 @@ __webpack_require__(76)(WEAK_SET, function (get) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(48);
+var LIBRARY = __webpack_require__(47);
 var global = __webpack_require__(5);
 var ctx = __webpack_require__(24);
 var classof = __webpack_require__(60);
 var $export = __webpack_require__(0);
 var isObject = __webpack_require__(7);
 var aFunction = __webpack_require__(14);
-var anInstance = __webpack_require__(42);
-var forOf = __webpack_require__(41);
+var anInstance = __webpack_require__(41);
+var forOf = __webpack_require__(40);
 var speciesConstructor = __webpack_require__(77);
 var task = __webpack_require__(102).set;
 var microtask = __webpack_require__(101)();
@@ -72133,7 +72120,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(40)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(39)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -72165,7 +72152,7 @@ if (!USE_NATIVE) {
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
 __webpack_require__(56)($Promise, PROMISE);
-__webpack_require__(43)(PROMISE);
+__webpack_require__(42)(PROMISE);
 Wrapper = __webpack_require__(31)[PROMISE];
 
 // statics
@@ -72396,7 +72383,7 @@ if (__webpack_require__(6)(function () { return $toString.call({ source: 'a', fl
 var global = __webpack_require__(5);
 var inheritIfRequired = __webpack_require__(117);
 var dP = __webpack_require__(10).f;
-var gOPN = __webpack_require__(44).f;
+var gOPN = __webpack_require__(43).f;
 var isRegExp = __webpack_require__(81);
 var $flags = __webpack_require__(79);
 var $RegExp = global.RegExp;
@@ -72435,14 +72422,14 @@ if (__webpack_require__(11) && (!CORRECT_NEW || __webpack_require__(6)(function 
   __webpack_require__(16)(global, 'RegExp', $RegExp);
 }
 
-__webpack_require__(43)('RegExp');
+__webpack_require__(42)('RegExp');
 
 
 /***/ }),
 /* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(43)('Array');
+__webpack_require__(42)('Array');
 
 
 /***/ }),
@@ -72463,7 +72450,7 @@ $export($export.P + $export.F * forced, 'Array', {
     return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
-__webpack_require__(35)(KEY);
+__webpack_require__(36)(KEY);
 
 
 /***/ }),
@@ -72484,7 +72471,7 @@ $export($export.P + $export.F * forced, 'Array', {
     return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
-__webpack_require__(35)(KEY);
+__webpack_require__(36)(KEY);
 
 
 /***/ }),
@@ -72496,7 +72483,7 @@ var $export = __webpack_require__(0);
 
 $export($export.P, 'Array', { fill: __webpack_require__(104) });
 
-__webpack_require__(35)('fill');
+__webpack_require__(36)('fill');
 
 
 /***/ }),
@@ -72508,7 +72495,7 @@ var $export = __webpack_require__(0);
 
 $export($export.P, 'Array', { copyWithin: __webpack_require__(181) });
 
-__webpack_require__(35)('copyWithin');
+__webpack_require__(36)('copyWithin');
 
 
 /***/ }),
@@ -72743,7 +72730,7 @@ $export($export.P + $export.F * (fails(function () {
 var $export = __webpack_require__(0);
 var html = __webpack_require__(120);
 var cof = __webpack_require__(23);
-var toAbsoluteIndex = __webpack_require__(46);
+var toAbsoluteIndex = __webpack_require__(45);
 var toLength = __webpack_require__(9);
 var arraySlice = [].slice;
 
@@ -73340,7 +73327,7 @@ $export($export.S, 'String', {
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var toAbsoluteIndex = __webpack_require__(46);
+var toAbsoluteIndex = __webpack_require__(45);
 var fromCharCode = String.fromCharCode;
 var $fromCodePoint = String.fromCodePoint;
 
@@ -73904,7 +73891,7 @@ var cof = __webpack_require__(23);
 var inheritIfRequired = __webpack_require__(117);
 var toPrimitive = __webpack_require__(30);
 var fails = __webpack_require__(6);
-var gOPN = __webpack_require__(44).f;
+var gOPN = __webpack_require__(43).f;
 var gOPD = __webpack_require__(20).f;
 var dP = __webpack_require__(10).f;
 var $trim = __webpack_require__(55).trim;
@@ -73913,7 +73900,7 @@ var $Number = global[NUMBER];
 var Base = $Number;
 var proto = $Number.prototype;
 // Opera ~12 has broken Object#toString
-var BROKEN_COF = cof(__webpack_require__(45)(proto)) == NUMBER;
+var BROKEN_COF = cof(__webpack_require__(44)(proto)) == NUMBER;
 var TRIM = 'trim' in String.prototype;
 
 // 7.1.3 ToNumber(argument)
@@ -74144,7 +74131,7 @@ __webpack_require__(27)('isFrozen', function ($isFrozen) {
 
 // 19.1.2.15 Object.preventExtensions(O)
 var isObject = __webpack_require__(7);
-var meta = __webpack_require__(36).onFreeze;
+var meta = __webpack_require__(37).onFreeze;
 
 __webpack_require__(27)('preventExtensions', function ($preventExtensions) {
   return function preventExtensions(it) {
@@ -74159,7 +74146,7 @@ __webpack_require__(27)('preventExtensions', function ($preventExtensions) {
 
 // 19.1.2.17 Object.seal(O)
 var isObject = __webpack_require__(7);
-var meta = __webpack_require__(36).onFreeze;
+var meta = __webpack_require__(37).onFreeze;
 
 __webpack_require__(27)('seal', function ($seal) {
   return function seal(it) {
@@ -74174,7 +74161,7 @@ __webpack_require__(27)('seal', function ($seal) {
 
 // 19.1.2.5 Object.freeze(O)
 var isObject = __webpack_require__(7);
-var meta = __webpack_require__(36).onFreeze;
+var meta = __webpack_require__(37).onFreeze;
 
 __webpack_require__(27)('freeze', function ($freeze) {
   return function freeze(it) {
@@ -74199,7 +74186,7 @@ __webpack_require__(27)('getOwnPropertyNames', function () {
 
 // 19.1.2.14 Object.keys(O)
 var toObject = __webpack_require__(13);
-var $keys = __webpack_require__(47);
+var $keys = __webpack_require__(46);
 
 __webpack_require__(27)('keys', function () {
   return function keys(it) {
@@ -74262,7 +74249,7 @@ $export($export.S + $export.F * !__webpack_require__(11), 'Object', { defineProp
 
 var $export = __webpack_require__(0);
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: __webpack_require__(45) });
+$export($export.S, 'Object', { create: __webpack_require__(44) });
 
 
 /***/ }),
@@ -74270,7 +74257,7 @@ $export($export.S, 'Object', { create: __webpack_require__(45) });
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(47);
+var getKeys = __webpack_require__(46);
 var gOPS = __webpack_require__(83);
 var pIE = __webpack_require__(61);
 module.exports = function (it) {
@@ -74298,11 +74285,11 @@ var has = __webpack_require__(18);
 var DESCRIPTORS = __webpack_require__(11);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(16);
-var META = __webpack_require__(36).KEY;
+var META = __webpack_require__(37).KEY;
 var $fails = __webpack_require__(6);
 var shared = __webpack_require__(85);
 var setToStringTag = __webpack_require__(56);
-var uid = __webpack_require__(49);
+var uid = __webpack_require__(48);
 var wks = __webpack_require__(8);
 var wksExt = __webpack_require__(196);
 var wksDefine = __webpack_require__(123);
@@ -74312,12 +74299,12 @@ var anObject = __webpack_require__(4);
 var isObject = __webpack_require__(7);
 var toIObject = __webpack_require__(21);
 var toPrimitive = __webpack_require__(30);
-var createDesc = __webpack_require__(50);
-var _create = __webpack_require__(45);
+var createDesc = __webpack_require__(49);
+var _create = __webpack_require__(44);
 var gOPNExt = __webpack_require__(193);
 var $GOPD = __webpack_require__(20);
 var $DP = __webpack_require__(10);
-var $keys = __webpack_require__(47);
+var $keys = __webpack_require__(46);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
 var gOPN = gOPNExt.f;
@@ -74440,11 +74427,11 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(44).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(43).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(61).f = $propertyIsEnumerable;
   __webpack_require__(83).f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(48)) {
+  if (DESCRIPTORS && !__webpack_require__(47)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 

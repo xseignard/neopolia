@@ -6,7 +6,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const OfflinePlugin = require('offline-plugin');
 
 const plugins = [
 	new HtmlWebpackPlugin({ template: 'src/index.html' }),
@@ -14,10 +13,12 @@ const plugins = [
 		THREE: 'three',
 	}),
 	new Dotenv(),
-	new CopyWebpackPlugin([{ from: './misc/.htaccess', to: '.', flatten: true }]),
+	new CopyWebpackPlugin([
+		{ from: './misc/.htaccess', to: '.' },
+		{ from: './src/app.js', to: '.' },
+	]),
 	new CleanWebpackPlugin(['dist']),
 	new MiniCssExtractPlugin(),
-	new OfflinePlugin(),
 ];
 
 let optimization = {};
@@ -36,12 +37,19 @@ module.exports = {
 	entry: ['babel-polyfill', './src/main.js', './src/styles/main.scss'],
 	// mode: 'development',
 	output: {
-		publicPath: './',
+		publicPath: process.env.ELECTRON ? './' : '/',
 	},
 	module: {
 		rules: [
 			// js
-			{ test: /\.js$/, use: ['babel-loader'], include: [path.resolve(__dirname, 'src')] },
+			{
+				test: /\.js$/,
+				use: [
+					{ loader: 'babel-loader' },
+					{ loader: 'ifdef-loader', options: { ELECTRON: process.env.ELECTRON } },
+				],
+				include: [path.resolve(__dirname, 'src')],
+			},
 			// sass
 			{ test: /\.scss$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'] },
 			// svg
@@ -58,6 +66,7 @@ module.exports = {
 	plugins,
 	devServer: {
 		host: '0.0.0.0',
+		port: 3000,
 		historyApiFallback: true,
 		contentBase: path.join(__dirname, 'dist'),
 	},

@@ -50,3 +50,7 @@ export const loadData = async () => {
 	sessionStorage.setItem('about', JSON.stringify(about));
 	sessionStorage.setItem('offer', JSON.stringify(offer));
 };
+
+export const clearData = async () => {
+	sessionStorage.clear();
+};

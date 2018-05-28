@@ -31,10 +31,6 @@
 		}
 		&:not(:first-child) {
 			flex: 1;
-			cursor: pointer;
-			&:hover {
-				background-color: rgba($white, 0.9);
-			}
 		}
 	}
 }

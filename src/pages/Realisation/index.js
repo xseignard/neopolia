@@ -31,36 +31,44 @@ class Realisation extends Component {
 			});
 			realisationFragment = (
 				<Fragment>
-					<Title content={r.name} size={42} />
+					<Title content={r.name} size={40} />
 					<div className="realisation__details">
 						<div className="realisation__numbers">
-							<p className="realisation__amount">
-								<span>Amount: </span>
-								{r.amount}
-							</p>
+							{r.amount && (
+								<p className="realisation__amount">
+									<span>Amount: </span>
+									{r.amount}
+								</p>
+							)}
 							<p className="realisation__application">
 								<span>Application: </span>
-								{r.application}
+								{r.application.join(', ')}
 							</p>
 							<p className="realisation__client">
 								<span>Client: </span>
 								{r.client_name}
 							</p>
-							<p className="realisation__geographic">
-								<span>Geographic zone: </span>
-								{r.geographic_zone}
-							</p>
-							<p className="realisation__market">
-								<span>Market type: </span>
-								{r.market_type}
-							</p>
-							<p className="realisation__program">
-								<span>Program: </span>
-								{r.program}
-							</p>
+							{r.geographic_zone && (
+								<p className="realisation__geographic">
+									<span>Geographic zone: </span>
+									{r.geographic_zone.join(', ')}
+								</p>
+							)}
+							{r.market_type && (
+								<p className="realisation__market">
+									<span>Market type: </span>
+									{r.market_type.join(', ')}
+								</p>
+							)}
+							{r.program && (
+								<p className="realisation__program">
+									<span>Program: </span>
+									{r.program.join(', ')}
+								</p>
+							)}
 							<p className="realisation__zone">
 								<span>Zone: </span>
-								{r.zone}
+								{r.zone.join(', ')}
 							</p>
 							<p className="realisation__certifications">
 								<span>Certifications: </span>

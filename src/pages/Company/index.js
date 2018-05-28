@@ -84,7 +84,7 @@ class Company extends Component {
 				{loader}
 				{companyComponent}
 				{map}
-				<Close />
+				<Close nav="Members" />
 			</div>
 		);
 	}

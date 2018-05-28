@@ -13,10 +13,13 @@ const FooterItem = withRouter(props => {
 		props.history.push(props.route);
 	};
 	let active;
-	if ((props.route === props.location.pathname) === '/') {
+	if (props.route === props.location.pathname && props.route === '/') {
 		active = 'footer__item-active';
 	} else {
-		active = props.location.pathname === props.route ? 'footer__item-active' : '';
+		active =
+			props.location.pathname.startsWith(props.route) && props.route.length > 1
+				? 'footer__item-active'
+				: '';
 	}
 	return (
 		<div className={`footer__item ${active}`} onClick={handleClick}>
