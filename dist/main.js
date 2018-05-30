@@ -128,7 +128,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([589,0]);
+/******/ 	deferredModules.push([594,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -270,7 +270,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
 __webpack_require__(222);
 
@@ -456,7 +456,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
 var _reactSlick = __webpack_require__(261);
 
@@ -837,9 +837,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -959,7 +959,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -1023,13 +1023,13 @@ var _reactInlinesvg = __webpack_require__(129);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
 var _Slideshow = __webpack_require__(133);
 
 var _Slideshow2 = _interopRequireDefault(_Slideshow);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -1114,13 +1114,13 @@ var _reactInlinesvg = __webpack_require__(129);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
 var _Slideshow = __webpack_require__(133);
 
 var _Slideshow2 = _interopRequireDefault(_Slideshow);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -1911,7 +1911,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
 var _company = __webpack_require__(89);
 
@@ -2070,11 +2070,150 @@ module.exports = __webpack_require__.p + "4418dde3f6abc21dc32506acf5f5b093.jpg";
 /***/ 281:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "79dc6a8bedec3a85a6a1879626d5a936.glb";
+module.exports = __webpack_require__.p + "5104c28086990275a84612cd799ab22b.glb";
 
 /***/ }),
 
-/***/ 35:
+/***/ 356:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _three = __webpack_require__(22);
+
+var THREE = _interopRequireWildcard(_three);
+
+__webpack_require__(355);
+
+__webpack_require__(354);
+
+__webpack_require__(353);
+
+__webpack_require__(352);
+
+__webpack_require__(351);
+
+var _threeShaderFxaa = __webpack_require__(350);
+
+var _threeShaderFxaa2 = _interopRequireDefault(_threeShaderFxaa);
+
+var _stats = __webpack_require__(349);
+
+var _stats2 = _interopRequireDefault(_stats);
+
+var _merge = __webpack_require__(348);
+
+var _merge2 = _interopRequireDefault(_merge);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var initThree = function initThree(canvas, opts) {
+	// default opts
+	var defaults = {
+		renderer: {
+			alpha: true,
+			shadowMap: false
+		},
+		camera: {
+			fov: 75,
+			nearPlane: 0.1,
+			farPlane: 1000,
+			x: 0,
+			y: 2,
+			z: 20
+		},
+		ambient: {
+			color: 0xffffff
+		},
+		axesHelper: true,
+		fxaa: false
+	};
+	// merged opts
+	var mergedOpts = (0, _merge2.default)(defaults, opts);
+
+	// stats
+	var stats = new _stats2.default();
+	if (mergedOpts.debug) {
+		stats.domElement.style.top = '';
+		stats.domElement.style.bottom = '7vh';
+		document.body.appendChild(stats.domElement);
+	}
+
+	// renderer
+	var renderer = new THREE.WebGLRenderer({
+		antialias: true,
+		alpha: mergedOpts.renderer.alpha,
+		canvas: canvas
+	});
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.gammaOutput = true;
+	renderer.domElement.style.position = 'absolute';
+	renderer.domElement.style.top = '0px';
+	renderer.domElement.style.left = '0px';
+	if (mergedOpts.renderer.shadowMap) {
+		renderer.shadowMap.enabled = true;
+		renderer.shadowMap.type = THREE.PCFShadowMap;
+	}
+
+	// scene
+	var scene = new THREE.Scene();
+
+	// camera
+	var camera = new THREE.PerspectiveCamera(mergedOpts.camera.fov, window.innerWidth / window.innerHeight, mergedOpts.camera.nearPlane, mergedOpts.camera.farPlane);
+	camera.position.x = mergedOpts.camera.x;
+	camera.position.y = mergedOpts.camera.y;
+	camera.position.z = mergedOpts.camera.z;
+
+	// fxaa
+	var composer = new THREE.EffectComposer(renderer);
+	composer.addPass(new THREE.RenderPass(scene, camera));
+	window.THREE = THREE;
+	var shaderPass = new THREE.ShaderPass((0, _threeShaderFxaa2.default)());
+	shaderPass.renderToScreen = true;
+	composer.addPass(shaderPass);
+	shaderPass.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+
+	// controls
+	var controls = new THREE.OrbitControls(camera, renderer.domElement);
+	controls.maxPolarAngle = Math.PI * 0.44;
+	controls.panningMode = THREE.HorizontalPanning;
+	controls.minDistance = 10;
+	controls.maxDistance = 35;
+
+	// axis helper
+	var axesHelper = new THREE.AxesHelper(50);
+	if (mergedOpts.axesHelper) scene.add(axesHelper);
+
+	// ambient light
+	var ambient = new THREE.AmbientLight(mergedOpts.ambient.color);
+	scene.add(ambient);
+
+	var handleResize = function handleResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		if (mergedOpts.fxaa) {
+			shaderPass.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+			composer.setSize(window.innerWidth, window.innerHeight);
+		}
+	};
+	addEventListener('resize', handleResize);
+
+	return { stats: stats, renderer: renderer, composer: composer, scene: scene, camera: camera, controls: controls };
+};
+
+exports.default = initThree;
+
+/***/ }),
+
+/***/ 36:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2128,119 +2267,7 @@ exports.default = AppContext;
 
 /***/ }),
 
-/***/ 351:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _three = __webpack_require__(51);
-
-var THREE = _interopRequireWildcard(_three);
-
-__webpack_require__(350);
-
-var _stats = __webpack_require__(349);
-
-var _stats2 = _interopRequireDefault(_stats);
-
-var _merge = __webpack_require__(348);
-
-var _merge2 = _interopRequireDefault(_merge);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var initThree = function initThree(canvas, opts) {
-	// default opts
-	var defaults = {
-		renderer: {
-			alpha: true,
-			shadowMap: false
-		},
-		camera: {
-			fov: 75,
-			nearPlane: 0.1,
-			farPlane: 1000,
-			x: 0,
-			y: 2,
-			z: 20
-		},
-		ambient: {
-			color: 0xffffff
-		},
-		axesHelper: true
-	};
-	// merged opts
-	var mergedOpts = (0, _merge2.default)(defaults, opts);
-
-	// stats
-	var stats = new _stats2.default();
-	if (mergedOpts.debug) {
-		stats.domElement.style.top = '';
-		stats.domElement.style.bottom = '7vh';
-		document.body.appendChild(stats.domElement);
-	}
-
-	// renderer
-	var renderer = new THREE.WebGLRenderer({
-		antialias: true,
-		alpha: mergedOpts.renderer.alpha,
-		canvas: canvas
-	});
-	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.domElement.style.position = 'absolute';
-	renderer.domElement.style.top = '0px';
-	renderer.domElement.style.left = '0px';
-	if (mergedOpts.renderer.shadowMap) {
-		renderer.shadowMap.enabled = true;
-		renderer.shadowMap.type = THREE.PCFShadowMap;
-	}
-
-	// scene
-	var scene = new THREE.Scene();
-
-	// camera
-	var camera = new THREE.PerspectiveCamera(mergedOpts.camera.fov, window.innerWidth / window.innerHeight, mergedOpts.camera.nearPlane, mergedOpts.camera.farPlane);
-	camera.position.x = mergedOpts.camera.x;
-	camera.position.y = mergedOpts.camera.y;
-	camera.position.z = mergedOpts.camera.z;
-
-	// controls
-	var controls = new THREE.OrbitControls(camera, renderer.domElement);
-	controls.maxPolarAngle = Math.PI * 0.44;
-	controls.panningMode = THREE.HorizontalPanning;
-	controls.minDistance = 10;
-	controls.maxDistance = 35;
-
-	// axis helper
-	var axesHelper = new THREE.AxesHelper(50);
-	if (mergedOpts.axesHelper) scene.add(axesHelper);
-
-	// ambient light
-	var ambient = new THREE.AmbientLight(mergedOpts.ambient.color);
-	scene.add(ambient);
-
-	var handleResize = function handleResize() {
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-		renderer.setSize(window.innerWidth, window.innerHeight);
-	};
-	addEventListener('resize', handleResize);
-
-	return { stats: stats, renderer: renderer, scene: scene, camera: camera, controls: controls };
-};
-
-exports.default = initThree;
-
-/***/ }),
-
-/***/ 355:
+/***/ 360:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2251,17 +2278,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.attachRaycastHandler = exports.attachLoadingHandler = undefined;
 
-var _three = __webpack_require__(51);
+var _three = __webpack_require__(22);
 
 var THREE = _interopRequireWildcard(_three);
 
-__webpack_require__(354);
+__webpack_require__(359);
 
-__webpack_require__(353);
+__webpack_require__(358);
 
-__webpack_require__(352);
+__webpack_require__(357);
 
-var _initThree2 = __webpack_require__(351);
+var _initThree2 = __webpack_require__(356);
 
 var _initThree3 = _interopRequireDefault(_initThree2);
 
@@ -2307,8 +2334,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var canvas = document.createElement('canvas');
 canvas.id = 'canvas';
-
-var _initThree = (0, _initThree3.default)(canvas, {
+var opts = {
 	camera: {
 		x: 0,
 		y: 8,
@@ -2317,11 +2343,15 @@ var _initThree = (0, _initThree3.default)(canvas, {
 	renderer: {
 		shadowMap: true
 	},
-	debug: true,
-	axesHelper: true
-}),
+	debug: false,
+	axesHelper: false,
+	fxaa: true
+};
+
+var _initThree = (0, _initThree3.default)(canvas, opts),
     stats = _initThree.stats,
     renderer = _initThree.renderer,
+    composer = _initThree.composer,
     scene = _initThree.scene,
     camera = _initThree.camera,
     controls = _initThree.controls;
@@ -2339,7 +2369,6 @@ scene.fog = new THREE.FogExp2(0xaaaaaa, 0.01);
 
 // model
 var model = void 0;
-var mat = new THREE.MeshPhongMaterial({ color: 0x7777ff, side: THREE.DoubleSide });
 var addModel = function addModel() {
 	var gltfLoader = new THREE.GLTFLoader();
 	//THREE.DRACOLoader.setDecoderPath('../../libs/draco');
@@ -2347,12 +2376,12 @@ var addModel = function addModel() {
 	gltfLoader.load(_model2.default, function (object) {
 		model = object.scene;
 		model.traverse(function (node) {
-			if (node instanceof THREE.Mesh) {
-				node.castShadow = true;
-				node.receiveShadow = true;
-				if (Array.isArray(node.material)) node.material.forEach(function (m) {
-					return m.side = THREE.DoubleSide;
-				});else node.material.side = THREE.DoubleSide;
+			if (node.isMesh) {
+				var material = node.material;
+				material.side = THREE.DoubleSide;
+				if (material.map) material.map.encoding = THREE.sRGBEncoding;
+				if (material.emissiveMap) material.emissiveMap.encoding = THREE.sRGBEncoding;
+				if (material.map || material.emissiveMap) material.needsUpdate = true;
 			}
 		});
 		model.scale.set(39.3, 39.3, 39.3);
@@ -2415,7 +2444,7 @@ var attachLoadingHandler = function attachLoadingHandler(cb) {
 };
 
 // raycasting
-var selectionColor = new THREE.Color(0xffff00);
+var selectionColor = new THREE.Color(0xee4c19);
 var prevColor = void 0;
 var attachRaycastHandler = function attachRaycastHandler(cb) {
 	var raycaster = new THREE.Raycaster();
@@ -2474,9 +2503,7 @@ var attachRaycastHandler = function attachRaycastHandler(cb) {
 					});
 					return index < 0 ? [].concat(_toConsumableArray(x), [y]) : x;
 				}, [])[0];
-				console.log(filtered.object.parent.name);
-				console.log(filtered.object.name);
-				var target = filtered.object.parent.name === 'RootNode' ? filtered.object : filtered.object.parent;
+				var target = filtered.object;
 				if (target.name !== 'NonCliquable') {
 					cb(target);
 					prevColor = filtered.object.material.color;
@@ -2502,7 +2529,7 @@ var animate = function animate(timestamp) {
 	rafID = requestAnimationFrame(animate);
 	stats.begin();
 	if (water) water.material.uniforms.time.value += 0.0005;
-	renderer.render(scene, camera);
+	if (opts.fxaa) composer.render();else renderer.render(scene, camera);
 	stats.end();
 };
 requestAnimationFrame(animate);
@@ -2513,14 +2540,14 @@ exports.attachRaycastHandler = attachRaycastHandler;
 
 /***/ }),
 
-/***/ 357:
+/***/ 362:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 358:
+/***/ 363:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -2540,7 +2567,7 @@ Close.default = Close;
 
 /***/ }),
 
-/***/ 359:
+/***/ 364:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2556,9 +2583,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -2570,11 +2597,11 @@ var _Loader = __webpack_require__(52);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _close = __webpack_require__(358);
+var _close = __webpack_require__(363);
 
 var _close2 = _interopRequireDefault(_close);
 
-__webpack_require__(357);
+__webpack_require__(362);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2715,14 +2742,14 @@ exports.default = Vignette;
 
 /***/ }),
 
-/***/ 361:
+/***/ 366:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 363:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2806,7 +2833,7 @@ exports.default = ElementContainer;
 
 /***/ }),
 
-/***/ 364:
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2822,11 +2849,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ElementContainer = __webpack_require__(363);
+var _ElementContainer = __webpack_require__(368);
 
 var _ElementContainer2 = _interopRequireDefault(_ElementContainer);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
@@ -2834,11 +2861,11 @@ var _Loader = __webpack_require__(52);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _Vignette = __webpack_require__(359);
+var _Vignette = __webpack_require__(364);
 
 var _Vignette2 = _interopRequireDefault(_Vignette);
 
-var _canvas = __webpack_require__(355);
+var _canvas = __webpack_require__(360);
 
 var _canvas2 = _interopRequireDefault(_canvas);
 
@@ -2946,7 +2973,7 @@ exports.default = Scene;
 
 /***/ }),
 
-/***/ 372:
+/***/ 377:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2960,15 +2987,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
-var _reactTransitionGroup = __webpack_require__(371);
+var _reactTransitionGroup = __webpack_require__(376);
 
 var _createBrowserHistory = __webpack_require__(127);
 
 var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 
-var _Scene = __webpack_require__(364);
+var _Scene = __webpack_require__(369);
 
 var _Scene2 = _interopRequireDefault(_Scene);
 
@@ -3022,7 +3049,7 @@ exports.default = Routes;
 
 /***/ }),
 
-/***/ 377:
+/***/ 382:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3038,13 +3065,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
-var _routes = __webpack_require__(372);
+var _routes = __webpack_require__(377);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -3242,7 +3269,7 @@ exports.default = App;
 
 /***/ }),
 
-/***/ 386:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3252,9 +3279,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(59);
+var _reactDom = __webpack_require__(60);
 
-var _App = __webpack_require__(377);
+var _App = __webpack_require__(382);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -3280,9 +3307,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactLoaders = __webpack_require__(362);
+var _reactLoaders = __webpack_require__(367);
 
-__webpack_require__(361);
+__webpack_require__(366);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3298,11 +3325,11 @@ exports.default = Loader;
 
 /***/ }),
 
-/***/ 589:
+/***/ 594:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(588);
-__webpack_require__(386);
+__webpack_require__(593);
+__webpack_require__(391);
 module.exports = __webpack_require__(130);
 
 
@@ -3564,9 +3591,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(26);
 
-var _AppContext = __webpack_require__(35);
+var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 

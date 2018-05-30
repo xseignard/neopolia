@@ -6,7 +6,7 @@ import 'three/examples/js/objects/Sky';
 
 import initThree from '../../utils/initThree';
 
-import glb from './model3.glb';
+import glb from './model.glb';
 
 import waternormals from './assets/waternormals.jpg';
 import back from './assets/back.png';
@@ -18,7 +18,7 @@ import top from './assets/top.png';
 
 const canvas = document.createElement('canvas');
 canvas.id = 'canvas';
-const { stats, renderer, scene, camera, controls } = initThree(canvas, {
+const opts = {
 	camera: {
 		x: 0,
 		y: 8,
@@ -27,9 +27,11 @@ const { stats, renderer, scene, camera, controls } = initThree(canvas, {
 	renderer: {
 		shadowMap: true,
 	},
-	debug: true,
-	axesHelper: true,
-});
+	debug: false,
+	axesHelper: false,
+	fxaa: true,
+};
+const { stats, renderer, composer, scene, camera, controls } = initThree(canvas, opts);
 
 // constants
 const size = 390;
@@ -42,7 +44,6 @@ scene.fog = new THREE.FogExp2(0xaaaaaa, 0.01);
 
 // model
 let model;
-const mat = new THREE.MeshPhongMaterial({ color: 0x7777ff, side: THREE.DoubleSide });
 const addModel = () => {
 	const gltfLoader = new THREE.GLTFLoader();
 	//THREE.DRACOLoader.setDecoderPath('../../libs/draco');
@@ -50,12 +51,12 @@ const addModel = () => {
 	gltfLoader.load(glb, object => {
 		model = object.scene;
 		model.traverse(node => {
-			if (node instanceof THREE.Mesh) {
-				node.castShadow = true;
-				node.receiveShadow = true;
-				if (Array.isArray(node.material))
-					node.material.forEach(m => (m.side = THREE.DoubleSide));
-				else node.material.side = THREE.DoubleSide;
+			if (node.isMesh) {
+				const material = node.material;
+				material.side = THREE.DoubleSide;
+				if (material.map) material.map.encoding = THREE.sRGBEncoding;
+				if (material.emissiveMap) material.emissiveMap.encoding = THREE.sRGBEncoding;
+				if (material.map || material.emissiveMap) material.needsUpdate = true;
 			}
 		});
 		model.scale.set(39.3, 39.3, 39.3);
@@ -116,7 +117,7 @@ const attachLoadingHandler = cb => {
 };
 
 // raycasting
-const selectionColor = new THREE.Color(0xffff00);
+const selectionColor = new THREE.Color(0xee4c19);
 let prevColor;
 const attachRaycastHandler = cb => {
 	const raycaster = new THREE.Raycaster();
@@ -173,12 +174,7 @@ const attachRaycastHandler = cb => {
 					const index = x.findIndex(e => e.object.parent.name === y.object.parent.name);
 					return index < 0 ? [...x, y] : x;
 				}, [])[0];
-				console.log(filtered.object.parent.name);
-				console.log(filtered.object.name);
-				let target =
-					filtered.object.parent.name === 'RootNode'
-						? filtered.object
-						: filtered.object.parent;
+				let target = filtered.object;
 				if (target.name !== 'NonCliquable') {
 					cb(target);
 					prevColor = filtered.object.material.color;
@@ -204,7 +200,8 @@ const animate = timestamp => {
 	rafID = requestAnimationFrame(animate);
 	stats.begin();
 	if (water) water.material.uniforms.time.value += 0.0005;
-	renderer.render(scene, camera);
+	if (opts.fxaa) composer.render();
+	else renderer.render(scene, camera);
 	stats.end();
 };
 requestAnimationFrame(animate);

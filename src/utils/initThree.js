@@ -1,5 +1,10 @@
 import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
+import 'three/examples/js/postprocessing/EffectComposer';
+import 'three/examples/js/postprocessing/RenderPass';
+import 'three/examples/js/postprocessing/ShaderPass';
+import 'three/examples/js/shaders/CopyShader';
+import fxaa from 'three-shader-fxaa';
 import Stats from 'stats.js';
 import merge from 'lodash/merge';
 
@@ -22,6 +27,7 @@ const initThree = (canvas, opts) => {
 			color: 0xffffff,
 		},
 		axesHelper: true,
+		fxaa: false,
 	};
 	// merged opts
 	const mergedOpts = merge(defaults, opts);
@@ -41,6 +47,7 @@ const initThree = (canvas, opts) => {
 		canvas,
 	});
 	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.gammaOutput = true;
 	renderer.domElement.style.position = 'absolute';
 	renderer.domElement.style.top = '0px';
 	renderer.domElement.style.left = '0px';
@@ -63,6 +70,15 @@ const initThree = (canvas, opts) => {
 	camera.position.y = mergedOpts.camera.y;
 	camera.position.z = mergedOpts.camera.z;
 
+	// fxaa
+	const composer = new THREE.EffectComposer(renderer);
+	composer.addPass(new THREE.RenderPass(scene, camera));
+	window.THREE = THREE;
+	const shaderPass = new THREE.ShaderPass(fxaa());
+	shaderPass.renderToScreen = true;
+	composer.addPass(shaderPass);
+	shaderPass.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+
 	// controls
 	const controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.maxPolarAngle = Math.PI * 0.44;
@@ -82,10 +98,14 @@ const initThree = (canvas, opts) => {
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
 		renderer.setSize(window.innerWidth, window.innerHeight);
+		if (mergedOpts.fxaa) {
+			shaderPass.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+			composer.setSize(window.innerWidth, window.innerHeight);
+		}
 	};
 	addEventListener('resize', handleResize);
 
-	return { stats, renderer, scene, camera, controls };
+	return { stats, renderer, composer, scene, camera, controls };
 };
 
 export default initThree;

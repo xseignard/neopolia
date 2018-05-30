@@ -37,6 +37,7 @@
 	&__realisations {
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: space-between;
 		overflow-y: auto;
 		position: relative;
 		max-height: calc(100% - (37px + 35px));
@@ -47,6 +48,7 @@
 		flex-direction: column;
 		height: fit-content;
 		box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.3);
+		width: 150px;
 		margin: 10px;
 		cursor: pointer;
 		text-decoration: none;
@@ -54,6 +56,10 @@
 		background-color: $white;
 		&:hover .vignette__name {
 			background-color: rgba($blue, 0.7);
+		}
+		img {
+			width: 150px;
+			height: 150px;
 		}
 	}
 	&__name {
@@ -65,5 +71,6 @@
 		padding: 3px;
 		background-color: $blue;
 		transition: background-color 0.4s;
+		font-size: 14px;
 	}
 }
