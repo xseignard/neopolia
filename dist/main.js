@@ -1659,12 +1659,12 @@ var Map = function Map(_ref) {
 			_react2.default.createElement(
 				'p',
 				{ className: 'subsidiary' },
-				'Commercial Office'
+				'Subsidiary Company'
 			),
 			_react2.default.createElement(
 				'p',
 				{ className: 'commercial' },
-				'Subsidiary Company'
+				'Commercial Office'
 			)
 		)
 	);

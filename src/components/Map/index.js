@@ -38,8 +38,8 @@ const Map = ({ hq, subs }) => {
 			</div>
 			<div className="map__legend">
 				<p className="headquarter">Head Office</p>
-				<p className="subsidiary">Commercial Office</p>
-				<p className="commercial">Subsidiary Company</p>
+				<p className="subsidiary">Subsidiary Company</p>
+				<p className="commercial">Commercial Office</p>
 			</div>
 		</div>
 	);
