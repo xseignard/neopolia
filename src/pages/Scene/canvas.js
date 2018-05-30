@@ -121,8 +121,19 @@ let prevColor;
 const attachRaycastHandler = cb => {
 	const raycaster = new THREE.Raycaster();
 	const mouse = new THREE.Vector2();
+	let lastDown;
 	const handleClick = e => {
-		e.preventDefault();
+		// grab click or touch coordinates
+		const x = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : e.clientX;
+		const y = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : e.clientY;
+		// prevent default only for clicks, because windows scoped touches listener already preventDefault
+		if (!e.changedTouches) e.preventDefault();
+		// if there is more than one finger don't handle the touch
+		// if the drag is longer than 200ms, it's just a drag, not a click/touch
+		if ((e.changedTouches && e.changedTouches.length > 1) || Date.now() - lastDown > 200) {
+			return;
+		}
+
 		// clear all coloring
 		model.traverse(node => {
 			if (node instanceof THREE.Mesh) {
@@ -151,10 +162,10 @@ const attachRaycastHandler = cb => {
 		});
 		// if within the displayed part of the canvas, try the raycast
 		// only handle click when the foremost dom element clicked is the canvas
-		const element = document.elementFromPoint(e.clientX, e.clientY);
+		const element = document.elementFromPoint(x, y);
 		if (element && element.id === 'canvas') {
-			mouse.x = e.clientX / window.innerWidth * 2 - 1;
-			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+			mouse.x = x / window.innerWidth * 2 - 1;
+			mouse.y = -(y / window.innerHeight) * 2 + 1;
 			raycaster.setFromCamera(mouse, camera);
 			const intersects = raycaster.intersectObjects(model.children, true);
 			if (intersects.length > 0) {
@@ -176,7 +187,16 @@ const attachRaycastHandler = cb => {
 			} else cb([{}]);
 		}
 	};
-	addEventListener('click', handleClick);
+	addEventListener('mousedown', () => {
+		lastDown = Date.now();
+	});
+	addEventListener('touchstart', e => {
+		if (e.touches.length === 1) {
+			lastDown = Date.now();
+		}
+	});
+	addEventListener('mouseup', handleClick);
+	addEventListener('touchend', handleClick);
 };
 
 let rafID;
