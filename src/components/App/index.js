@@ -64,10 +64,12 @@ class App extends Component {
 		const online = await isOnline();
 		if (online) {
 			await loadData();
+		} else if (!localStorage.getItem('companies')) {
+			alert('Please go first online and press ctrl+u to load the data.');
 		}
 		this.setState({ dataLoaded: true });
-		window.addEventListener('keypress', async e => {
-			if (e.key === 'u' && e.ctrlKey) {
+		window.addEventListener('keydown', async e => {
+			if (e.key === 'u') {
 				this.setState({ dataLoaded: false });
 				await clearData();
 				await loadData();

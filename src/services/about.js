@@ -8,4 +8,4 @@ export const getAboutUs = async () => {
 	};
 };
 
-export const getAboutUsOffline = () => JSON.parse(sessionStorage.getItem('about'));
+export const getAboutUsOffline = () => JSON.parse(localStorage.getItem('about'));

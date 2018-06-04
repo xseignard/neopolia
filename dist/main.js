@@ -128,7 +128,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([594,0]);
+/******/ 	deferredModules.push([593,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -193,7 +193,7 @@ var getAboutUs = exports.getAboutUs = function () {
 }();
 
 var getAboutUsOffline = exports.getAboutUsOffline = function getAboutUsOffline() {
-	return JSON.parse(sessionStorage.getItem('about'));
+	return JSON.parse(localStorage.getItem('about'));
 };
 
 /***/ }),
@@ -249,7 +249,7 @@ var getOffer = exports.getOffer = function () {
 }();
 
 var getOfferOffline = exports.getOfferOffline = function getOfferOffline() {
-	return JSON.parse(sessionStorage.getItem('offer'));
+	return JSON.parse(localStorage.getItem('offer'));
 };
 
 /***/ }),
@@ -406,15 +406,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _right = __webpack_require__(243);
+var _right = __webpack_require__(242);
 
 var _right2 = _interopRequireDefault(_right);
 
-var _left = __webpack_require__(242);
+var _left = __webpack_require__(241);
 
 var _left2 = _interopRequireDefault(_left);
 
-__webpack_require__(241);
+__webpack_require__(240);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -458,11 +458,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(26);
 
-var _reactSlick = __webpack_require__(261);
+var _reactSlick = __webpack_require__(260);
 
 var _reactSlick2 = _interopRequireDefault(_reactSlick);
 
-__webpack_require__(245);
+__webpack_require__(244);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -594,7 +594,7 @@ var getVignetteByName = exports.getVignetteByName = function () {
 }();
 
 var getAllVignettesOffline = exports.getAllVignettesOffline = function getAllVignettesOffline() {
-	return JSON.parse(sessionStorage.getItem('vignettes'));
+	return JSON.parse(localStorage.getItem('vignettes'));
 };
 
 var getVignetteByNameOffline = exports.getVignetteByNameOffline = function getVignetteByNameOffline(name) {
@@ -627,7 +627,7 @@ var isOnline = exports.isOnline = function () {
 					case 0:
 						_context.prev = 0;
 						_context.next = 3;
-						return fetch('//google.com', {
+						return fetch('https://google.com', {
 							mode: 'no-cors'
 						});
 
@@ -751,7 +751,7 @@ var loadData = exports.loadData = function () {
 							var _ref7;
 
 							return (_ref7 = []).concat.apply(_ref7, _toConsumableArray(r.pictures.map(function (p) {
-								return p.sizes.large;
+								return p.url;
 							})).concat([[r.pictures[0].sizes.thumbnail]]));
 						})));
 						_context2.next = 16;
@@ -766,12 +766,12 @@ var loadData = exports.loadData = function () {
 
 					case 19:
 
-						sessionStorage.setItem('companies', JSON.stringify(companies));
-						sessionStorage.setItem('realisations', JSON.stringify(realisations));
-						sessionStorage.setItem('vignettes', JSON.stringify(vignettes));
-						sessionStorage.setItem('slides', JSON.stringify(slides));
-						sessionStorage.setItem('about', JSON.stringify(about));
-						sessionStorage.setItem('offer', JSON.stringify(offer));
+						localStorage.setItem('companies', JSON.stringify(companies));
+						localStorage.setItem('realisations', JSON.stringify(realisations));
+						localStorage.setItem('vignettes', JSON.stringify(vignettes));
+						localStorage.setItem('slides', JSON.stringify(slides));
+						localStorage.setItem('about', JSON.stringify(about));
+						localStorage.setItem('offer', JSON.stringify(offer));
 
 					case 25:
 					case 'end':
@@ -792,7 +792,7 @@ var clearData = exports.clearData = function () {
 			while (1) {
 				switch (_context3.prev = _context3.next) {
 					case 0:
-						sessionStorage.clear();
+						localStorage.clear();
 
 					case 1:
 					case 'end':
@@ -1399,34 +1399,14 @@ exports.default = Realisation;
 
 /***/ }),
 
-/***/ 235:
-/***/ (function(module, exports, __webpack_require__) {
-
-var React = __webpack_require__(2);
-
-function Desc (props) {
-    return React.createElement("svg",props,React.createElement("polygon",{"points":"1198.09 360.08 0 357.81 0 0 1426.43 0 1198.09 360.08"}));
-}
-
-Desc.displayName = "Desc";
-
-Desc.defaultProps = {"viewBox":"0 0 1426.43 360.08"};
-
-module.exports = Desc;
-
-Desc.default = Desc;
-
-
-/***/ }),
-
-/***/ 237:
+/***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 238:
+/***/ 237:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -1446,7 +1426,7 @@ Right.default = Right;
 
 /***/ }),
 
-/***/ 239:
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1460,11 +1440,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _right = __webpack_require__(238);
+var _right = __webpack_require__(237);
 
 var _right2 = _interopRequireDefault(_right);
 
-__webpack_require__(237);
+__webpack_require__(236);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1483,14 +1463,14 @@ exports.default = Description;
 
 /***/ }),
 
-/***/ 241:
+/***/ 240:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 242:
+/***/ 241:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -1510,7 +1490,7 @@ Left.default = Left;
 
 /***/ }),
 
-/***/ 243:
+/***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -1530,14 +1510,14 @@ Right.default = Right;
 
 /***/ }),
 
-/***/ 245:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 262:
+/***/ 261:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -1557,7 +1537,7 @@ Company.default = Company;
 
 /***/ }),
 
-/***/ 263:
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -1577,14 +1557,14 @@ France.default = France;
 
 /***/ }),
 
-/***/ 265:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 266:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1598,13 +1578,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(265);
+__webpack_require__(264);
 
-var _france = __webpack_require__(263);
+var _france = __webpack_require__(262);
 
 var _france2 = _interopRequireDefault(_france);
 
-var _company = __webpack_require__(262);
+var _company = __webpack_require__(261);
 
 var _company2 = _interopRequireDefault(_company);
 
@@ -1674,7 +1654,7 @@ exports.default = Map;
 
 /***/ }),
 
-/***/ 267:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1694,7 +1674,7 @@ var _Loader = __webpack_require__(52);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _Map = __webpack_require__(266);
+var _Map = __webpack_require__(265);
 
 var _Map2 = _interopRequireDefault(_Map);
 
@@ -1710,17 +1690,13 @@ var _Title = __webpack_require__(138);
 
 var _Title2 = _interopRequireDefault(_Title);
 
-var _Description = __webpack_require__(239);
+var _Description = __webpack_require__(238);
 
 var _Description2 = _interopRequireDefault(_Description);
 
 var _company = __webpack_require__(89);
 
 var _realisation = __webpack_require__(71);
-
-var _desc = __webpack_require__(235);
-
-var _desc2 = _interopRequireDefault(_desc);
 
 __webpack_require__(234);
 
@@ -1861,7 +1837,14 @@ exports.default = Company;
 
 /***/ }),
 
-/***/ 269:
+/***/ 268:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ 270:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -1869,13 +1852,6 @@ exports.default = Company;
 /***/ }),
 
 /***/ 271:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ 272:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -1895,7 +1871,7 @@ Close.default = Close;
 
 /***/ }),
 
-/***/ 273:
+/***/ 272:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1923,7 +1899,7 @@ var _Close = __webpack_require__(88);
 
 var _Close2 = _interopRequireDefault(_Close);
 
-__webpack_require__(269);
+__webpack_require__(268);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2018,63 +1994,63 @@ exports.default = (0, _reactRouterDom.withRouter)(Companies);
 
 /***/ }),
 
-/***/ 274:
+/***/ 273:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "656c4848e94e5e8e26beffbd52068fd6.png";
 
 /***/ }),
 
-/***/ 275:
+/***/ 274:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "54a5d52f637c77e7adba9dcb116304ed.png";
 
 /***/ }),
 
-/***/ 276:
+/***/ 275:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "87ed8e39f560e6a0c400ca8855528606.png";
 
 /***/ }),
 
-/***/ 277:
+/***/ 276:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "01b8d8c0bb2e2d80bd17510fc3780575.png";
 
 /***/ }),
 
-/***/ 278:
+/***/ 277:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "1a64ca91bd6421f757ad65841b5eda3a.png";
 
 /***/ }),
 
-/***/ 279:
+/***/ 278:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "766ba4bdc1cda20d0d61e7dfd64a1542.png";
 
 /***/ }),
 
-/***/ 280:
+/***/ 279:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "4418dde3f6abc21dc32506acf5f5b093.jpg";
 
 /***/ }),
 
-/***/ 281:
+/***/ 280:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "5104c28086990275a84612cd799ab22b.glb";
 
 /***/ }),
 
-/***/ 356:
+/***/ 355:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2088,8 +2064,6 @@ var _three = __webpack_require__(22);
 
 var THREE = _interopRequireWildcard(_three);
 
-__webpack_require__(355);
-
 __webpack_require__(354);
 
 __webpack_require__(353);
@@ -2098,15 +2072,17 @@ __webpack_require__(352);
 
 __webpack_require__(351);
 
-var _threeShaderFxaa = __webpack_require__(350);
+__webpack_require__(350);
+
+var _threeShaderFxaa = __webpack_require__(349);
 
 var _threeShaderFxaa2 = _interopRequireDefault(_threeShaderFxaa);
 
-var _stats = __webpack_require__(349);
+var _stats = __webpack_require__(348);
 
 var _stats2 = _interopRequireDefault(_stats);
 
-var _merge = __webpack_require__(348);
+var _merge = __webpack_require__(347);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -2213,61 +2189,7 @@ exports.default = initThree;
 
 /***/ }),
 
-/***/ 36:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var navigation = {
-	nav: 'Products',
-	changeNav: function changeNav() {}
-};
-
-var raycasting = {
-	raycast: '',
-	raycastHandler: function raycastHandler() {}
-};
-
-var loading = {
-	loaded: false,
-	loadingHandler: function loadingHandler() {}
-};
-
-var title = {
-	title: 'Products',
-	changeTitle: function changeTitle() {}
-};
-
-var aboutIndex = {
-	aboutIndex: 0,
-	changeAboutIndex: function changeAboutIndex() {}
-};
-
-var offerIndex = {
-	offerIndex: 0,
-	changeOfferIndex: function changeOfferIndex() {}
-};
-
-var AppContext = _react2.default.createContext(_extends({}, navigation, raycasting, loading, title, aboutIndex, offerIndex));
-
-exports.default = AppContext;
-
-/***/ }),
-
-/***/ 360:
+/***/ 359:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2282,45 +2204,45 @@ var _three = __webpack_require__(22);
 
 var THREE = _interopRequireWildcard(_three);
 
-__webpack_require__(359);
-
 __webpack_require__(358);
 
 __webpack_require__(357);
 
-var _initThree2 = __webpack_require__(356);
+__webpack_require__(356);
+
+var _initThree2 = __webpack_require__(355);
 
 var _initThree3 = _interopRequireDefault(_initThree2);
 
-var _model = __webpack_require__(281);
+var _model = __webpack_require__(280);
 
 var _model2 = _interopRequireDefault(_model);
 
-var _waternormals = __webpack_require__(280);
+var _waternormals = __webpack_require__(279);
 
 var _waternormals2 = _interopRequireDefault(_waternormals);
 
-var _back = __webpack_require__(279);
+var _back = __webpack_require__(278);
 
 var _back2 = _interopRequireDefault(_back);
 
-var _bottom = __webpack_require__(278);
+var _bottom = __webpack_require__(277);
 
 var _bottom2 = _interopRequireDefault(_bottom);
 
-var _front = __webpack_require__(277);
+var _front = __webpack_require__(276);
 
 var _front2 = _interopRequireDefault(_front);
 
-var _left = __webpack_require__(276);
+var _left = __webpack_require__(275);
 
 var _left2 = _interopRequireDefault(_left);
 
-var _right = __webpack_require__(275);
+var _right = __webpack_require__(274);
 
 var _right2 = _interopRequireDefault(_right);
 
-var _top = __webpack_require__(274);
+var _top = __webpack_require__(273);
 
 var _top2 = _interopRequireDefault(_top);
 
@@ -2540,14 +2462,68 @@ exports.attachRaycastHandler = attachRaycastHandler;
 
 /***/ }),
 
-/***/ 362:
+/***/ 36:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var navigation = {
+	nav: 'Products',
+	changeNav: function changeNav() {}
+};
+
+var raycasting = {
+	raycast: '',
+	raycastHandler: function raycastHandler() {}
+};
+
+var loading = {
+	loaded: false,
+	loadingHandler: function loadingHandler() {}
+};
+
+var title = {
+	title: 'Products',
+	changeTitle: function changeTitle() {}
+};
+
+var aboutIndex = {
+	aboutIndex: 0,
+	changeAboutIndex: function changeAboutIndex() {}
+};
+
+var offerIndex = {
+	offerIndex: 0,
+	changeOfferIndex: function changeOfferIndex() {}
+};
+
+var AppContext = _react2.default.createContext(_extends({}, navigation, raycasting, loading, title, aboutIndex, offerIndex));
+
+exports.default = AppContext;
+
+/***/ }),
+
+/***/ 361:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 363:
+/***/ 362:
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(2);
@@ -2567,7 +2543,7 @@ Close.default = Close;
 
 /***/ }),
 
-/***/ 364:
+/***/ 363:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2597,11 +2573,11 @@ var _Loader = __webpack_require__(52);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _close = __webpack_require__(363);
+var _close = __webpack_require__(362);
 
 var _close2 = _interopRequireDefault(_close);
 
-__webpack_require__(362);
+__webpack_require__(361);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2742,14 +2718,14 @@ exports.default = Vignette;
 
 /***/ }),
 
-/***/ 366:
+/***/ 365:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 368:
+/***/ 367:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2833,7 +2809,7 @@ exports.default = ElementContainer;
 
 /***/ }),
 
-/***/ 369:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2849,7 +2825,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ElementContainer = __webpack_require__(368);
+var _ElementContainer = __webpack_require__(367);
 
 var _ElementContainer2 = _interopRequireDefault(_ElementContainer);
 
@@ -2861,11 +2837,11 @@ var _Loader = __webpack_require__(52);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _Vignette = __webpack_require__(364);
+var _Vignette = __webpack_require__(363);
 
 var _Vignette2 = _interopRequireDefault(_Vignette);
 
-var _canvas = __webpack_require__(360);
+var _canvas = __webpack_require__(359);
 
 var _canvas2 = _interopRequireDefault(_canvas);
 
@@ -2973,7 +2949,7 @@ exports.default = Scene;
 
 /***/ }),
 
-/***/ 377:
+/***/ 376:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2989,21 +2965,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(26);
 
-var _reactTransitionGroup = __webpack_require__(376);
+var _reactTransitionGroup = __webpack_require__(375);
 
 var _createBrowserHistory = __webpack_require__(127);
 
 var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 
-var _Scene = __webpack_require__(369);
+var _Scene = __webpack_require__(368);
 
 var _Scene2 = _interopRequireDefault(_Scene);
 
-var _Companies = __webpack_require__(273);
+var _Companies = __webpack_require__(272);
 
 var _Companies2 = _interopRequireDefault(_Companies);
 
-var _Company = __webpack_require__(267);
+var _Company = __webpack_require__(266);
 
 var _Company2 = _interopRequireDefault(_Company);
 
@@ -3049,7 +3025,7 @@ exports.default = Routes;
 
 /***/ }),
 
-/***/ 382:
+/***/ 381:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3071,7 +3047,7 @@ var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
-var _routes = __webpack_require__(377);
+var _routes = __webpack_require__(376);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -3176,7 +3152,7 @@ var App = function (_Component) {
 								online = _context2.sent;
 
 								if (!online) {
-									_context2.next = 6;
+									_context2.next = 8;
 									break;
 								}
 
@@ -3184,14 +3160,23 @@ var App = function (_Component) {
 								return (0, _loader.loadData)();
 
 							case 6:
+								_context2.next = 9;
+								break;
+
+							case 8:
+								if (!localStorage.getItem('companies')) {
+									alert('Please go first online and press ctrl+u to load the data.');
+								}
+
+							case 9:
 								this.setState({ dataLoaded: true });
-								window.addEventListener('keypress', function () {
+								window.addEventListener('keydown', function () {
 									var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
 										return regeneratorRuntime.wrap(function _callee$(_context) {
 											while (1) {
 												switch (_context.prev = _context.next) {
 													case 0:
-														if (!(e.key === 'u' && e.ctrlKey)) {
+														if (!(e.key === 'u')) {
 															_context.next = 7;
 															break;
 														}
@@ -3220,7 +3205,7 @@ var App = function (_Component) {
 									};
 								}());
 
-							case 8:
+							case 11:
 							case 'end':
 								return _context2.stop();
 						}
@@ -3269,7 +3254,7 @@ exports.default = App;
 
 /***/ }),
 
-/***/ 391:
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3281,7 +3266,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(60);
 
-var _App = __webpack_require__(382);
+var _App = __webpack_require__(381);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -3307,9 +3292,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactLoaders = __webpack_require__(367);
+var _reactLoaders = __webpack_require__(366);
 
-__webpack_require__(366);
+__webpack_require__(365);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3325,11 +3310,11 @@ exports.default = Loader;
 
 /***/ }),
 
-/***/ 594:
+/***/ 593:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(593);
-__webpack_require__(391);
+__webpack_require__(592);
+__webpack_require__(390);
 module.exports = __webpack_require__(130);
 
 
@@ -3455,7 +3440,7 @@ var getRealisationByCompanyId = exports.getRealisationByCompanyId = function () 
 }();
 
 var getAllRealisationsOffline = exports.getAllRealisationsOffline = function getAllRealisationsOffline() {
-	return JSON.parse(sessionStorage.getItem('realisations'));
+	return JSON.parse(localStorage.getItem('realisations'));
 };
 
 var getRealisationByIdOffline = exports.getRealisationByIdOffline = function getRealisationByIdOffline(id) {
@@ -3565,7 +3550,7 @@ var getSlideById = exports.getSlideById = function () {
 }();
 
 var getAllSlidesOffline = exports.getAllSlidesOffline = function getAllSlidesOffline() {
-	return JSON.parse(sessionStorage.getItem('slides'));
+	return JSON.parse(localStorage.getItem('slides'));
 };
 
 var getSlideByIdOffline = exports.getSlideByIdOffline = function getSlideByIdOffline(id) {
@@ -3597,11 +3582,11 @@ var _AppContext = __webpack_require__(36);
 
 var _AppContext2 = _interopRequireDefault(_AppContext);
 
-var _close = __webpack_require__(272);
+var _close = __webpack_require__(271);
 
 var _close2 = _interopRequireDefault(_close);
 
-__webpack_require__(271);
+__webpack_require__(270);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3611,7 +3596,8 @@ var Icon = (0, _reactRouterDom.withRouter)(function (props) {
 		if (props.title) props.updateTitle(props.title);
 		props.history.goBack();
 	};
-	return _react2.default.createElement(_close2.default, { className: 'close', onClick: handleClick });
+	var classNames = window.innerHeight === 1080 ? 'close fullscreen' : 'close';
+	return _react2.default.createElement(_close2.default, { className: classNames, onClick: handleClick });
 });
 
 var Close = function Close(props) {
@@ -3719,7 +3705,7 @@ var getCompanyById = exports.getCompanyById = function () {
 }();
 
 var getAllCompaniesOffline = exports.getAllCompaniesOffline = function getAllCompaniesOffline() {
-	return JSON.parse(sessionStorage.getItem('companies'));
+	return JSON.parse(localStorage.getItem('companies'));
 };
 
 var getCompanyByIdOffline = exports.getCompanyByIdOffline = function getCompanyByIdOffline(id) {

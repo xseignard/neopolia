@@ -29,7 +29,7 @@ export const getRealisationByCompanyId = async id => {
 	});
 };
 
-export const getAllRealisationsOffline = () => JSON.parse(sessionStorage.getItem('realisations'));
+export const getAllRealisationsOffline = () => JSON.parse(localStorage.getItem('realisations'));
 
 export const getRealisationByIdOffline = id => {
 	const realisations = getAllRealisationsOffline();

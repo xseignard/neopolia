@@ -10,4 +10,8 @@
 	stroke-width: 3px;
 	cursor: pointer;
 	z-index: 2;
+
+	&.fullscreen {
+		top: 10vh !important;
+	}
 }

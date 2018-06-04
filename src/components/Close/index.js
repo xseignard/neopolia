@@ -12,7 +12,8 @@ const Icon = withRouter(props => {
 		if (props.title) props.updateTitle(props.title);
 		props.history.goBack();
 	};
-	return <CloseIcon className="close" onClick={handleClick} />;
+	const classNames = window.innerHeight === 1080 ? 'close fullscreen' : 'close';
+	return <CloseIcon className={classNames} onClick={handleClick} />;
 });
 
 const Close = props => {

@@ -22,6 +22,7 @@
 		text-transform: uppercase;
 		color: $blue;
 		margin: 10px;
+		padding-right: 25px;
 	}
 	svg {
 		position: absolute;
@@ -40,7 +41,7 @@
 		justify-content: space-between;
 		overflow-y: auto;
 		position: relative;
-		max-height: calc(100% - (37px + 35px));
+		max-height: calc(100% - (37px + 35px + 8px));
 	}
 	&__realisation {
 		position: relative;
@@ -72,5 +73,6 @@
 		background-color: $blue;
 		transition: background-color 0.4s;
 		font-size: 14px;
+		word-break: break-word;
 	}
 }

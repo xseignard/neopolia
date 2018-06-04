@@ -18,7 +18,7 @@ export const getCompanyById = async id => {
 	return { id: company.id, name: company.title.rendered, ...company.acf };
 };
 
-export const getAllCompaniesOffline = () => JSON.parse(sessionStorage.getItem('companies'));
+export const getAllCompaniesOffline = () => JSON.parse(localStorage.getItem('companies'));
 
 export const getCompanyByIdOffline = id => {
 	const companies = getAllCompaniesOffline();

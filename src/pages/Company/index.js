@@ -10,8 +10,6 @@ import Description from '../../components/Description';
 import { getCompanyByIdOffline } from '../../services/company';
 import { getRealisationByCompanyIdOffline } from '../../services/realisation';
 
-import Desc from './assets/desc.svg';
-
 import './style.scss';
 
 class Company extends Component {

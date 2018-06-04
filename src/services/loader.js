@@ -35,7 +35,7 @@ export const loadData = async () => {
 
 	const realisationsImages = [].concat(
 		...realisations.map(r =>
-			[].concat(...r.pictures.map(p => p.sizes.large), [r.pictures[0].sizes.thumbnail])
+			[].concat(...r.pictures.map(p => p.url), [r.pictures[0].sizes.thumbnail])
 		)
 	);
 	await loadImages(realisationsImages);
@@ -43,14 +43,14 @@ export const loadData = async () => {
 	const slidesImages = [].concat(...slides.map(s => [s.picto.sizes.large, s.image.url]));
 	await loadImages(slidesImages);
 
-	sessionStorage.setItem('companies', JSON.stringify(companies));
-	sessionStorage.setItem('realisations', JSON.stringify(realisations));
-	sessionStorage.setItem('vignettes', JSON.stringify(vignettes));
-	sessionStorage.setItem('slides', JSON.stringify(slides));
-	sessionStorage.setItem('about', JSON.stringify(about));
-	sessionStorage.setItem('offer', JSON.stringify(offer));
+	localStorage.setItem('companies', JSON.stringify(companies));
+	localStorage.setItem('realisations', JSON.stringify(realisations));
+	localStorage.setItem('vignettes', JSON.stringify(vignettes));
+	localStorage.setItem('slides', JSON.stringify(slides));
+	localStorage.setItem('about', JSON.stringify(about));
+	localStorage.setItem('offer', JSON.stringify(offer));
 };
 
 export const clearData = async () => {
-	sessionStorage.clear();
+	localStorage.clear();
 };

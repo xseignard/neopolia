@@ -22,7 +22,7 @@ export const getSlideById = async id => {
 	};
 };
 
-export const getAllSlidesOffline = () => JSON.parse(sessionStorage.getItem('slides'));
+export const getAllSlidesOffline = () => JSON.parse(localStorage.getItem('slides'));
 
 export const getSlideByIdOffline = id => {
 	const slides = getAllSlidesOffline();

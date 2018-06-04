@@ -8,4 +8,4 @@ export const getOffer = async () => {
 	};
 };
 
-export const getOfferOffline = () => JSON.parse(sessionStorage.getItem('offer'));
+export const getOfferOffline = () => JSON.parse(localStorage.getItem('offer'));
