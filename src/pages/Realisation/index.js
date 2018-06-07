@@ -66,10 +66,12 @@ class Realisation extends Component {
 									{r.program.join(', ')}
 								</p>
 							)}
-							<p className="realisation__zone">
-								<span>Zone: </span>
-								{r.zone.join(', ')}
-							</p>
+							{r.zone && (
+								<p className="realisation__zone">
+									<span>Zone: </span>
+									{r.zone.join(', ')}
+								</p>
+							)}
 							<p className="realisation__certifications">
 								<span>Certifications: </span>
 								{(r.certifications && r.certifications.join(', ')) || 'None'}

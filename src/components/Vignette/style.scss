@@ -4,14 +4,14 @@
 	position: absolute;
 	top: 10vh;
 	left: 0;
-	width: 450px;
+	width: 720px;
 	height: 80vh;
 	z-index: 1;
 	padding: 15px;
 	box-sizing: border-box;
 	background-color: rgba($white, 0.9);
 	box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.3);
-	transform: translateX(-450px);
+	transform: translateX(-720px);
 	transition: all 0.4s;
 	user-select: none;
 	&-visible {
@@ -38,7 +38,7 @@
 	&__realisations {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		justify-content: flex-start;
 		overflow-y: auto;
 		position: relative;
 		max-height: calc(100% - (37px + 35px + 8px));

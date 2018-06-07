@@ -9,6 +9,7 @@ import Company from './pages/Company';
 import Realisation from './pages/Realisation';
 import Offer from './pages/Offer';
 import About from './pages/About';
+import Customers from './pages/Customers';
 
 const history = createBrowserHistory();
 
@@ -22,6 +23,7 @@ const Routes = withRouter(({ location }) => (
 				<Route path="/realisation/:realisationId" component={Realisation} />
 				<Route path="/offer/:menu?" component={Offer} />
 				<Route path="/about/:menu?" component={About} />
+				<Route path="/customers" component={Customers} />
 			</Switch>
 		</CSSTransition>
 	</TransitionGroup>
