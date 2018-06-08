@@ -761,32 +761,37 @@ var cacheImages = function () {
 			while (1) {
 				switch (_context.prev = _context.next) {
 					case 0:
-						_context.prev = 0;
-						_context.next = 3;
+						if (!window.caches) {
+							_context.next = 13;
+							break;
+						}
+
+						_context.prev = 1;
+						_context.next = 4;
 						return caches.open('neopolia');
 
-					case 3:
+					case 4:
 						cache = _context.sent;
-						_context.next = 6;
+						_context.next = 7;
 						return cache.addAll(imgs);
 
-					case 6:
+					case 7:
 						console.log('all assets added to cache');
-						_context.next = 12;
+						_context.next = 13;
 						break;
 
-					case 9:
-						_context.prev = 9;
-						_context.t0 = _context['catch'](0);
+					case 10:
+						_context.prev = 10;
+						_context.t0 = _context['catch'](1);
 
 						console.log(_context.t0);
 
-					case 12:
+					case 13:
 					case 'end':
 						return _context.stop();
 				}
 			}
-		}, _callee, undefined, [[0, 9]]);
+		}, _callee, undefined, [[1, 10]]);
 	}));
 
 	return function cacheImages(_x) {
@@ -866,10 +871,16 @@ var clearData = exports.clearData = function () {
 				switch (_context3.prev = _context3.next) {
 					case 0:
 						localStorage.clear();
-						_context3.next = 3;
+
+						if (!window.caches) {
+							_context3.next = 4;
+							break;
+						}
+
+						_context3.next = 4;
 						return caches.delete('neopolia');
 
-					case 3:
+					case 4:
 					case 'end':
 						return _context3.stop();
 				}
@@ -3494,11 +3505,13 @@ Object.defineProperty(exports, "__esModule", {
 var _arguments = arguments;
 
 exports.default = function () {
-	navigator.serviceWorker.register('sw.js', { scope: './' }).then(navigator.serviceWorker.ready).then(function () {
-		console.log('service worker registered');
-	}).catch(function (error) {
-		console.log('error when registering service worker', error, _arguments);
-	});
+	if (window.caches) {
+		navigator.serviceWorker.register('sw.js', { scope: './' }).then(navigator.serviceWorker.ready).then(function () {
+			console.log('service worker registered');
+		}).catch(function (error) {
+			console.log('error when registering service worker', error, _arguments);
+		});
+	}
 };
 
 /***/ }),

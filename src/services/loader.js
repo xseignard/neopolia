@@ -15,12 +15,14 @@ const loadImage = src =>
 	});
 
 const cacheImages = async imgs => {
-	try {
-		const cache = await caches.open('neopolia');
-		await cache.addAll(imgs);
-		console.log('all assets added to cache');
-	} catch (err) {
-		console.log(err);
+	if (window.caches) {
+		try {
+			const cache = await caches.open('neopolia');
+			await cache.addAll(imgs);
+			console.log('all assets added to cache');
+		} catch (err) {
+			console.log(err);
+		}
 	}
 };
 
@@ -63,5 +65,5 @@ export const loadData = async () => {
 
 export const clearData = async () => {
 	localStorage.clear();
-	await caches.delete('neopolia');
+	if (window.caches) await caches.delete('neopolia');
 };
