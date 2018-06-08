@@ -63,6 +63,7 @@ class App extends Component {
 	async componentDidMount() {
 		const online = await isOnline();
 		if (online) {
+			await clearData();
 			await loadData();
 		} else if (!localStorage.getItem('companies')) {
 			alert('Please go first online and press ctrl+u to load the data.');

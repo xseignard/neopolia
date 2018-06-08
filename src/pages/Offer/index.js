@@ -32,12 +32,12 @@ const Offer = props => {
 	});
 
 	const clicks = [
-		{ id: 'teamNeopolia', target: '/about/0', nav: 'About us', title: 'About us' },
+		{ id: 'teamNeopolia', target: '/about/4', nav: 'About us', title: 'About us' },
 		{ id: 'Members', target: '/companies/close', nav: 'Members', title: 'Members' },
 		{ id: 'Leader', target: '/about/3', nav: 'About us', title: 'About us' },
 		{ id: 'Customer', target: '/customers', nav: 'Customers', title: 'Customers' },
 		{
-			id: 'Conception__x26__Manufacturing_of_sub-assemblies',
+			id: 'Conception_Manufacturing_of_sub-assemblies',
 			target: '/companies/Conception_and_manufacturing_of_sub-assemblies',
 			nav: 'Members',
 			title: 'Conception and manufacturing of sub-assemblies',
@@ -49,7 +49,7 @@ const Offer = props => {
 			title: 'On-site interventions for new works and maintenance',
 		},
 		{
-			id: 'Special_equipment__x26__toolings',
+			id: 'Special_equipment_toolings',
 			target: '/companies/Special_equipment_and_toolings',
 			nav: 'Members',
 			title: 'Special equipment and toolings',
@@ -58,7 +58,7 @@ const Offer = props => {
 			id: 'Dismantlement',
 			target: '/companies/Dismantlement',
 			nav: 'Members',
-			title: 'Dismantlement',
+			title: 'Decommissioning',
 		},
 	];
 

@@ -128,7 +128,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([597,0]);
+/******/ 	deferredModules.push([598,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -329,7 +329,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 __webpack_require__(226);
 
@@ -515,7 +515,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _reactSlick = __webpack_require__(264);
 
@@ -727,13 +727,13 @@ exports.clearData = exports.loadData = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _company = __webpack_require__(89);
+var _company = __webpack_require__(66);
 
-var _realisation = __webpack_require__(72);
+var _realisation = __webpack_require__(73);
 
 var _vignette = __webpack_require__(158);
 
-var _slide = __webpack_require__(87);
+var _slide = __webpack_require__(88);
 
 var _about = __webpack_require__(132);
 
@@ -747,7 +747,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var loadImage = function loadImage(src) {
 	return new Promise(function (resolve, reject) {
-		console.log(src);
 		var img = new Image();
 		img.onload = resolve;
 		img.onerror = reject;
@@ -755,27 +754,42 @@ var loadImage = function loadImage(src) {
 	});
 };
 
-var loadImages = function () {
+var cacheImages = function () {
 	var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(imgs) {
-		var promises;
+		var cache;
 		return regeneratorRuntime.wrap(function _callee$(_context) {
 			while (1) {
 				switch (_context.prev = _context.next) {
 					case 0:
-						promises = imgs.map(function (i) {
-							return loadImage(i);
-						});
-						return _context.abrupt('return', Promise.all(promises));
+						_context.prev = 0;
+						_context.next = 3;
+						return caches.open('neopolia');
 
-					case 2:
+					case 3:
+						cache = _context.sent;
+						_context.next = 6;
+						return cache.addAll(imgs);
+
+					case 6:
+						console.log('all assets added to cache');
+						_context.next = 12;
+						break;
+
+					case 9:
+						_context.prev = 9;
+						_context.t0 = _context['catch'](0);
+
+						console.log(_context.t0);
+
+					case 12:
 					case 'end':
 						return _context.stop();
 				}
 			}
-		}, _callee, undefined);
+		}, _callee, undefined, [[0, 9]]);
 	}));
 
-	return function loadImages(_x) {
+	return function cacheImages(_x) {
 		return _ref.apply(this, arguments);
 	};
 }();
@@ -784,7 +798,7 @@ var loadData = exports.loadData = function () {
 	var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
 		var _ref5, _ref6, _ref8, _ref9;
 
-		var _ref3, _ref4, companies, realisations, vignettes, slides, about, offer, customers, companiesImages, realisationsImages, slidesImages, customersImages;
+		var _ref3, _ref4, companies, realisations, vignettes, slides, about, offer, customers, companiesImages, realisationsImages, slidesImages, customersImages, images;
 
 		return regeneratorRuntime.wrap(function _callee2$(_context2) {
 			while (1) {
@@ -806,10 +820,6 @@ var loadData = exports.loadData = function () {
 						companiesImages = (_ref5 = []).concat.apply(_ref5, _toConsumableArray(companies.map(function (c) {
 							return [c.logo.sizes.thumbnail, c.logo.sizes.large];
 						})));
-						_context2.next = 14;
-						return loadImages(companiesImages);
-
-					case 14:
 						realisationsImages = (_ref6 = []).concat.apply(_ref6, _toConsumableArray(realisations.map(function (r) {
 							var _ref7;
 
@@ -817,24 +827,16 @@ var loadData = exports.loadData = function () {
 								return p.url;
 							})).concat([[r.pictures[0].sizes.thumbnail]]));
 						})));
-						_context2.next = 17;
-						return loadImages(realisationsImages);
-
-					case 17:
 						slidesImages = (_ref8 = []).concat.apply(_ref8, _toConsumableArray(slides.map(function (s) {
 							return [s.picto.sizes.large, s.image.url];
 						})));
-						_context2.next = 20;
-						return loadImages(slidesImages);
-
-					case 20:
 						customersImages = (_ref9 = []).concat.apply(_ref9, _toConsumableArray(customers.map(function (c) {
 							return [c.logo.sizes.thumbnail];
 						})));
-						_context2.next = 23;
-						return loadImages(customersImages);
+						images = [].concat(_toConsumableArray(companiesImages), _toConsumableArray(realisationsImages), _toConsumableArray(slidesImages), _toConsumableArray(customersImages));
 
-					case 23:
+
+						cacheImages(images);
 
 						localStorage.setItem('companies', JSON.stringify(companies));
 						localStorage.setItem('realisations', JSON.stringify(realisations));
@@ -844,7 +846,7 @@ var loadData = exports.loadData = function () {
 						localStorage.setItem('offer', JSON.stringify(offer));
 						localStorage.setItem('customers', JSON.stringify(customers));
 
-					case 30:
+					case 24:
 					case 'end':
 						return _context2.stop();
 				}
@@ -864,8 +866,10 @@ var clearData = exports.clearData = function () {
 				switch (_context3.prev = _context3.next) {
 					case 0:
 						localStorage.clear();
+						_context3.next = 3;
+						return caches.delete('neopolia');
 
-					case 1:
+					case 3:
 					case 'end':
 						return _context3.stop();
 				}
@@ -908,7 +912,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _AppContext = __webpack_require__(36);
 
@@ -1224,7 +1228,7 @@ var _reactInlinesvg = __webpack_require__(129);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _Slideshow = __webpack_require__(134);
 
@@ -1236,7 +1240,7 @@ var _AppContext2 = _interopRequireDefault(_AppContext);
 
 var _about = __webpack_require__(132);
 
-var _slide = __webpack_require__(87);
+var _slide = __webpack_require__(88);
 
 __webpack_require__(221);
 
@@ -1315,7 +1319,7 @@ var _reactInlinesvg = __webpack_require__(129);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _Slideshow = __webpack_require__(134);
 
@@ -1327,7 +1331,7 @@ var _AppContext2 = _interopRequireDefault(_AppContext);
 
 var _offer = __webpack_require__(133);
 
-var _slide = __webpack_require__(87);
+var _slide = __webpack_require__(88);
 
 __webpack_require__(224);
 
@@ -1355,8 +1359,8 @@ var Offer = function Offer(props) {
 		};
 	});
 
-	var clicks = [{ id: 'teamNeopolia', target: '/about/0', nav: 'About us', title: 'About us' }, { id: 'Members', target: '/companies/close', nav: 'Members', title: 'Members' }, { id: 'Leader', target: '/about/3', nav: 'About us', title: 'About us' }, { id: 'Customer', target: '/customers', nav: 'Customers', title: 'Customers' }, {
-		id: 'Conception__x26__Manufacturing_of_sub-assemblies',
+	var clicks = [{ id: 'teamNeopolia', target: '/about/4', nav: 'About us', title: 'About us' }, { id: 'Members', target: '/companies/close', nav: 'Members', title: 'Members' }, { id: 'Leader', target: '/about/3', nav: 'About us', title: 'About us' }, { id: 'Customer', target: '/customers', nav: 'Customers', title: 'Customers' }, {
+		id: 'Conception_Manufacturing_of_sub-assemblies',
 		target: '/companies/Conception_and_manufacturing_of_sub-assemblies',
 		nav: 'Members',
 		title: 'Conception and manufacturing of sub-assemblies'
@@ -1366,7 +1370,7 @@ var Offer = function Offer(props) {
 		nav: 'Members',
 		title: 'On-site interventions for new works and maintenance'
 	}, {
-		id: 'Special_equipment__x26__toolings',
+		id: 'Special_equipment_toolings',
 		target: '/companies/Special_equipment_and_toolings',
 		nav: 'Members',
 		title: 'Special equipment and toolings'
@@ -1374,7 +1378,7 @@ var Offer = function Offer(props) {
 		id: 'Dismantlement',
 		target: '/companies/Dismantlement',
 		nav: 'Members',
-		title: 'Dismantlement'
+		title: 'Decommissioning'
 	}];
 
 	return _react2.default.createElement(
@@ -1422,6 +1426,8 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(19);
+
 var _Loader = __webpack_require__(40);
 
 var _Loader2 = _interopRequireDefault(_Loader);
@@ -1438,7 +1444,9 @@ var _Title = __webpack_require__(139);
 
 var _Title2 = _interopRequireDefault(_Title);
 
-var _realisation = __webpack_require__(72);
+var _realisation = __webpack_require__(73);
+
+var _company = __webpack_require__(66);
 
 __webpack_require__(235);
 
@@ -1468,7 +1476,8 @@ var Realisation = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var realisation = (0, _realisation.getRealisationByIdOffline)(this.props.match.params.realisationId);
-			this.setState({ realisation: realisation, loaded: true });
+			var company = (0, _company.getCompanyByIdOffline)(realisation.company[0].ID);
+			this.setState({ realisation: realisation, company: company, loaded: true });
 		}
 	}, {
 		key: 'render',
@@ -1478,6 +1487,7 @@ var Realisation = function (_Component) {
 			if (this.state.loaded) {
 				loader = null;
 				var r = this.state.realisation;
+				var c = this.state.company;
 				var pictures = r.pictures.map(function (p) {
 					return { image: p.url };
 				});
@@ -1485,6 +1495,11 @@ var Realisation = function (_Component) {
 					_react.Fragment,
 					null,
 					_react2.default.createElement(_Title2.default, { content: r.name, size: 40 }),
+					_react2.default.createElement(
+						_reactRouterDom.Link,
+						{ className: 'realisation__logo', to: '/company/' + c.id + '/Products' },
+						_react2.default.createElement('img', { src: c.logo.sizes.thumbnail, alt: c.name + '\'s logo' })
+					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'realisation__details' },
@@ -1501,7 +1516,7 @@ var Realisation = function (_Component) {
 								),
 								r.amount
 							),
-							_react2.default.createElement(
+							r.application && _react2.default.createElement(
 								'p',
 								{ className: 'realisation__application' },
 								_react2.default.createElement(
@@ -1509,9 +1524,9 @@ var Realisation = function (_Component) {
 									null,
 									'Application: '
 								),
-								r.application.join(', ')
+								Array.isArray(r.application) ? r.application.join(', ') : r.application
 							),
-							_react2.default.createElement(
+							r.client_name && _react2.default.createElement(
 								'p',
 								{ className: 'realisation__client' },
 								_react2.default.createElement(
@@ -1529,7 +1544,7 @@ var Realisation = function (_Component) {
 									null,
 									'Geographic zone: '
 								),
-								r.geographic_zone.join(', ')
+								Array.isArray(r.geographic_zone) ? r.geographic_zone.join(', ') : r.geographic_zone
 							),
 							r.market_type && _react2.default.createElement(
 								'p',
@@ -1539,7 +1554,7 @@ var Realisation = function (_Component) {
 									null,
 									'Market type: '
 								),
-								r.market_type.join(', ')
+								Array.isArray(r.market_type) ? r.market_type.join(', ') : r.market_type
 							),
 							r.program && _react2.default.createElement(
 								'p',
@@ -1549,7 +1564,7 @@ var Realisation = function (_Component) {
 									null,
 									'Program: '
 								),
-								r.program.join(', ')
+								Array.isArray(r.program) ? r.program.join(', ') : r.program
 							),
 							r.zone && _react2.default.createElement(
 								'p',
@@ -1559,9 +1574,9 @@ var Realisation = function (_Component) {
 									null,
 									'Zone: '
 								),
-								r.zone.join(', ')
+								Array.isArray(r.zone) ? r.zone.join(', ') : r.zone
 							),
-							_react2.default.createElement(
+							r.certifications && _react2.default.createElement(
 								'p',
 								{ className: 'realisation__certifications' },
 								_react2.default.createElement(
@@ -1569,7 +1584,7 @@ var Realisation = function (_Component) {
 									null,
 									'Certifications: '
 								),
-								r.certifications && r.certifications.join(', ') || 'None'
+								Array.isArray(r.certifications) ? r.certifications.join(', ') : r.certifications
 							)
 						),
 						_react2.default.createElement(_Slider2.default, { className: 'realisation__slider', content: pictures, size: 500 })
@@ -1871,6 +1886,8 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(19);
+
 var _Loader = __webpack_require__(40);
 
 var _Loader2 = _interopRequireDefault(_Loader);
@@ -1895,9 +1912,9 @@ var _Description = __webpack_require__(242);
 
 var _Description2 = _interopRequireDefault(_Description);
 
-var _company = __webpack_require__(89);
+var _company = __webpack_require__(66);
 
-var _realisation = __webpack_require__(72);
+var _realisation = __webpack_require__(73);
 
 __webpack_require__(238);
 
@@ -2020,13 +2037,14 @@ var Company = function (_Component) {
 					)
 				);
 			}
+			var param = this.props.match.params.prev;
 			return _react2.default.createElement(
 				'div',
 				{ className: 'page company' },
 				loader,
 				companyComponent,
 				map,
-				_react2.default.createElement(_Close2.default, { nav: 'Members' })
+				_react2.default.createElement(_Close2.default, { nav: param ? param : 'Members' })
 			);
 		}
 	}]);
@@ -2034,7 +2052,7 @@ var Company = function (_Component) {
 	return Company;
 }(_react.Component);
 
-exports.default = Company;
+exports.default = (0, _reactRouterDom.withRouter)(Company);
 
 /***/ }),
 
@@ -2088,9 +2106,9 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
-var _company = __webpack_require__(89);
+var _company = __webpack_require__(66);
 
 var _Loader = __webpack_require__(40);
 
@@ -2261,7 +2279,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _three = __webpack_require__(22);
+var _three = __webpack_require__(23);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -2455,7 +2473,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.attachRaycastHandler = exports.attachLoadingHandler = undefined;
 
-var _three = __webpack_require__(22);
+var _three = __webpack_require__(23);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -2760,7 +2778,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _AppContext = __webpack_require__(36);
 
@@ -2768,7 +2786,7 @@ var _AppContext2 = _interopRequireDefault(_AppContext);
 
 var _vignette = __webpack_require__(158);
 
-var _realisation = __webpack_require__(72);
+var _realisation = __webpack_require__(73);
 
 var _Loader = __webpack_require__(40);
 
@@ -3164,7 +3182,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _reactTransitionGroup = __webpack_require__(379);
 
@@ -3217,7 +3235,7 @@ var Routes = (0, _reactRouterDom.withRouter)(function (_ref) {
 				{ location: location },
 				_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Scene2.default }),
 				_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/companies/:filter?', component: _Companies2.default }),
-				_react2.default.createElement(_reactRouterDom.Route, { path: '/company/:companyId', component: _Company2.default }),
+				_react2.default.createElement(_reactRouterDom.Route, { path: '/company/:companyId/:prev?', component: _Company2.default }),
 				_react2.default.createElement(_reactRouterDom.Route, { path: '/realisation/:realisationId', component: _Realisation2.default }),
 				_react2.default.createElement(_reactRouterDom.Route, { path: '/offer/:menu?', component: _Offer2.default }),
 				_react2.default.createElement(_reactRouterDom.Route, { path: '/about/:menu?', component: _About2.default }),
@@ -3247,7 +3265,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _AppContext = __webpack_require__(36);
 
@@ -3358,23 +3376,27 @@ var App = function (_Component) {
 								online = _context2.sent;
 
 								if (!online) {
-									_context2.next = 8;
+									_context2.next = 10;
 									break;
 								}
 
 								_context2.next = 6;
-								return (0, _loader.loadData)();
+								return (0, _loader.clearData)();
 
 							case 6:
-								_context2.next = 9;
-								break;
+								_context2.next = 8;
+								return (0, _loader.loadData)();
 
 							case 8:
+								_context2.next = 11;
+								break;
+
+							case 10:
 								if (!localStorage.getItem('companies')) {
 									alert('Please go first online and press ctrl+u to load the data.');
 								}
 
-							case 9:
+							case 11:
 								this.setState({ dataLoaded: true });
 								window.addEventListener('keydown', function () {
 									var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
@@ -3411,7 +3433,7 @@ var App = function (_Component) {
 									};
 								}());
 
-							case 11:
+							case 13:
 							case 'end':
 								return _context2.stop();
 						}
@@ -3460,7 +3482,28 @@ exports.default = App;
 
 /***/ }),
 
-/***/ 394:
+/***/ 386:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var _arguments = arguments;
+
+exports.default = function () {
+	navigator.serviceWorker.register('sw.js', { scope: './' }).then(navigator.serviceWorker.ready).then(function () {
+		console.log('service worker registered');
+	}).catch(function (error) {
+		console.log('error when registering service worker', error, _arguments);
+	});
+};
+
+/***/ }),
+
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3472,6 +3515,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(60);
 
+var _registerServiceWorker = __webpack_require__(386);
+
+var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
+
 var _App = __webpack_require__(385);
 
 var _App2 = _interopRequireDefault(_App);
@@ -3481,6 +3528,7 @@ __webpack_require__(130);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+(0, _registerServiceWorker2.default)();
 
 /***/ }),
 
@@ -3516,11 +3564,11 @@ exports.default = Loader;
 
 /***/ }),
 
-/***/ 597:
+/***/ 598:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(596);
-__webpack_require__(394);
+__webpack_require__(597);
+__webpack_require__(395);
 module.exports = __webpack_require__(130);
 
 
@@ -3540,7 +3588,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(26);
+var _reactRouterDom = __webpack_require__(19);
 
 var _AppContext = __webpack_require__(36);
 
@@ -3558,6 +3606,7 @@ var Icon = (0, _reactRouterDom.withRouter)(function (props) {
 	var handleClick = function handleClick() {
 		if (props.nav) props.updateNav(props.nav);
 		if (props.title) props.updateTitle(props.title);
+		console.log(props);
 		props.history.goBack();
 	};
 	var classNames = window.innerHeight === 1080 ? 'close fullscreen' : 'close';
@@ -3583,7 +3632,105 @@ exports.default = Close;
 
 /***/ }),
 
-/***/ 72:
+/***/ 66:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var companyUrl = "http://neopolia.odns.fr/atomouest/wp-json/wp/v2/" + 'company/';
+
+var getAllCompanies = exports.getAllCompanies = function () {
+	var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+		var res, companies;
+		return regeneratorRuntime.wrap(function _callee$(_context) {
+			while (1) {
+				switch (_context.prev = _context.next) {
+					case 0:
+						_context.next = 2;
+						return fetch(companyUrl + '?per_page=100');
+
+					case 2:
+						res = _context.sent;
+						_context.next = 5;
+						return res.json();
+
+					case 5:
+						companies = _context.sent;
+						return _context.abrupt('return', companies.map(function (company) {
+							return _extends({
+								id: company.id,
+								name: company.title.rendered
+							}, company.acf);
+						}));
+
+					case 7:
+					case 'end':
+						return _context.stop();
+				}
+			}
+		}, _callee, undefined);
+	}));
+
+	return function getAllCompanies() {
+		return _ref.apply(this, arguments);
+	};
+}();
+
+var getCompanyById = exports.getCompanyById = function () {
+	var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(id) {
+		var res, company;
+		return regeneratorRuntime.wrap(function _callee2$(_context2) {
+			while (1) {
+				switch (_context2.prev = _context2.next) {
+					case 0:
+						_context2.next = 2;
+						return fetch(companyUrl + id);
+
+					case 2:
+						res = _context2.sent;
+						_context2.next = 5;
+						return res.json();
+
+					case 5:
+						company = _context2.sent;
+						return _context2.abrupt('return', _extends({ id: company.id, name: company.title.rendered }, company.acf));
+
+					case 7:
+					case 'end':
+						return _context2.stop();
+				}
+			}
+		}, _callee2, undefined);
+	}));
+
+	return function getCompanyById(_x) {
+		return _ref2.apply(this, arguments);
+	};
+}();
+
+var getAllCompaniesOffline = exports.getAllCompaniesOffline = function getAllCompaniesOffline() {
+	return JSON.parse(localStorage.getItem('companies'));
+};
+
+var getCompanyByIdOffline = exports.getCompanyByIdOffline = function getCompanyByIdOffline(id) {
+	var companies = getAllCompaniesOffline();
+	return companies.find(function (company) {
+		return company.id === parseInt(id, 10);
+	});
+};
+
+/***/ }),
+
+/***/ 73:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3724,7 +3871,7 @@ var getRealisationByCompanyIdOffline = exports.getRealisationByCompanyIdOffline 
 
 /***/ }),
 
-/***/ 87:
+/***/ 88:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3820,104 +3967,6 @@ var getSlideByIdOffline = exports.getSlideByIdOffline = function getSlideByIdOff
 	var slides = getAllSlidesOffline();
 	return slides.find(function (slide) {
 		return slide.id === parseInt(id, 10);
-	});
-};
-
-/***/ }),
-
-/***/ 89:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var companyUrl = "http://neopolia.odns.fr/atomouest/wp-json/wp/v2/" + 'company/';
-
-var getAllCompanies = exports.getAllCompanies = function () {
-	var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-		var res, companies;
-		return regeneratorRuntime.wrap(function _callee$(_context) {
-			while (1) {
-				switch (_context.prev = _context.next) {
-					case 0:
-						_context.next = 2;
-						return fetch(companyUrl + '?per_page=100');
-
-					case 2:
-						res = _context.sent;
-						_context.next = 5;
-						return res.json();
-
-					case 5:
-						companies = _context.sent;
-						return _context.abrupt('return', companies.map(function (company) {
-							return _extends({
-								id: company.id,
-								name: company.title.rendered
-							}, company.acf);
-						}));
-
-					case 7:
-					case 'end':
-						return _context.stop();
-				}
-			}
-		}, _callee, undefined);
-	}));
-
-	return function getAllCompanies() {
-		return _ref.apply(this, arguments);
-	};
-}();
-
-var getCompanyById = exports.getCompanyById = function () {
-	var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(id) {
-		var res, company;
-		return regeneratorRuntime.wrap(function _callee2$(_context2) {
-			while (1) {
-				switch (_context2.prev = _context2.next) {
-					case 0:
-						_context2.next = 2;
-						return fetch(companyUrl + id);
-
-					case 2:
-						res = _context2.sent;
-						_context2.next = 5;
-						return res.json();
-
-					case 5:
-						company = _context2.sent;
-						return _context2.abrupt('return', _extends({ id: company.id, name: company.title.rendered }, company.acf));
-
-					case 7:
-					case 'end':
-						return _context2.stop();
-				}
-			}
-		}, _callee2, undefined);
-	}));
-
-	return function getCompanyById(_x) {
-		return _ref2.apply(this, arguments);
-	};
-}();
-
-var getAllCompaniesOffline = exports.getAllCompaniesOffline = function getAllCompaniesOffline() {
-	return JSON.parse(localStorage.getItem('companies'));
-};
-
-var getCompanyByIdOffline = exports.getCompanyByIdOffline = function getCompanyByIdOffline(id) {
-	var companies = getAllCompaniesOffline();
-	return companies.find(function (company) {
-		return company.id === parseInt(id, 10);
 	});
 };
 

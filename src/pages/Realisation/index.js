@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 import Loader from '../../components/Loader';
 import Slider from '../../components/Slider';
@@ -6,6 +7,7 @@ import Close from '../../components/Close';
 import Title from '../../components/Title';
 
 import { getRealisationByIdOffline } from '../../services/realisation';
+import { getCompanyByIdOffline } from '../../services/company';
 
 import './style.scss';
 
@@ -18,7 +20,8 @@ class Realisation extends Component {
 	}
 	componentDidMount() {
 		const realisation = getRealisationByIdOffline(this.props.match.params.realisationId);
-		this.setState({ realisation, loaded: true });
+		const company = getCompanyByIdOffline(realisation.company[0].ID);
+		this.setState({ realisation, company, loaded: true });
 	}
 	render() {
 		let loader = <Loader variant="big" />;
@@ -26,12 +29,16 @@ class Realisation extends Component {
 		if (this.state.loaded) {
 			loader = null;
 			const r = this.state.realisation;
+			const c = this.state.company;
 			const pictures = r.pictures.map(p => {
 				return { image: p.url };
 			});
 			realisationFragment = (
 				<Fragment>
 					<Title content={r.name} size={40} />
+					<Link className="realisation__logo" to={`/company/${c.id}/Products`}>
+						<img src={c.logo.sizes.thumbnail} alt={`${c.name}'s logo`} />
+					</Link>
 					<div className="realisation__details">
 						<div className="realisation__numbers">
 							{r.amount && (
@@ -40,42 +47,56 @@ class Realisation extends Component {
 									{r.amount}
 								</p>
 							)}
-							<p className="realisation__application">
-								<span>Application: </span>
-								{r.application.join(', ')}
-							</p>
-							<p className="realisation__client">
-								<span>Client: </span>
-								{r.client_name}
-							</p>
+							{r.application && (
+								<p className="realisation__application">
+									<span>Application: </span>
+									{Array.isArray(r.application)
+										? r.application.join(', ')
+										: r.application}
+								</p>
+							)}
+							{r.client_name && (
+								<p className="realisation__client">
+									<span>Client: </span>
+									{r.client_name}
+								</p>
+							)}
 							{r.geographic_zone && (
 								<p className="realisation__geographic">
 									<span>Geographic zone: </span>
-									{r.geographic_zone.join(', ')}
+									{Array.isArray(r.geographic_zone)
+										? r.geographic_zone.join(', ')
+										: r.geographic_zone}
 								</p>
 							)}
 							{r.market_type && (
 								<p className="realisation__market">
 									<span>Market type: </span>
-									{r.market_type.join(', ')}
+									{Array.isArray(r.market_type)
+										? r.market_type.join(', ')
+										: r.market_type}
 								</p>
 							)}
 							{r.program && (
 								<p className="realisation__program">
 									<span>Program: </span>
-									{r.program.join(', ')}
+									{Array.isArray(r.program) ? r.program.join(', ') : r.program}
 								</p>
 							)}
 							{r.zone && (
 								<p className="realisation__zone">
 									<span>Zone: </span>
-									{r.zone.join(', ')}
+									{Array.isArray(r.zone) ? r.zone.join(', ') : r.zone}
 								</p>
 							)}
-							<p className="realisation__certifications">
-								<span>Certifications: </span>
-								{(r.certifications && r.certifications.join(', ')) || 'None'}
-							</p>
+							{r.certifications && (
+								<p className="realisation__certifications">
+									<span>Certifications: </span>
+									{Array.isArray(r.certifications)
+										? r.certifications.join(', ')
+										: r.certifications}
+								</p>
+							)}
 						</div>
 						<Slider className="realisation__slider" content={pictures} size={500} />
 					</div>

@@ -8,16 +8,20 @@ import { getAllCustomers } from './customer';
 
 const loadImage = src =>
 	new Promise((resolve, reject) => {
-		console.log(src);
 		const img = new Image();
 		img.onload = resolve;
 		img.onerror = reject;
 		img.src = src;
 	});
 
-const loadImages = async imgs => {
-	const promises = imgs.map(i => loadImage(i));
-	return Promise.all(promises);
+const cacheImages = async imgs => {
+	try {
+		const cache = await caches.open('neopolia');
+		await cache.addAll(imgs);
+		console.log('all assets added to cache');
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 export const loadData = async () => {
@@ -36,20 +40,17 @@ export const loadData = async () => {
 	const companiesImages = [].concat(
 		...companies.map(c => [c.logo.sizes.thumbnail, c.logo.sizes.large])
 	);
-	await loadImages(companiesImages);
-
 	const realisationsImages = [].concat(
 		...realisations.map(r =>
 			[].concat(...r.pictures.map(p => p.url), [r.pictures[0].sizes.thumbnail])
 		)
 	);
-	await loadImages(realisationsImages);
-
 	const slidesImages = [].concat(...slides.map(s => [s.picto.sizes.large, s.image.url]));
-	await loadImages(slidesImages);
-
 	const customersImages = [].concat(...customers.map(c => [c.logo.sizes.thumbnail]));
-	await loadImages(customersImages);
+
+	const images = [...companiesImages, ...realisationsImages, ...slidesImages, ...customersImages];
+
+	cacheImages(images);
 
 	localStorage.setItem('companies', JSON.stringify(companies));
 	localStorage.setItem('realisations', JSON.stringify(realisations));
@@ -62,4 +63,5 @@ export const loadData = async () => {
 
 export const clearData = async () => {
 	localStorage.clear();
+	await caches.delete('neopolia');
 };

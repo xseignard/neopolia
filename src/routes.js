@@ -19,7 +19,7 @@ const Routes = withRouter(({ location }) => (
 			<Switch location={location}>
 				<Route exact path="/" component={Scene} />
 				<Route exact path="/companies/:filter?" component={Companies} />
-				<Route path="/company/:companyId" component={Company} />
+				<Route path="/company/:companyId/:prev?" component={Company} />
 				<Route path="/realisation/:realisationId" component={Realisation} />
 				<Route path="/offer/:menu?" component={Offer} />
 				<Route path="/about/:menu?" component={About} />

@@ -5,6 +5,18 @@
 	flex-direction: column;
 	padding: 8vh 0 0 !important;
 	justify-content: space-between;
+	&__logo {
+		position: absolute;
+		top: calc(6vh + 155px);
+		left: 975px;
+		box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.3);
+		z-index: 1;
+		height: 150px;
+		img {
+			width: 150px;
+			height: 150px;
+		}
+	}
 	&__details {
 		display: flex;
 		justify-content: space-around;

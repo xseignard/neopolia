@@ -16,6 +16,7 @@ const plugins = [
 	new CopyWebpackPlugin([
 		{ from: './misc/.htaccess', to: '.' },
 		{ from: './src/app.js', to: '.' },
+		{ from: './src/sw.js', to: '.' },
 	]),
 	new CleanWebpackPlugin(['dist']),
 	new MiniCssExtractPlugin(),
@@ -49,6 +50,7 @@ module.exports = {
 					{ loader: 'ifdef-loader', options: { ELECTRON: process.env.ELECTRON } },
 				],
 				include: [path.resolve(__dirname, 'src')],
+				exclude: ['src/sw.js'],
 			},
 			// sass
 			{ test: /\.scss$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'] },

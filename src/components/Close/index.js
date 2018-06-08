@@ -10,6 +10,7 @@ const Icon = withRouter(props => {
 	const handleClick = () => {
 		if (props.nav) props.updateNav(props.nav);
 		if (props.title) props.updateTitle(props.title);
+		console.log(props);
 		props.history.goBack();
 	};
 	const classNames = window.innerHeight === 1080 ? 'close fullscreen' : 'close';

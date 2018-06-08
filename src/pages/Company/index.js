@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import Loader from '../../components/Loader';
 import Map from '../../components/Map';
@@ -77,15 +78,16 @@ class Company extends Component {
 				</Fragment>
 			);
 		}
+		const param = this.props.match.params.prev;
 		return (
 			<div className="page company">
 				{loader}
 				{companyComponent}
 				{map}
-				<Close nav="Members" />
+				<Close nav={param ? param : 'Members'} />
 			</div>
 		);
 	}
 }
 
-export default Company;
+export default withRouter(Company);
