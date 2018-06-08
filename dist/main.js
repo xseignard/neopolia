@@ -754,88 +754,121 @@ var loadImage = function loadImage(src) {
 	});
 };
 
-var cacheImages = function () {
+var loadImages = function () {
 	var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(imgs) {
-		var cache;
+		var promises;
 		return regeneratorRuntime.wrap(function _callee$(_context) {
 			while (1) {
 				switch (_context.prev = _context.next) {
 					case 0:
-						if (!window.caches) {
-							_context.next = 13;
-							break;
-						}
+						promises = imgs.map(function (i) {
+							return loadImage(i);
+						});
+						return _context.abrupt('return', Promise.all(promises));
 
-						_context.prev = 1;
-						_context.next = 4;
-						return caches.open('neopolia');
-
-					case 4:
-						cache = _context.sent;
-						_context.next = 7;
-						return cache.addAll(imgs);
-
-					case 7:
-						console.log('all assets added to cache');
-						_context.next = 13;
-						break;
-
-					case 10:
-						_context.prev = 10;
-						_context.t0 = _context['catch'](1);
-
-						console.log(_context.t0);
-
-					case 13:
+					case 2:
 					case 'end':
 						return _context.stop();
 				}
 			}
-		}, _callee, undefined, [[1, 10]]);
+		}, _callee, undefined);
 	}));
 
-	return function cacheImages(_x) {
+	return function loadImages(_x) {
 		return _ref.apply(this, arguments);
 	};
 }();
 
-var loadData = exports.loadData = function () {
-	var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-		var _ref5, _ref6, _ref8, _ref9;
-
-		var _ref3, _ref4, companies, realisations, vignettes, slides, about, offer, customers, companiesImages, realisationsImages, slidesImages, customersImages, images;
-
+var cacheImages = function () {
+	var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(imgs) {
+		var cache;
 		return regeneratorRuntime.wrap(function _callee2$(_context2) {
 			while (1) {
 				switch (_context2.prev = _context2.next) {
 					case 0:
-						_context2.next = 2;
+						if (!window.caches) {
+							_context2.next = 15;
+							break;
+						}
+
+						_context2.prev = 1;
+						_context2.next = 4;
+						return caches.open('neopolia');
+
+					case 4:
+						cache = _context2.sent;
+						_context2.next = 7;
+						return cache.addAll(imgs);
+
+					case 7:
+						console.log('all assets added to cache');
+						_context2.next = 13;
+						break;
+
+					case 10:
+						_context2.prev = 10;
+						_context2.t0 = _context2['catch'](1);
+
+						console.log(_context2.t0);
+
+					case 13:
+						_context2.next = 17;
+						break;
+
+					case 15:
+						_context2.next = 17;
+						return loadImages(imgs);
+
+					case 17:
+					case 'end':
+						return _context2.stop();
+				}
+			}
+		}, _callee2, undefined, [[1, 10]]);
+	}));
+
+	return function cacheImages(_x2) {
+		return _ref2.apply(this, arguments);
+	};
+}();
+
+var loadData = exports.loadData = function () {
+	var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+		var _ref6, _ref7, _ref9, _ref10;
+
+		var _ref4, _ref5, companies, realisations, vignettes, slides, about, offer, customers, companiesImages, realisationsImages, slidesImages, customersImages, images;
+
+		return regeneratorRuntime.wrap(function _callee3$(_context3) {
+			while (1) {
+				switch (_context3.prev = _context3.next) {
+					case 0:
+						_context3.next = 2;
 						return Promise.all([(0, _company.getAllCompanies)(), (0, _realisation.getAllRealisations)(), (0, _vignette.getAllVignettes)(), (0, _slide.getAllSlides)(), (0, _about.getAboutUs)(), (0, _offer.getOffer)(), (0, _customer.getAllCustomers)()]);
 
 					case 2:
-						_ref3 = _context2.sent;
-						_ref4 = _slicedToArray(_ref3, 7);
-						companies = _ref4[0];
-						realisations = _ref4[1];
-						vignettes = _ref4[2];
-						slides = _ref4[3];
-						about = _ref4[4];
-						offer = _ref4[5];
-						customers = _ref4[6];
-						companiesImages = (_ref5 = []).concat.apply(_ref5, _toConsumableArray(companies.map(function (c) {
+						_ref4 = _context3.sent;
+						_ref5 = _slicedToArray(_ref4, 7);
+						companies = _ref5[0];
+						realisations = _ref5[1];
+						vignettes = _ref5[2];
+						slides = _ref5[3];
+						about = _ref5[4];
+						offer = _ref5[5];
+						customers = _ref5[6];
+						companiesImages = (_ref6 = []).concat.apply(_ref6, _toConsumableArray(companies.map(function (c) {
 							return [c.logo.sizes.thumbnail, c.logo.sizes.large];
 						})));
-						realisationsImages = (_ref6 = []).concat.apply(_ref6, _toConsumableArray(realisations.map(function (r) {
-							var _ref7;
+						realisationsImages = (_ref7 = []).concat.apply(_ref7, _toConsumableArray(realisations.map(function (r) {
+							var _ref8;
 
-							return (_ref7 = []).concat.apply(_ref7, _toConsumableArray(r.pictures.map(function (p) {
+							return (_ref8 = []).concat.apply(_ref8, _toConsumableArray(r.pictures.map(function (p) {
 								return p.url;
 							})).concat([[r.pictures[0].sizes.thumbnail]]));
 						})));
-						slidesImages = (_ref8 = []).concat.apply(_ref8, _toConsumableArray(slides.map(function (s) {
+						slidesImages = (_ref9 = []).concat.apply(_ref9, _toConsumableArray(slides.map(function (s) {
 							return [s.picto.sizes.large, s.image.url];
 						})));
-						customersImages = (_ref9 = []).concat.apply(_ref9, _toConsumableArray(customers.map(function (c) {
+						customersImages = (_ref10 = []).concat.apply(_ref10, _toConsumableArray(customers.map(function (c) {
 							return [c.logo.sizes.thumbnail];
 						})));
 						images = [].concat(_toConsumableArray(companiesImages), _toConsumableArray(realisationsImages), _toConsumableArray(slidesImages), _toConsumableArray(customersImages));
@@ -853,43 +886,43 @@ var loadData = exports.loadData = function () {
 
 					case 24:
 					case 'end':
-						return _context2.stop();
-				}
-			}
-		}, _callee2, undefined);
-	}));
-
-	return function loadData() {
-		return _ref2.apply(this, arguments);
-	};
-}();
-
-var clearData = exports.clearData = function () {
-	var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-		return regeneratorRuntime.wrap(function _callee3$(_context3) {
-			while (1) {
-				switch (_context3.prev = _context3.next) {
-					case 0:
-						localStorage.clear();
-
-						if (!window.caches) {
-							_context3.next = 4;
-							break;
-						}
-
-						_context3.next = 4;
-						return caches.delete('neopolia');
-
-					case 4:
-					case 'end':
 						return _context3.stop();
 				}
 			}
 		}, _callee3, undefined);
 	}));
 
+	return function loadData() {
+		return _ref3.apply(this, arguments);
+	};
+}();
+
+var clearData = exports.clearData = function () {
+	var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+		return regeneratorRuntime.wrap(function _callee4$(_context4) {
+			while (1) {
+				switch (_context4.prev = _context4.next) {
+					case 0:
+						localStorage.clear();
+
+						if (!window.caches) {
+							_context4.next = 4;
+							break;
+						}
+
+						_context4.next = 4;
+						return caches.delete('neopolia');
+
+					case 4:
+					case 'end':
+						return _context4.stop();
+				}
+			}
+		}, _callee4, undefined);
+	}));
+
 	return function clearData() {
-		return _ref10.apply(this, arguments);
+		return _ref11.apply(this, arguments);
 	};
 }();
 

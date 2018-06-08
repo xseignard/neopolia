@@ -14,6 +14,11 @@ const loadImage = src =>
 		img.src = src;
 	});
 
+const loadImages = async imgs => {
+	const promises = imgs.map(i => loadImage(i));
+	return Promise.all(promises);
+};
+
 const cacheImages = async imgs => {
 	if (window.caches) {
 		try {
@@ -23,7 +28,7 @@ const cacheImages = async imgs => {
 		} catch (err) {
 			console.log(err);
 		}
-	}
+	} else await loadImages(imgs);
 };
 
 export const loadData = async () => {
