@@ -10,6 +10,7 @@ import Realisation from './pages/Realisation';
 import Offer from './pages/Offer';
 import About from './pages/About';
 import Customers from './pages/Customers';
+import Video from './pages/Video';
 
 const history = createBrowserHistory();
 
@@ -24,6 +25,7 @@ const Routes = withRouter(({ location }) => (
 				<Route path="/offer/:menu?" component={Offer} />
 				<Route path="/about/:menu?" component={About} />
 				<Route path="/customers" component={Customers} />
+				<Route path="/video" component={Video} />
 			</Switch>
 		</CSSTransition>
 	</TransitionGroup>

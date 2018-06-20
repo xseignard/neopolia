@@ -41,46 +41,57 @@ const Logo = () => {
 	);
 };
 
-const Footer = () => {
-	return (
-		<footer className="footer">
-			<Logo />
-			<AppContext.Consumer>
-				{context => (
-					<Fragment>
-						<FooterItem
-							content="Products"
-							route="/"
-							updateNav={context.changeNav}
-							updateTitle={context.changeTitle}
-							resetRaycast={context.raycastHandler}
-						/>
-						<FooterItem
-							content="About us"
-							route="/about"
-							updateNav={context.changeNav}
-							updateTitle={context.changeTitle}
-							resetRaycast={context.raycastHandler}
-						/>
-						<FooterItem
-							content="Offer"
-							route="/offer"
-							updateNav={context.changeNav}
-							updateTitle={context.changeTitle}
-							resetRaycast={context.raycastHandler}
-						/>
-						<FooterItem
-							content="Members"
-							route="/companies"
-							updateNav={context.changeNav}
-							updateTitle={context.changeTitle}
-							resetRaycast={context.raycastHandler}
-						/>
-					</Fragment>
-				)}
-			</AppContext.Consumer>
-		</footer>
-	);
-};
+class Footer extends Component {
+	componentDidMount() {
+		let t;
+		window.addEventListener('click', e => {
+			clearTimeout(t);
+			t = setTimeout(() => {
+				if (this.props.location.pathname !== '/video') this.props.history.push('/video');
+			}, 3000);
+		});
+	}
+	render() {
+		return (
+			<footer className="footer">
+				<Logo />
+				<AppContext.Consumer>
+					{context => (
+						<Fragment>
+							<FooterItem
+								content="Products"
+								route="/"
+								updateNav={context.changeNav}
+								updateTitle={context.changeTitle}
+								resetRaycast={context.raycastHandler}
+							/>
+							<FooterItem
+								content="About us"
+								route="/about"
+								updateNav={context.changeNav}
+								updateTitle={context.changeTitle}
+								resetRaycast={context.raycastHandler}
+							/>
+							<FooterItem
+								content="Offer"
+								route="/offer"
+								updateNav={context.changeNav}
+								updateTitle={context.changeTitle}
+								resetRaycast={context.raycastHandler}
+							/>
+							<FooterItem
+								content="Members"
+								route="/companies"
+								updateNav={context.changeNav}
+								updateTitle={context.changeTitle}
+								resetRaycast={context.raycastHandler}
+							/>
+						</Fragment>
+					)}
+				</AppContext.Consumer>
+			</footer>
+		);
+	}
+}
 
-export default Footer;
+export default withRouter(Footer);

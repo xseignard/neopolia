@@ -62,6 +62,8 @@ module.exports = {
 			{ test: /\.(jpg|jpeg|png|gif)$/, use: ['file-loader'] },
 			// font
 			{ test: /\.(eot|woff|ttf)$/, use: ['file-loader'] },
+			// video
+			{ test: /\.mp4$/, use: ['file-loader'] },
 		],
 	},
 	optimization,

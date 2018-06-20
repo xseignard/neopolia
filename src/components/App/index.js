@@ -66,7 +66,7 @@ class App extends Component {
 			await clearData();
 			await loadData();
 		} else if (!localStorage.getItem('companies')) {
-			alert('Please go first online and press ctrl+u to load the data.');
+			alert('Please go first online and press u to load the data.');
 		}
 		this.setState({ dataLoaded: true });
 		window.addEventListener('keydown', async e => {
