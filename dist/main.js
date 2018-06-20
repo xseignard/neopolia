@@ -1034,7 +1034,7 @@ var Footer = function (_Component) {
 				clearTimeout(t);
 				t = setTimeout(function () {
 					if (_this2.props.location.pathname !== '/video') _this2.props.history.push('/video');
-				}, 3000);
+				}, 5 * 60 * 1000);
 			});
 		}
 	}, {

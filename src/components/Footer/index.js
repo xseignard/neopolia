@@ -48,7 +48,7 @@ class Footer extends Component {
 			clearTimeout(t);
 			t = setTimeout(() => {
 				if (this.props.location.pathname !== '/video') this.props.history.push('/video');
-			}, 3000);
+			}, 5 * 60 * 1000);
 		});
 	}
 	render() {
